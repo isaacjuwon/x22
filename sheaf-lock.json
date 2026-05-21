@@ -1,0 +1,20 @@
+{
+    "files": {
+        "resources/js/utils.js": [
+            "dark-theme"
+        ],
+        "resources/js/components/date-picker/index.js": [
+            "date-picker"
+        ]
+    },
+    "helpers": [],
+    "internalDependencies": {
+        "icon": [
+            "input",
+            "date-picker"
+        ],
+        "input": [
+            "date-picker"
+        ]
+    }
+}

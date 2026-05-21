@@ -1,0 +1,523 @@
+/* ============================================================
+   SHEAF UI — TERMINAL THEME
+   Drop this into your project and import after app.css
+   ============================================================ */
+
+/* ── Google Fonts: JetBrains Mono ── */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+
+/* ============================================================
+   LIGHT (terminal on white / "paper terminal")
+   ============================================================ */
+@theme {
+    /* Primary: phosphor green on near-black */
+    --color-primary:         #16a34a;   /* green-600  */
+    --color-primary-content: #15803d;   /* green-700  */
+    --color-primary-fg:      #f0fdf4;   /* green-50   */
+
+    /* Neutral palette — dark mode values (light text on dark bg) */
+    --color-neutral-50:  #f5f5f0;
+    --color-neutral-100: #e8e8e0;
+    --color-neutral-200: #d4d4c8;
+    --color-neutral-300: #c0c0b4;
+    --color-neutral-400: #c8c8bc;  /* secondary headings, author names   */
+    --color-neutral-500: #b8b8ac;  /* body text, excerpts, descriptions   */
+    --color-neutral-600: #a8a89c;  /* meta text, dates, view counts       */
+    --color-neutral-700: #686860;  /* decorative icons, empty stars       */
+    --color-neutral-800: #484840;  /* borders, dividers                   */
+    --color-neutral-900: #242420;  /* card / surface backgrounds          */
+    --color-neutral-950: #0a0a08;  /* section backgrounds                 */
+
+    /* Sharp corners everywhere */
+    --radius-field: 0rem;
+    --radius-box:   0rem;
+
+    /* Semantic accents */
+    --color-success: #16a34a;   /* same green  */
+    --color-error:   #dc2626;   /* red-600     */
+    --color-warning: #ca8a04;   /* yellow-600  */
+    --color-info:    #2563eb;   /* blue-600    */
+}
+
+/* ============================================================
+   LIGHT MODE — flip neutrals to dark-on-light scale
+   ============================================================ */
+@layer theme {
+    :root:not(.dark) {
+        /* Flip mid-range: low numbers = light bg, high numbers = dark text */
+        --color-neutral-50:  #fafaf8;
+        --color-neutral-100: #f0f0ec;
+        --color-neutral-200: #e0e0d8;
+        --color-neutral-300: #c8c8be;
+        --color-neutral-400: #5a5a52;  /* secondary text — readable on light bg  */
+        --color-neutral-500: #3e3e38;  /* body text, excerpts                    */
+        --color-neutral-600: #2a2a24;  /* meta text, dates                       */
+        --color-neutral-700: #1a1a14;  /* strong text                            */
+        --color-neutral-800: #d4d4cc;  /* borders on light bg                    */
+        --color-neutral-900: #f0f0ea;  /* card / surface backgrounds             */
+        --color-neutral-950: #e8e8e0;  /* section backgrounds                    */
+    }
+}
+
+/* ============================================================
+   DARK — true terminal black, phosphor green accents
+   ============================================================ */
+@layer theme {
+    .dark {
+        --color-primary:         #4ade80 !important;  /* green-400  */
+        --color-primary-content: #86efac !important;  /* green-300  */
+        --color-primary-fg:      #052e16 !important;  /* green-950  */
+
+        --color-success: #4ade80 !important;
+        --color-error:   #f87171 !important;
+        --color-warning: #fbbf24 !important;
+        --color-info:    #60a5fa !important;
+    }
+}
+
+/* ============================================================
+   GLOBAL TYPOGRAPHIC OVERRIDE — monospace everywhere
+   ============================================================ */
+*, *::before, *::after {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code',
+                 'Consolas', 'SF Mono', ui-monospace, monospace !important;
+    letter-spacing: -0.01em;
+}
+
+/* ============================================================
+   BODY — scanline texture + dark terminal bg
+   ============================================================ */
+body {
+    background-color: #f5f5f0;
+    color: #323228;
+}
+
+.dark body {
+    background-color: #0d0d0b;
+    color: #c8c8b8;
+
+    /* subtle scanline effect */
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.08) 2px,
+        rgba(0, 0, 0, 0.08) 4px
+    );
+}
+
+/* ============================================================
+   COMPONENT-SPECIFIC TWEAKS (data-slot targeting)
+   ============================================================ */
+
+/* --- Buttons ------------------------------------------------ */
+[data-slot="button"] {
+    border-radius: 0 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-width: 1px;
+    transition: background 0.1s, color 0.1s, box-shadow 0.1s;
+}
+
+[data-slot="button"]:focus-visible {
+    outline: 1px solid #4ade80;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.15);
+}
+
+/* Primary button */
+[data-slot="button"][data-variant="primary"],
+[data-slot="button"].btn-primary {
+    background: #16a34a;
+    color: #f0fdf4;
+    border-color: #15803d;
+}
+[data-slot="button"][data-variant="primary"]:hover,
+[data-slot="button"].btn-primary:hover {
+    background: #15803d;
+    color: #f0fdf4;
+}
+.dark [data-slot="button"][data-variant="primary"]:hover,
+.dark [data-slot="button"].btn-primary:hover {
+    background: #4ade80;
+    color: #052e16;
+}
+
+/* Outline / ghost button */
+[data-slot="button"][data-variant="outline"],
+[data-slot="button"][data-variant="ghost"] {
+    border-color: #16a34a;
+    color: #16a34a;
+    background: transparent;
+}
+[data-slot="button"][data-variant="outline"]:hover,
+[data-slot="button"][data-variant="ghost"]:hover {
+    background: rgba(22, 163, 74, 0.08);
+}
+.dark [data-slot="button"][data-variant="outline"],
+.dark [data-slot="button"][data-variant="ghost"] {
+    border-color: #4ade80;
+    color: #4ade80;
+}
+.dark [data-slot="button"][data-variant="outline"]:hover,
+.dark [data-slot="button"][data-variant="ghost"]:hover {
+    background: rgba(74, 222, 128, 0.08);
+}
+
+/* --- Inputs / Fields --------------------------------------- */
+[data-slot="input"],
+[data-slot="textarea"],
+[data-slot="select"] {
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    border: 1px solid #d4d4cc !important;
+    color: #1a1a14 !important;
+    caret-color: #16a34a;
+    transition: border-color 0.1s, box-shadow 0.1s;
+}
+.dark [data-slot="input"],
+.dark [data-slot="textarea"],
+.dark [data-slot="select"] {
+    background: #111110 !important;
+    border: 1px solid #2d2d28 !important;
+    color: #c8c8b8 !important;
+    caret-color: #4ade80;
+}
+
+[data-slot="input"]:focus,
+[data-slot="textarea"]:focus,
+[data-slot="select"]:focus {
+    border-color: #16a34a !important;
+    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.12) !important;
+    outline: none !important;
+}
+.dark [data-slot="input"]:focus,
+.dark [data-slot="textarea"]:focus,
+.dark [data-slot="select"]:focus {
+    border-color: #4ade80 !important;
+    box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.12) !important;
+}
+
+[data-slot="input"]::placeholder,
+[data-slot="textarea"]::placeholder {
+    color: #a8a89c;
+}
+.dark [data-slot="input"]::placeholder,
+.dark [data-slot="textarea"]::placeholder {
+    color: #525248;
+}
+
+/* --- Cards -------------------------------------------------- */
+[data-slot="card"] {
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    border: 1px solid #e0e0d8 !important;
+    box-shadow: none !important;
+    position: relative;
+}
+.dark [data-slot="card"] {
+    background: #111110 !important;
+    border: 1px solid #2d2d28 !important;
+}
+
+/* "window chrome" top bar on cards */
+[data-slot="card"]::before {
+    content: '● ● ●';
+    display: block;
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: #c8c8be;
+    padding: 6px 12px;
+    border-bottom: 1px solid #e0e0d8;
+    background: #f5f5f0;
+}
+.dark [data-slot="card"]::before {
+    color: #333330;
+    border-bottom-color: #2d2d28;
+    background: #0d0d0b;
+}
+
+/* --- Labels & headings ------------------------------------- */
+[data-slot="label"] {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.7rem;
+    color: #5a5a52;
+}
+.dark [data-slot="label"] {
+    color: #808075;
+}
+
+/* Add a ">" prompt prefix to all labels */
+[data-slot="label"]::before {
+    content: '> ';
+    color: #16a34a;
+    font-weight: 700;
+}
+.dark [data-slot="label"]::before {
+    color: #4ade80;
+}
+
+/* --- Badges ------------------------------------------------- */
+[data-slot="badge"] {
+    border-radius: 0 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.65rem;
+    font-weight: 500;
+}
+
+/* --- Modals / Dialogs -------------------------------------- */
+[data-slot="modal"],
+[data-slot="dialog"] {
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    border: 1px solid #16a34a !important;
+    box-shadow: 0 0 24px rgba(22, 163, 74, 0.08) !important;
+}
+.dark [data-slot="modal"],
+.dark [data-slot="dialog"] {
+    background: #111110 !important;
+    border: 1px solid #4ade80 !important;
+    box-shadow: 0 0 24px rgba(74, 222, 128, 0.08) !important;
+}
+
+/* --- Tooltips ---------------------------------------------- */
+[data-slot="tooltip"] {
+    border-radius: 0 !important;
+    background: #f0f0ea !important;
+    border: 1px solid #d4d4cc !important;
+    color: #16a34a !important;
+    font-size: 0.7rem;
+}
+.dark [data-slot="tooltip"] {
+    background: #1a1a16 !important;
+    border: 1px solid #3d3d35 !important;
+    color: #4ade80 !important;
+}
+
+/* --- Separators -------------------------------------------- */
+[data-slot="separator"] {
+    border-color: #e0e0d8 !important;
+}
+.dark [data-slot="separator"] {
+    border-color: #2d2d28 !important;
+}
+
+/* --- Icons -------------------------------------------------- */
+[data-slot="icon"] {
+    color: #16a34a;
+}
+.dark [data-slot="icon"] {
+    color: #4ade80;
+}
+
+/* --- Tabs --------------------------------------------------- */
+[data-slot="tab"] {
+    border-radius: 0 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.7rem;
+    border-bottom: 2px solid transparent;
+}
+[data-slot="tab"][aria-selected="true"],
+[data-slot="tab"][data-state="active"] {
+    border-bottom-color: #16a34a;
+    color: #16a34a !important;
+    background: transparent !important;
+}
+.dark [data-slot="tab"][aria-selected="true"],
+.dark [data-slot="tab"][data-state="active"] {
+    border-bottom-color: #4ade80;
+    color: #4ade80 !important;
+}
+
+/* --- Alerts ------------------------------------------------- */
+[data-slot="alert"] {
+    border-radius: 0 !important;
+    border-left: 3px solid #16a34a !important;
+    background: #f0fdf4 !important;
+}
+.dark [data-slot="alert"] {
+    border-left-color: #4ade80 !important;
+    background: #0d0d0b !important;
+}
+
+/* --- Checkboxes & Radios ----------------------------------- */
+[data-slot="checkbox"],
+[data-slot="radio"] {
+    border-radius: 0 !important;
+    border-color: #16a34a !important;
+    accent-color: #16a34a;
+}
+.dark [data-slot="checkbox"],
+.dark [data-slot="radio"] {
+    border-color: #4ade80 !important;
+    accent-color: #4ade80;
+}
+
+/* --- Progress ---------------------------------------------- */
+[data-slot="progress"] {
+    border-radius: 0 !important;
+    background: #e0e0d8 !important;
+    border: 1px solid #d4d4cc;
+    overflow: hidden;
+}
+.dark [data-slot="progress"] {
+    background: #1e1e18 !important;
+    border-color: #2d2d28;
+}
+[data-slot="progress-bar"],
+[data-slot="progress"] > * {
+    border-radius: 0 !important;
+    background: #16a34a !important;
+}
+.dark [data-slot="progress-bar"],
+.dark [data-slot="progress"] > * {
+    background: #4ade80 !important;
+    background-image: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 8px,
+        rgba(255,255,255,0.06) 8px,
+        rgba(255,255,255,0.06) 10px
+    ) !important;
+}
+
+/* --- Skeleton loader --------------------------------------- */
+[data-slot="skeleton"] {
+    border-radius: 0 !important;
+    background: #e8e8e0 !important;
+    animation: terminal-scan 1.5s linear infinite !important;
+}
+.dark [data-slot="skeleton"] {
+    background: #1a1a16 !important;
+    background-image: linear-gradient(
+        90deg,
+        transparent 25%,
+        rgba(74, 222, 128, 0.04) 50%,
+        transparent 75%
+    ) !important;
+    background-size: 200% 100% !important;
+}
+
+@keyframes terminal-scan {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* --- Toast notifications ----------------------------------- */
+[data-slot="toast"] {
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    border: 1px solid #e0e0d8 !important;
+    border-left: 3px solid #16a34a !important;
+    color: #1a1a14 !important;
+    box-shadow: none !important;
+}
+.dark [data-slot="toast"] {
+    background: #111110 !important;
+    border: 1px solid #2d2d28 !important;
+    border-left: 3px solid #4ade80 !important;
+    color: #c8c8b8 !important;
+}
+
+/* --- Kbd (keyboard shortcut) ------------------------------- */
+[data-slot="kbd"],
+kbd {
+    border-radius: 0 !important;
+    background: #f0f0ea !important;
+    border: 1px solid #d4d4cc !important;
+    border-bottom-width: 2px !important;
+    color: #16a34a !important;
+    font-size: 0.7rem;
+    padding: 1px 5px;
+}
+.dark [data-slot="kbd"],
+.dark kbd {
+    background: #1a1a16 !important;
+    border: 1px solid #3d3d35 !important;
+    border-bottom-width: 2px !important;
+    color: #4ade80 !important;
+}
+
+/* --- Sidebar ----------------------------------------------- */
+[data-slot="sidebar"] {
+    background: #f5f5f0 !important;
+    border-right: 1px solid #e0e0d8 !important;
+    border-radius: 0 !important;
+}
+.dark [data-slot="sidebar"] {
+    background: #0a0a08 !important;
+    border-right: 1px solid #2d2d28 !important;
+}
+
+/* --- Header ----------------------------------------------- */
+[data-slot="header"] {
+    background: #ffffff !important;
+    border-bottom: 1px solid #e0e0d8 !important;
+    border-radius: 0 !important;
+}
+.dark [data-slot="header"] {
+    background: #0d0d0b !important;
+    border-bottom: 1px solid #2d2d28 !important;
+}
+
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
+
+/* Prompt prefix on any element */
+.term-prompt::before {
+    content: '$ ';
+    color: #16a34a;
+    font-weight: 700;
+}
+.dark .term-prompt::before {
+    color: #4ade80;
+}
+
+/* Muted comment text */
+.term-comment {
+    color: #5a5a52;
+    font-style: normal;
+}
+.dark .term-comment {
+    color: #525248;
+}
+.term-comment::before {
+    content: '# ';
+}
+
+/* Phosphor green highlight */
+.term-accent {
+    color: #16a34a;
+}
+.dark .term-accent {
+    color: #4ade80;
+}
+
+/* Error / warning inline */
+.term-error  { color: #dc2626; }
+.term-warn   { color: #ca8a04; }
+.term-info   { color: #2563eb; }
+.dark .term-error  { color: #f87171; }
+.dark .term-warn   { color: #fbbf24; }
+.dark .term-info   { color: #60a5fa; }
+
+/* Full-width terminal block */
+.term-block {
+    background: #f5f5f0;
+    border: 1px solid #e0e0d8;
+    padding: 1rem 1.25rem;
+    color: #323228;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.dark .term-block {
+    background: #0a0a08;
+    border-color: #2d2d28;
+    color: #c8c8b8;
+}

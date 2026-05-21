@@ -1,0 +1,533 @@
+# Implementation Plan: Portfolio
+
+## Overview
+
+Implement a database-driven professional portfolio on Laravel 13, Livewire 4, Flux UI v2, and Tailwind CSS v4. The plan covers database migrations, Eloquent models with factories and seeders, public Livewire components, admin CRUD components, mail, routing, views, and a full Pest test suite. Each task builds on the previous so there is no orphaned code.
+
+## Tasks
+
+- [ ] 1. Database migrations
+  - [ ] 1.1 Create migration for `hero_contents` table
+    - Columns: `id`, `name` string(100), `tagline` string(150), `introduction` string(500), `profile_photo_path` string nullable, `timestamps`
+    - Run `php artisan make:migration create_hero_contents_table --no-interaction`
+    - _Requirements: 3.1, 3.3_
+  - [ ] 1.2 Create migration for `about_contents` table
+    - Columns: `id`, `biography` text, `profile_photo_path` string nullable, `location` string(100) nullable, `availability_status` string(100) nullable, `years_of_experience` unsignedTinyInteger nullable, `timestamps`
+    - Run `php artisan make:migration create_about_contents_table --no-interaction`
+    - _Requirements: 4.1, 4.2, 4.3_
+  - [ ] 1.3 Create migration for `social_links` table
+    - Columns: `id`, `platform` string(50), `url` string(500), `icon` string(50) nullable, `sort_order` unsignedSmallInteger default 0, `timestamps`
+    - Run `php artisan make:migration create_social_links_table --no-interaction`
+    - _Requirements: 3.4_
+  - [ ] 1.4 Create migration for `skills` table
+    - Columns: `id`, `name` string(100), `category` string(100) nullable, `proficiency` unsignedTinyInteger nullable, `proficiency_label` string(20) nullable, `is_active` boolean default true, `sort_order` unsignedSmallInteger default 0, `timestamps`
+    - Run `php artisan make:migration create_skills_table --no-interaction`
+    - _Requirements: 5.1, 5.2, 5.3_
+  - [ ] 1.5 Create migration for `projects` table
+    - Columns: `id`, `title` string(150), `slug` string(170) unique, `description` text, `excerpt` string(200) nullable, `cover_image_path` string nullable, `live_url` string(500) nullable, `repository_url` string(500) nullable, `is_published` boolean default false, `sort_order` unsignedSmallInteger default 0, `timestamps`
+    - Run `php artisan make:migration create_projects_table --no-interaction`
+    - _Requirements: 6.1, 6.3, 6.4, 6.5, 6.7, 10.1, 10.5_
+  - [ ] 1.6 Create migration for `tags` table and `project_tag` pivot
+    - `tags`: `id`, `name` string(50) unique, `timestamps`
+    - `project_tag`: composite PK on `(project_id, tag_id)`, both FK to their respective tables with `cascadeOnDelete`
+    - Run `php artisan make:migration create_tags_table --no-interaction` and `php artisan make:migration create_project_tag_table --no-interaction`
+    - _Requirements: 6.1, 6.2_
+  - [ ] 1.7 Create migration for `experience_entries` table
+    - Columnddds: `id`, `title` string(150), `organisation` string(150), `type` enum('work','education'), `start_date` date, `end_date` date nullable, `description` string(500) nullable, `timestamps`
+    - Run `php artisan make:migration create_experience_entries_table --no-interaction`
+    - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5_
+  - [ ] 1.8 Create migration for `contact_messages` table
+    - Columns: `id`, `sender_name` string(100), `sender_email` string(150), `subject` string(200), `body` text, `ip_address` string(45) nullable, `is_read` boolean default false, `timestamps`
+    - Run `php artisan make:migration create_contact_messages_table --no-interaction`
+    - _Requirements: 8.1, 8.2, 9.8_
+
+- [ ] 2. Eloquent models
+  - [ ] 2.1 Create `HeroContent` model
+    - `$fillable`: name, tagline, introduction, profile_photo_path
+    - Add `getProfilePhotoUrlAttribute()` accessor returning `Storage::url($this->profile_photo_path)` when set, else null
+    - Run `php artisan make:model HeroContent --no-interaction`
+    - _Requirements: 3.1, 3.3_
+  - [ ] 2.2 Create `AboutContent` model
+    - `$fillable`: biography, profile_photo_path, location, availability_status, years_of_experience
+    - Add `getProfilePhotoUrlAttribute()` accessor
+    - Run `php artisan make:model AboutContent --no-interaction`
+    - _Requirements: 4.1, 4.2, 4.3_
+  - [ ] 2.3 Create `SocialLink` model
+    - `$fillable`: platform, url, icon, sort_order
+    - Default scope: `orderBy('sort_order')`
+    - Run `php artisan make:model SocialLink --no-interaction`
+    - _Requirements: 3.4_
+  - [ ] 2.4 Create `Skill` model
+    - `$fillable`: name, category, proficiency, proficiency_label, is_active, sort_order
+    - `$casts`: is_active → boolean
+    - Scope `active()`: `where('is_active', true)->orderBy('sort_order')`
+    - Run `php artisan make:model Skill --no-interaction`
+    - _Requirements: 5.1, 5.2, 5.3_
+  - [ ] 2.5 Create `Tag` model
+    - `$fillable`: name
+    - `belongsToMany(Project::class)` relationship
+    - Run `php artisan make:model Tag --no-interaction`
+    - _Requirements: 6.1, 6.2_
+  - [ ] 2.6 Create `Project` model with slug generation
+    - `$fillable`: title, slug, description, excerpt, cover_image_path, live_url, repository_url, is_published, sort_order
+    - `$casts`: is_published → boolean
+    - `belongsToMany(Tag::class)` relationship via `project_tag`
+    - Add `getCoverImageUrlAttribute()` accessor
+    - Implement `public static function generateUniqueSlug(string $title, ?int $excludeId = null): string` as described in the design document
+    - Scope `published()`: `where('is_published', true)->orderBy('sort_order')`
+    - Run `php artisan make:model Project --no-interaction`
+    - _Requirements: 6.1, 6.3, 6.7, 10.5, 10.6_
+  - [ ] 2.7 Create `ExperienceEntry` model
+    - `$fillable`: title, organisation, type, start_date, end_date, description
+    - `$casts`: start_date → date, end_date → date
+    - Scope `chronological()`: `orderBy('start_date', 'desc')`
+    - Run `php artisan make:model ExperienceEntry --no-interaction`
+    - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5_
+  - [ ] 2.8 Create `ContactMessage` model
+    - `$fillable`: sender_name, sender_email, subject, body, ip_address, is_read
+    - `$casts`: is_read → boolean
+    - Run `php artisan make:model ContactMessage --no-interaction`
+    - _Requirements: 8.1, 8.2, 9.8, 9.9_
+
+- [ ] 3. Factories and seeders
+  - [ ] 3.1 Create factories for all portfolio models
+    - `HeroContentFactory`: realistic name, tagline, introduction; profile_photo_path null
+    - `AboutContentFactory`: paragraph biography, nullable location/availability/years
+    - `SocialLinkFactory`: platform from ['github','linkedin','twitter'], valid url, sort_order sequence
+    - `SkillFactory`: name word, nullable category, proficiency 0–100, is_active true, sort_order sequence
+    - `TagFactory`: unique lowercase word name
+    - `ProjectFactory`: title sentence, auto-generated slug via `Project::generateUniqueSlug()`, description paragraph, is_published false by default; add `published()` state that sets `is_published = true`
+    - `ExperienceEntryFactory`: title, organisation, type from enum, start_date past date, end_date nullable
+    - `ContactMessageFactory`: sender_name, valid sender_email, subject, body (min 10 chars), is_read false
+    - Run `php artisan make:factory {Name}Factory --model={Model} --no-interaction` for each
+    - _Requirements: 3.1, 4.1, 5.1, 6.1, 7.1, 8.1_
+  - [ ] 3.2 Create `PortfolioSeeder` and wire into `DatabaseSeeder`
+    - Seed one `HeroContent` row and one `AboutContent` row using `firstOrCreate`
+    - Seed 3 `SocialLink` rows (github, linkedin, twitter)
+    - Seed 6 `Skill` rows across 2 categories
+    - Seed 3 published `Project` rows each with 2 `Tag` associations
+    - Seed 4 `ExperienceEntry` rows (mix of work/education)
+    - Call `$this->call(PortfolioSeeder::class)` from `DatabaseSeeder::run()`
+    - Run `php artisan make:seeder PortfolioSeeder --no-interaction`
+    - _Requirements: 3.1, 4.1, 5.1, 6.1, 7.1_
+
+- [ ] 4. Configuration
+  - [ ] 4.1 Create `config/portfolio.php`
+    - Single key: `'owner_email' => env('PORTFOLIO_OWNER_EMAIL', 'owner@example.com')`
+    - Add `PORTFOLIO_OWNER_EMAIL=` to `.env.example`
+    - _Requirements: 8.4_
+
+- [ ] 5. Rate limiter registration
+  - [ ] 5.1 Register `contact` rate limiter in `AppServiceProvider::boot()`
+    - Add `RateLimiter::for('contact', ...)` returning `Limit::perHour(5)->by($request->ip())` following the pattern already used in `FortifyServiceProvider`
+    - Import `Illuminate\Cache\RateLimiting\Limit` and `Illuminate\Support\Facades\RateLimiter`
+    - _Requirements: 8.5, 8.6_
+
+- [ ] 6. Public portfolio layout and views
+  - [ ] 6.1 Create `resources/views/layouts/portfolio.blade.php`
+    - `<html>` tag with Alpine.js dark mode `x-init` script (reads `localStorage.theme` and `prefers-color-scheme`, toggles `dark` class before first paint) as specified in the design document
+    - `<head>` includes `@stack('meta')`, Vite assets (`@vite(['resources/css/app.css','resources/js/app.js'])`), `@fluxStyles`
+    - Fixed nav bar: logo/name, anchor links (Hero, About, Skills, Projects, Experience, Contact), theme toggle button with Alpine.js `x-data` / `@click` toggling `dark` class and `localStorage.theme`, mobile hamburger menu using Alpine.js `x-show`
+    - `<main>` with `{{ $slot }}`
+    - `<footer>` with owner name and current year
+    - `@fluxScripts` before `</body>`
+    - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 12.5_
+  - [ ] 6.2 Create `resources/views/livewire/portfolio-page.blade.php`
+    - Uses `@extends` or `#[Layout]` — follow full-page Livewire component convention with `<x-layouts.portfolio>`
+    - `@push('meta')` block with title, description, OG tags, canonical as specified in the design document
+    - Renders `<section id="hero">`, `<section id="about">`, `<section id="skills">`, `<section id="projects">` (nests `<livewire:portfolio.projects-section>`), `<section id="experience">`, `<section id="contact">` (nests `<livewire:portfolio.contact-form>`)
+    - Each section uses semantic HTML5 elements and Tailwind/Flux classes; images include `alt` and `loading="lazy"` where below the fold
+    - _Requirements: 1.1, 1.5, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 5.4, 7.1, 7.2, 7.3, 7.5, 12.1, 12.4, 12.5_
+  - [ ] 6.3 Create `resources/views/livewire/portfolio/projects-section.blade.php`
+    - Tag filter buttons (wire:click="filterByTag") and clear filter button (wire:click="clearFilter")
+    - Project cards: cover image (or placeholder div), title, excerpt, tags; card links to `route('projects.show', $project->slug)`
+    - Empty state message when no published projects
+    - _Requirements: 6.1, 6.2, 6.6, 6.8, 6.9_
+  - [ ] 6.4 Create `resources/views/livewire/portfolio/contact-form.blade.php`
+    - Fields: name, email, subject, message (all wire:model)
+    - `@error` directives for each field and a general `@error('form')` for rate limit errors
+    - Success state shown when `$submitted === true`
+    - Submit button with `wire:loading` disabled state
+    - _Requirements: 8.1, 8.2, 8.3, 8.5, 8.6, 8.7_
+  - [ ] 6.5 Create `resources/views/livewire/project-detail-page.blade.php`
+    - `@push('meta')` with project-specific title, description, OG tags, canonical
+    - Full description, all tags, conditional live URL and repo URL buttons
+    - Back link to `route('portfolio') . '#projects'`
+    - Cover image with `alt` and `loading="lazy"`; images use `loading="lazy"` attribute
+    - 404 handled in component mount, not in view
+    - _Requirements: 6.3, 6.4, 6.5, 10.1, 10.2, 10.3, 10.4, 11.1, 11.2, 11.3, 11.4, 11.5, 12.1, 12.4_
+
+- [ ] 7. Public Livewire components
+  - [ ] 7.1 Create `App\Livewire\PortfolioPage` full-page component
+    - `#[Layout('layouts.portfolio')]` attribute
+    - `mount()` loads: `HeroContent::firstOrFail()`, `AboutContent::firstOrFail()`, `SocialLink::orderBy('sort_order')->get()`, `Skill::active()->get()->groupBy('category')`, `Tag::all()`, `Project::published()->with('tags')->get()`, `ExperienceEntry::chronological()->get()`
+    - Exposes all as public properties
+    - Run `php artisan make:livewire PortfolioPage --no-interaction`
+    - _Requirements: 1.5, 3.1, 4.1, 5.1, 6.1, 7.1_
+  - [ ] 7.2 Create `App\Livewire\Portfolio\ProjectsSection` component
+    - Public properties: `$activeTag = null`, `$tags`, `$filteredProjects` (computed via `#[Computed]`)
+    - `mount()` loads all tags and published projects with tags eager-loaded
+    - `filterByTag(string $tag): void` sets `$activeTag`
+    - `clearFilter(): void` sets `$activeTag = null`
+    - Computed `filteredProjects()`: when `$activeTag` is set, filter `$projects` by tag name; otherwise return all published projects
+    - Run `php artisan make:livewire Portfolio/ProjectsSection --no-interaction`
+    - _Requirements: 6.1, 6.2, 6.7, 6.8, 6.9_
+  - [ ] 7.3 Create `App\Livewire\Portfolio\ContactForm` component
+    - Public string properties: `$name`, `$email`, `$subject`, `$message`; `bool $submitted = false`
+    - `submit()` action: validate (name required, email email, subject required, message min:10), check `RateLimiter::tooManyAttempts('contact:'.$ip, 5)` → `addError('form', ...)`, hit rate limiter, create `ContactMessage`, dispatch `Mail::to(config('portfolio.owner_email'))->queue(new ContactMessageNotification($msg))`, reset fields, set `$submitted = true`
+    - Run `php artisan make:livewire Portfolio/ContactForm --no-interaction`
+    - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7_
+  - [ ] 7.4 Create `App\Livewire\ProjectDetailPage` full-page component
+    - `#[Layout('layouts.portfolio')]` attribute
+    - `mount(string $slug)`: find published project by slug or `abort(404)`; also load `HeroContent::firstOrFail()` for SEO fallback image
+    - Public properties: `$project`, `$hero`
+    - Run `php artisan make:livewire ProjectDetailPage --no-interaction`
+    - _Requirements: 10.1, 10.2, 10.3, 10.4_
+
+- [ ] 8. Mail
+  - [ ] 8.1 Create `App\Mail\ContactMessageNotification` mailable
+    - Implements `ShouldQueue`, uses `Queueable` and `SerializesModels` traits
+    - Constructor: `public function __construct(public ContactMessage $contactMessage) {}`
+    - `envelope()`: to `config('portfolio.owner_email')`, subject `'New contact message: '.$this->contactMessage->subject`
+    - `content()`: view `'mail.contact-message'`
+    - Run `php artisan make:mail ContactMessageNotification --no-interaction`
+    - _Requirements: 8.4_
+  - [ ] 8.2 Create `resources/views/mail/contact-message.blade.php`
+    - Plain text / simple HTML email showing sender name, email, subject, and body
+    - _Requirements: 8.4_
+
+- [ ] 9. Admin Livewire components
+  - [ ] 9.1 Create `App\Livewire\Admin\HeroEditor` component
+    - `#[Layout('layouts.app')]` attribute
+    - `mount()` loads `HeroContent::firstOrFail()` and `SocialLink::orderBy('sort_order')->get()`
+    - Public properties for all hero fields; `WithFileUploads` trait for `$photo`
+    - `save()`: validate, handle photo upload (delete old, store new under `photos/hero/{uuid}.{ext}`), update hero record, `Flux::toast('Hero updated.')`
+    - Social link CRUD: `addSocialLink()`, `removeSocialLink(int $id)`, `saveSocialLinks()`; enforce max 10 links at application layer
+    - Run `php artisan make:livewire Admin/HeroEditor --no-interaction`
+    - _Requirements: 3.1, 3.3, 3.4, 3.5, 9.1, 9.3, 9.4, 9.5_
+  - [ ] 9.2 Create `App\Livewire\Admin\AboutEditor` component
+    - `#[Layout('layouts.app')]` attribute
+    - `mount()` loads `AboutContent::firstOrFail()`
+    - Public properties for all about fields; `WithFileUploads` for `$photo`
+    - `save()`: validate, handle photo upload under `photos/about/{uuid}.{ext}`, update record, `Flux::toast('About updated.')`
+    - Run `php artisan make:livewire Admin/AboutEditor --no-interaction`
+    - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 9.3, 9.4, 9.5_
+  - [ ] 9.3 Create `App\Livewire\Admin\SkillManager` component
+    - `#[Layout('layouts.app')]` attribute
+    - List all skills; inline edit via `<flux:modal>`; `$editingSkill` property holds current edit state
+    - `openCreate()`, `openEdit(int $id)`, `save()`, `delete(int $id)`, `updateSortOrder(int $id, int $order)`
+    - `save()` validates name required, category nullable string, proficiency nullable integer 0–100, proficiency_label nullable in list, is_active boolean, sort_order integer
+    - `Flux::toast()` on success
+    - Run `php artisan make:livewire Admin/SkillManager --no-interaction`
+    - _Requirements: 5.1, 5.2, 5.3, 9.3, 9.4, 9.5, 9.6_
+  - [ ] 9.4 Create `App\Livewire\Admin\ProjectManager` component
+    - `#[Layout('layouts.app')]` attribute
+    - List all projects; inline edit via `<flux:modal>`; `WithFileUploads` for `$coverImage`
+    - `openCreate()`, `openEdit(int $id)`, `save()`, `delete(int $id)`, `togglePublished(int $id)`, `updateSortOrder(int $id, int $order)`
+    - `save()`: generate slug via `Project::generateUniqueSlug($title, $editingId)`, handle cover image upload under `projects/{uuid}.{ext}`, sync tags via `$project->tags()->sync($selectedTagIds)`
+    - `$allTags` property for tag multi-select; `$selectedTagIds` array
+    - `Flux::toast()` on success
+    - Run `php artisan make:livewire Admin/ProjectManager --no-interaction`
+    - _Requirements: 6.1, 6.3, 6.4, 6.5, 6.7, 9.3, 9.4, 9.5, 9.6, 9.7, 10.5, 10.6_
+  - [ ] 9.5 Create `App\Livewire\Admin\ExperienceManager` component
+    - `#[Layout('layouts.app')]` attribute
+    - List all experience entries ordered by start_date desc; inline edit via `<flux:modal>`
+    - `openCreate()`, `openEdit(int $id)`, `save()`, `delete(int $id)`
+    - Validate: title required, organisation required, type in ['work','education'], start_date required date, end_date nullable date after_or_equal:start_date, description nullable max:500
+    - `Flux::toast()` on success
+    - Run `php artisan make:livewire Admin/ExperienceManager --no-interaction`
+    - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 9.3, 9.4, 9.5_
+  - [ ] 9.6 Create `App\Livewire\Admin\ContactInbox` component
+    - `#[Layout('layouts.app')]` attribute
+    - List all contact messages ordered by `created_at` desc; show sender name, email, subject, received timestamp, read badge
+    - `markAsRead(int $id)`: sets `is_read = true`, no page reload (Livewire reactive)
+    - Run `php artisan make:livewire Admin/ContactInbox --no-interaction`
+    - _Requirements: 9.3, 9.8, 9.9_
+
+- [ ] 10. Admin Blade views
+  - [ ] 10.1 Create `resources/views/livewire/admin/hero-editor.blade.php`
+    - Form fields for name, tagline, introduction, photo upload; social links repeater (platform, url, icon, sort_order); `@error` directives; save button with `wire:loading`; uses Flux UI form components
+    - _Requirements: 3.1, 3.3, 3.4, 9.4, 9.5_
+  - [ ] 10.2 Create `resources/views/livewire/admin/about-editor.blade.php`
+    - Form fields for biography (textarea), photo upload, location, availability_status, years_of_experience; `@error` directives; save button
+    - _Requirements: 4.1, 4.2, 4.3, 9.4, 9.5_
+  - [ ] 10.3 Create `resources/views/livewire/admin/skill-manager.blade.php`
+    - Skills table with name, category, proficiency, is_active, sort_order, edit/delete actions; `<flux:modal>` for create/edit form; `@error` directives
+    - _Requirements: 5.1, 5.2, 5.3, 9.4, 9.5, 9.6_
+  - [ ] 10.4 Create `resources/views/livewire/admin/project-manager.blade.php`
+    - Projects table with title, slug, published badge, sort_order, publish toggle, edit/delete actions; `<flux:modal>` for create/edit form including tag multi-select and cover image upload; `@error` directives
+    - _Requirements: 6.1, 6.7, 9.4, 9.5, 9.6, 9.7_
+  - [ ] 10.5 Create `resources/views/livewire/admin/experience-manager.blade.php`
+    - Experience entries table with title, organisation, type badge, date range, edit/delete actions; `<flux:modal>` for create/edit form; `@error` directives
+    - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 9.4, 9.5_
+  - [ ] 10.6 Create `resources/views/livewire/admin/contact-inbox.blade.php`
+    - Messages table with sender name, email, subject, received timestamp, read/unread badge; "Mark as read" button per row using `wire:click="markAsRead($message->id)"`
+    - _Requirements: 9.8, 9.9_
+
+- [ ] 11. Routes
+  - [ ] 11.1 Register public and admin routes in `routes/web.php`
+    - Public: `Route::get('/', PortfolioPage::class)->name('portfolio')` and `Route::get('/projects/{slug}', ProjectDetailPage::class)->name('projects.show')`
+    - Admin group: `Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(...)` with routes for hero, about, skills, projects, experience, messages as specified in the design document; index redirects to `admin.hero`
+    - Import all Livewire component classes at the top of the file
+    - _Requirements: 1.5, 9.1, 9.2, 10.1_
+
+- [ ] 12. Admin sidebar navigation
+  - [ ] 12.1 Add portfolio admin nav items to `resources/views/layouts/app/sidebar.blade.php`
+    - Add a new `<flux:sidebar.group heading="Portfolio">` section with items: Hero (`admin.hero`), About (`admin.about`), Skills (`admin.skills`), Projects (`admin.projects`), Experience (`admin.experience`), Messages (`admin.messages`)
+    - Use `icon` attributes matching existing sidebar items; use `:current="request()->routeIs('admin.hero')"` pattern for each item
+    - _Requirements: 9.1, 9.3_
+
+- [ ] 13. Checkpoint — wire everything together and verify basic rendering
+  - Ensure all migrations run cleanly: `php artisan migrate:fresh --seed`
+  - Ensure `php artisan route:list` shows all portfolio routes
+  - Ensure `vendor/bin/pint --dirty` passes with no errors
+  - Ask the user if any questions arise before proceeding to tests.
+
+- [ ] 14. Unit tests — slug generation
+  - [ ] 14.1 Create `SlugGeneratorTest` unit test
+    - Run `php artisan make:test --pest --unit SlugGeneratorTest --no-interaction`
+    - Test: `generateUniqueSlug('Hello World')` returns `'hello-world'` when no collision
+    - Test: `generateUniqueSlug('Hello World')` returns `'hello-world-2'` when `hello-world` already exists
+    - Test: `generateUniqueSlug('Hello World')` returns `'hello-world-3'` when both `hello-world` and `hello-world-2` exist
+    - Test: `generateUniqueSlug('Hello World', $existingId)` returns `'hello-world'` when the only collision is the project being updated (excludeId)
+    - Test: slug is URL-safe for titles with special characters and unicode
+    - _Requirements: 10.5, 10.6_
+  - [ ]* 14.2 Write property test for slug uniqueness (Property 17)
+    - **Property 17: Slug uniqueness with numeric suffix**
+    - **Validates: Requirements 10.5, 10.6**
+    - Use `foreach (range(1, 50) as $_)` with `fake()->sentence(3)` as base title; create N projects with the same title and assert all slugs are unique
+    - Tag comment: `// Feature: portfolio, Property 17: Slug uniqueness with numeric suffix`
+    - _Requirements: 10.5, 10.6_
+  - [ ]* 14.3 Write property test for slug URL-safety (Property 16)
+    - **Property 16: Slug is generated from title and is URL-safe**
+    - **Validates: Requirements 10.5**
+    - Use 100 iterations of `fake()->sentence()` titles; assert generated slug matches `Str::slug($title)` when no collision and contains only `[a-z0-9-]`
+    - Tag comment: `// Feature: portfolio, Property 16: Slug is generated from title and is URL-safe`
+    - _Requirements: 10.5_
+
+- [ ] 15. Feature tests — public portfolio
+  - [ ] 15.1 Create `PortfolioPageTest` feature test
+    - Run `php artisan make:test --pest PortfolioPageTest --no-interaction`
+    - Test: GET `/` returns 200
+    - Test: hero name, tagline, and introduction appear in response HTML (uses `HeroContentFactory`)
+    - Test: all social links appear as `<a>` elements (uses `SocialLinkFactory`)
+    - Test: about biography, location, availability, years of experience appear in response
+    - Test: active skills are grouped by category and rendered in sort_order
+    - Test: published projects appear; unpublished projects do not
+    - Test: experience entries appear in reverse chronological order
+    - Test: response contains `<title>`, `<meta name="description">`, `og:title`, `og:description`, `og:image`, `<link rel="canonical">`
+    - Test: all `<img>` elements have non-empty `alt` attributes
+    - _Requirements: 1.1, 1.5, 3.1, 3.4, 4.1, 4.3, 5.1, 5.3, 6.1, 7.1, 11.1, 11.2, 11.3, 11.4, 12.4_
+  - [ ]* 15.2 Write property test for hero content round-trip (Property 1)
+    - **Property 1: Hero content round-trip**
+    - **Validates: Requirements 3.1, 3.5**
+    - 50 iterations: create random `HeroContent`, GET `/`, assert name/tagline/introduction in response
+    - Tag comment: `// Feature: portfolio, Property 1: Hero content round-trip`
+  - [ ]* 15.3 Write property test for social links rendering (Property 2)
+    - **Property 2: Social links are all rendered**
+    - **Validates: Requirements 3.4**
+    - 30 iterations: create 1–5 random `SocialLink` records, GET `/`, assert each URL appears in response
+    - Tag comment: `// Feature: portfolio, Property 2: Social links are all rendered`
+  - [ ]* 15.4 Write property test for about content round-trip (Property 3)
+    - **Property 3: About content round-trip**
+    - **Validates: Requirements 4.1, 4.3, 4.4**
+    - 50 iterations: create random `AboutContent`, GET `/`, assert biography/location/availability/years in response
+    - Tag comment: `// Feature: portfolio, Property 3: About content round-trip`
+  - [ ]* 15.5 Write property test for skills grouping and ordering (Property 5)
+    - **Property 5: Skills are grouped and ordered correctly**
+    - **Validates: Requirements 5.1, 5.3**
+    - 30 iterations: create skills with 2 categories and varied sort_order, GET `/`, assert category headings and skill order in response
+    - Tag comment: `// Feature: portfolio, Property 5: Skills are grouped and ordered correctly`
+  - [ ]* 15.6 Write property test for skill proficiency rendering (Property 6)
+    - **Property 6: Skill proficiency rendering**
+    - **Validates: Requirements 5.2, 5.6**
+    - 50 iterations: create skill with proficiency set vs null, GET `/`, assert proficiency indicator present/absent accordingly
+    - Tag comment: `// Feature: portfolio, Property 6: Skill proficiency rendering`
+  - [ ]* 15.7 Write property test for published vs unpublished projects (Property 7)
+    - **Property 7: Published projects appear; unpublished do not**
+    - **Validates: Requirements 6.1, 9.7**
+    - 30 iterations: create mix of published/unpublished projects, GET `/`, assert only published titles appear
+    - Tag comment: `// Feature: portfolio, Property 7: Published projects appear on the portfolio; unpublished do not`
+  - [ ]* 15.8 Write property test for projects sort order (Property 10)
+    - **Property 10: Projects are rendered in sort_order**
+    - **Validates: Requirements 6.7**
+    - 30 iterations: create published projects with distinct sort_order values, GET `/`, assert rendered order matches ascending sort_order
+    - Tag comment: `// Feature: portfolio, Property 10: Projects are rendered in sort_order`
+  - [ ]* 15.9 Write property test for experience reverse chronological order (Property 11)
+    - **Property 11: Experience entries are rendered in reverse chronological order**
+    - **Validates: Requirements 7.1**
+    - 30 iterations: create entries with varied start_date, GET `/`, assert rendered order is descending by start_date
+    - Tag comment: `// Feature: portfolio, Property 11: Experience entries are rendered in reverse chronological order`
+  - [ ]* 15.10 Write property test for experience entry fields (Property 12)
+    - **Property 12: Experience entry fields are all rendered**
+    - **Validates: Requirements 7.2, 7.3, 7.5**
+    - 50 iterations: create entry with/without end_date, GET `/`, assert title/organisation/description present; "Present" appears when end_date is null
+    - Tag comment: `// Feature: portfolio, Property 12: Experience entry fields are all rendered`
+  - [ ]* 15.11 Write property test for SEO meta tags (Property 19)
+    - **Property 19: SEO meta tags are present and correctly formatted on all pages**
+    - **Validates: Requirements 11.1, 11.2, 11.3, 11.4, 11.5**
+    - 30 iterations: create random HeroContent, GET `/`, assert title format, meta description, og:title, og:description, og:image, canonical link all present
+    - Tag comment: `// Feature: portfolio, Property 19: SEO meta tags are present and correctly formatted on all pages`
+  - [ ]* 15.12 Write property test for img alt attributes (Property 20)
+    - **Property 20: All img elements have non-empty alt attributes**
+    - **Validates: Requirements 3.3, 12.4**
+    - 20 iterations: create hero/about with photos, GET `/`, parse all `<img>` tags and assert each has non-empty alt
+    - Tag comment: `// Feature: portfolio, Property 20: All img elements have non-empty alt attributes`
+
+- [ ] 16. Feature tests — project detail page
+  - [ ] 16.1 Create `ProjectDetailPageTest` feature test
+    - Run `php artisan make:test --pest ProjectDetailPageTest --no-interaction`
+    - Test: GET `/projects/{slug}` for published project returns 200
+    - Test: GET `/projects/{slug}` for unpublished project returns 404
+    - Test: GET `/projects/nonexistent-slug` returns 404
+    - Test: full description and all tags appear in response
+    - Test: live URL button appears when `live_url` is set; absent when null
+    - Test: repo URL button appears when `repository_url` is set; absent when null
+    - Test: back link to `/#projects` is present
+    - Test: SEO meta tags (title, description, og:*, canonical) are present
+    - _Requirements: 6.3, 6.4, 6.5, 10.1, 10.2, 10.3, 10.4, 11.1, 11.2, 11.3, 11.4, 11.5_
+  - [ ]* 16.2 Write property test for project URL buttons (Property 9)
+    - **Property 9: Project URL buttons appear only when URLs are set**
+    - **Validates: Requirements 6.4, 6.5**
+    - 50 iterations: create published project with random combination of live_url/repository_url set or null, GET detail page, assert button presence matches URL presence
+    - Tag comment: `// Feature: portfolio, Property 9: Project URL buttons appear only when URLs are set`
+  - [ ]* 16.3 Write property test for project detail page fields (Property 18)
+    - **Property 18: Project detail page renders all fields for published projects**
+    - **Validates: Requirements 10.2**
+    - 30 iterations: create published project with tags, GET detail page, assert full description and all tag names present
+    - Tag comment: `// Feature: portfolio, Property 18: Project detail page renders all fields for published projects`
+
+- [ ] 17. Feature tests — projects section tag filtering
+  - [ ] 17.1 Create `ProjectsSectionTest` feature test
+    - Run `php artisan make:test --pest ProjectsSectionTest --no-interaction`
+    - Test: `Livewire::test(ProjectsSection::class)` renders all published projects initially
+    - Test: calling `filterByTag($tagName)` shows only projects with that tag
+    - Test: calling `clearFilter()` after filtering restores all published projects
+    - Test: unpublished projects never appear regardless of filter state
+    - _Requirements: 6.1, 6.2, 6.8, 6.9_
+  - [ ]* 17.2 Write property test for tag filter (Property 8)
+    - **Property 8: Tag filter returns only matching projects**
+    - **Validates: Requirements 6.2, 6.9**
+    - 30 iterations: create random set of published projects with random tag assignments, filter by a random tag, assert only matching projects returned; clear filter and assert all published projects returned
+    - Tag comment: `// Feature: portfolio, Property 8: Tag filter returns only matching projects`
+
+- [ ] 18. Feature tests — contact form
+  - [ ] 18.1 Create `ContactFormTest` feature test
+    - Run `php artisan make:test --pest ContactFormTest --no-interaction`
+    - Test: valid submission creates `ContactMessage` record in database
+    - Test: valid submission dispatches `ContactMessageNotification` to owner email (use `Mail::fake()`)
+    - Test: valid submission sets `$submitted = true` and resets all fields to empty strings
+    - Test: submission with empty name shows validation error for `name`
+    - Test: submission with invalid email shows validation error for `email`
+    - Test: submission with body shorter than 10 chars shows validation error for `message`
+    - Test: 6th submission from same IP within an hour is blocked with `form` error
+    - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7_
+  - [ ]* 18.2 Write property test for contact form validation (Property 13)
+    - **Property 13: Contact form accepts valid submissions and rejects invalid ones**
+    - **Validates: Requirements 8.1, 8.2, 8.3**
+    - 50 iterations: generate random combinations of valid/invalid field values, submit via `Livewire::test()`, assert record created iff all fields valid; assert errors present for each invalid field
+    - Tag comment: `// Feature: portfolio, Property 13: Contact form accepts valid submissions and rejects invalid ones`
+  - [ ]* 18.3 Write property test for queued notification (Property 14)
+    - **Property 14: Valid contact submission dispatches a queued notification**
+    - **Validates: Requirements 8.4**
+    - 30 iterations: valid submission, assert `Mail::fake()` queued `ContactMessageNotification` to `config('portfolio.owner_email')`
+    - Tag comment: `// Feature: portfolio, Property 14: Valid contact submission dispatches a queued notification`
+  - [ ]* 18.4 Write property test for form reset after submission (Property 15)
+    - **Property 15: Contact form fields reset after successful submission**
+    - **Validates: Requirements 8.7**
+    - 30 iterations: valid submission, assert all field properties are empty strings and `$submitted === true`
+    - Tag comment: `// Feature: portfolio, Property 15: Contact form fields reset after successful submission`
+
+- [ ] 19. Feature tests — admin panel
+  - [ ] 19.1 Create `AdminAuthTest` feature test
+    - Run `php artisan make:test --pest AdminAuthTest --no-interaction`
+    - Test: unauthenticated GET `/admin` redirects to login route
+    - Test: unauthenticated GET `/admin/hero` redirects to login route
+    - Test: authenticated user can access `/admin/hero` (returns 200)
+    - _Requirements: 9.1, 9.2_
+  - [ ] 19.2 Create `HeroEditorTest` feature test
+    - Run `php artisan make:test --pest HeroEditorTest --no-interaction`
+    - Test: `Livewire::actingAs($user)->test(HeroEditor::class)` renders with existing hero data
+    - Test: `save()` with valid data updates `HeroContent` record
+    - Test: `save()` with empty name shows validation error and does not update record
+    - _Requirements: 3.1, 3.5, 9.4, 9.5_
+  - [ ]* 19.3 Write property test for admin validation errors (Property 4) in `HeroEditorTest`
+    - **Property 4: Admin validation errors surface for every invalid field**
+    - **Validates: Requirements 4.5, 9.5**
+    - 30 iterations: submit HeroEditor with random invalid field combinations, assert error present for each invalid field and no record updated
+    - Tag comment: `// Feature: portfolio, Property 4: Admin validation errors surface for every invalid field`
+  - [ ] 19.4 Create `AboutEditorTest` feature test
+    - Run `php artisan make:test --pest AboutEditorTest --no-interaction`
+    - Test: renders with existing about data
+    - Test: `save()` with valid data updates `AboutContent` record
+    - Test: `save()` with biography exceeding 2000 chars shows validation error
+    - _Requirements: 4.1, 4.4, 4.5, 9.4, 9.5_
+  - [ ] 19.5 Create `SkillManagerTest` feature test
+    - Run `php artisan make:test --pest SkillManagerTest --no-interaction`
+    - Test: lists all skills
+    - Test: `save()` creates new skill
+    - Test: `save()` updates existing skill
+    - Test: `delete()` removes skill
+    - Test: `updateSortOrder()` changes sort_order
+    - _Requirements: 5.1, 5.3, 9.3, 9.4, 9.6_
+  - [ ] 19.6 Create `ProjectManagerTest` feature test
+    - Run `php artisan make:test --pest ProjectManagerTest --no-interaction`
+    - Test: lists all projects
+    - Test: `save()` creates new project with auto-generated slug
+    - Test: `save()` on duplicate title generates unique slug with suffix
+    - Test: `togglePublished()` flips `is_published`
+    - Test: `save()` syncs tags correctly
+    - Test: `delete()` removes project
+    - _Requirements: 6.1, 6.7, 9.3, 9.4, 9.6, 9.7, 10.5, 10.6_
+  - [ ] 19.7 Create `ExperienceManagerTest` feature test
+    - Run `php artisan make:test --pest ExperienceManagerTest --no-interaction`
+    - Test: lists entries in reverse chronological order
+    - Test: `save()` creates new entry
+    - Test: `save()` updates existing entry
+    - Test: `delete()` removes entry
+    - Test: `save()` with invalid type shows validation error
+    - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 9.3, 9.4, 9.5_
+  - [ ] 19.8 Create `ContactInboxTest` feature test
+    - Run `php artisan make:test --pest ContactInboxTest --no-interaction`
+    - Test: lists all contact messages with sender name, email, subject, timestamp
+    - Test: `markAsRead($id)` sets `is_read = true` without page reload
+    - Test: unread messages are visually distinguished (assert unread badge present before mark-as-read)
+    - _Requirements: 9.8, 9.9_
+
+- [ ] 20. Final checkpoint — full test suite
+  - Run `php artisan test --compact` and ensure all tests pass
+  - Run `vendor/bin/pint --dirty` and fix any remaining style issues
+  - Ask the user if any questions arise.
+
+## Notes
+
+- Tasks marked with `*` are optional and can be skipped for a faster MVP
+- Each task references specific requirements for traceability
+- Checkpoints ensure incremental validation at natural boundaries
+- Property tests validate universal correctness properties across varied inputs using `fake()` with 30–100 iterations
+- Unit tests validate specific examples and edge cases
+- All admin components use `#[Layout('layouts.app')]` to inherit the existing sidebar layout
+- All public components use `#[Layout('layouts.portfolio')]` for the new public layout
+- File uploads use `WithFileUploads` and the `public` storage disk; run `php artisan storage:link` once during setup
+- The `contact` rate limiter key is `'contact:'.$request->ip()` with a limit of 5 per hour
+
+## Task Dependency Graph
+
+```json
+{
+  "waves": [
+    { "id": 0, "tasks": ["1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "1.7", "1.8"] },
+    { "id": 1, "tasks": ["2.1", "2.2", "2.3", "2.4", "2.5", "2.7", "2.8"] },
+    { "id": 2, "tasks": ["2.6", "3.1", "4.1", "5.1"] },
+    { "id": 3, "tasks": ["3.2", "8.1", "8.2"] },
+    { "id": 4, "tasks": ["6.1", "6.2", "6.3", "6.4", "6.5"] },
+    { "id": 5, "tasks": ["7.1", "7.2", "7.3", "7.4"] },
+    { "id": 6, "tasks": ["9.1", "9.2", "9.3", "9.4", "9.5", "9.6"] },
+    { "id": 7, "tasks": ["10.1", "10.2", "10.3", "10.4", "10.5", "10.6"] },
+    { "id": 8, "tasks": ["11.1", "12.1"] },
+    { "id": 9, "tasks": ["14.1", "15.1", "16.1", "17.1", "18.1", "19.1"] },
+    { "id": 10, "tasks": ["14.2", "14.3", "15.2", "15.3", "15.4", "15.5", "15.6", "15.7", "15.8", "15.9", "15.10", "15.11", "15.12", "16.2", "16.3", "17.2", "18.2", "18.3", "18.4", "19.2", "19.4", "19.5", "19.6", "19.7", "19.8"] },
+    { "id": 11, "tasks": ["19.3"] }
+  ]
+}
+```
