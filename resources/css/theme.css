@@ -596,3 +596,18 @@ kbd {
 .dark .tiptap-content blockquote::before {
     color: #4ade80;
 }
+
+
+.tiptap-content {
+  min-height: 500px;
+}
+
+.tiptap-content > .tiptap {
+  height: 100%;
+  min-height: 500px;
+}
+
+.ProseMirror {
+  min-height: 500px;
+  outline: none;
+}
