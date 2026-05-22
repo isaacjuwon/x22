@@ -31,6 +31,7 @@ new #[Title('Posts')] class extends Component {
                 'tags',
                 fn ($q) => $q->where('slug', $this->activeTag)
             ))
+            ->with('user', 'tags', 'media')
             ->latest('published_at')
             ->paginate($this->perPage);
     }

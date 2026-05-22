@@ -3,17 +3,21 @@
 namespace App\Models;
 
 use App\Enums\PageStatus;
+use App\Concerns\HasContentMedia;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
 
 #[Fillable(['user_id', 'title', 'slug', 'excerpt', 'content', 'status', 'published_at', 'meta_description', 'og_image'])]
-class Page extends Model
+class Page extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes;
+    use HasContentMedia;
+    use HasFactory;
+    use SoftDeletes;
 
     protected function casts(): array
     {

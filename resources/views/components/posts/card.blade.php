@@ -2,10 +2,10 @@
 
 <article data-slot="card" class="group overflow-hidden transition hover:border-green-800">
     {{-- Featured image --}}
-    @if ($post->og_image)
+    @if ($post->featuredImageUrl('card'))
         <div class="aspect-video overflow-hidden bg-neutral-900">
             <img
-                src="{{ $post->og_image }}"
+                src="{{ $post->featuredImageUrl('card') }}"
                 alt="{{ $post->title }}"
                 class="h-full w-full object-cover transition-transform group-hover:scale-105"
                 loading="lazy"
@@ -45,11 +45,7 @@
         {{-- Author & views --}}
         <div class="flex items-center justify-between border-t border-neutral-800 pt-2">
             <div class="flex items-center gap-2">
-                <img
-                    src="https://api.dicebear.com/9.x/avataaars/svg?seed={{ $post->user->id }}"
-                    alt="{{ $post->user->name }}"
-                    class="h-6 w-6"
-                />
+                <x-ui.avatar :name="$post->user->name" size="xs" color="auto" />
                 <x-ui.text class="text-sm text-neutral-600 dark:text-neutral-500">
                     {{ $post->user->name }}
                 </x-ui.text>

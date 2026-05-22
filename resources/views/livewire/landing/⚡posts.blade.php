@@ -13,7 +13,7 @@ new class extends Component {
     public function initialPosts(): \Illuminate\Database\Eloquent\Collection
     {
         return Post::published()
-            ->with('user', 'tags')
+            ->with('user', 'tags', 'media')
             ->latest('published_at')
             ->limit($this->perPage)
             ->get();
@@ -32,7 +32,7 @@ new class extends Component {
         }
 
         $posts = Post::published()
-            ->with('user', 'tags')
+            ->with('user', 'tags', 'media')
             ->latest('published_at')
             ->skip($this->perPage * ($this->page - 1))
             ->take($this->perPage)

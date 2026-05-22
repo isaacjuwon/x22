@@ -34,7 +34,7 @@ new #[Title('Posts'), Layout('layouts::app')] class extends Component {
             ->when(filled($this->sortBy), fn ($q) => $q->orderBy($this->sortBy, $this->sortDir))
             ->when(filled($this->searchQuery), fn ($q) => $this->applySearch($q))
             ->when(filled($this->positions), fn ($q) => $this->applyPositionSorting($q))
-            ->with('user', 'tags')
+            ->with('user', 'tags', 'media')
             ->paginate($this->perPage);
 
         $this->visibleIds = $posts->pluck('id')->map(fn ($id) => (string) $id)->toArray();
@@ -278,25 +278,35 @@ new #[Title('Posts'), Layout('layouts::app')] class extends Component {
                         </x-ui.table.cell>
 
                         <x-ui.table.cell>
-                            <div class="max-w-xs">
-                                <div class="font-medium text-neutral-900 dark:text-neutral-100">
-                                    {{ $post->title }}
-                                </div>
-                                @if ($post->excerpt)
-                                    <div class="mt-1 line-clamp-1 text-xs text-neutral-500 dark:text-neutral-400">
-                                        {{ $post->excerpt }}
+                            <div class="flex max-w-xs items-center gap-3">
+                                @if ($post->featuredImageUrl('thumb'))
+                                    <img
+                                        src="{{ $post->featuredImageUrl('thumb') }}"
+                                        alt="{{ $post->title }}"
+                                        class="size-11 rounded-lg object-cover"
+                                    />
+                                @else
+                                    <div class="flex size-11 items-center justify-center rounded-lg border border-dashed border-neutral-300 text-neutral-400 dark:border-neutral-700 dark:text-neutral-600">
+                                        <x-ui.icon name="photo" class="size-5" />
                                     </div>
                                 @endif
+
+                                <div class="min-w-0">
+                                    <div class="font-medium text-neutral-900 dark:text-neutral-100">
+                                        {{ $post->title }}
+                                    </div>
+                                    @if ($post->excerpt)
+                                        <div class="mt-1 line-clamp-1 text-xs text-neutral-500 dark:text-neutral-400">
+                                            {{ $post->excerpt }}
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
                         </x-ui.table.cell>
 
                         <x-ui.table.cell>
                             <div class="flex items-center gap-2">
-                                <img
-                                    src="https://api.dicebear.com/9.x/avataaars/svg?seed={{ $post->user->id }}"
-                                    alt="{{ $post->user->name }}"
-                                    class="size-6 rounded-full"
-                                />
+                                <x-ui.avatar :name="$post->user->name" size="xs" color="auto" />
                                 <span class="text-sm text-neutral-700 dark:text-neutral-300">
                                     {{ $post->user->name }}
                                 </span>

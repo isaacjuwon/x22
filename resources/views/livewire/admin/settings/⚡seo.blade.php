@@ -1,73 +1,124 @@
 <?php
 
+use App\Models\SettingAsset;
 use App\Settings\SeoSettings;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+use Livewire\WithFileUploads;
 
 new #[Title('SEO Settings'), Layout('layouts::app')] class extends Component {
+    use WithFileUploads;
 
-    #[Validate('nullable|string|max:255')]
     public string $meta_title = '';
 
-    #[Validate('nullable|string|max:500')]
     public string $meta_description = '';
 
-    #[Validate('nullable|string|max:500')]
     public string $meta_keywords = '';
 
-    #[Validate('nullable|url|max:500')]
     public string $og_image = '';
 
-    #[Validate('nullable|string|max:50')]
     public string $og_type = '';
 
-    #[Validate('nullable|string|max:50')]
     public string $twitter_card = '';
 
-    #[Validate('nullable|string|max:100')]
     public string $twitter_site = '';
 
-    #[Validate('nullable|string|max:50')]
     public string $google_analytics_id = '';
 
-    #[Validate('nullable|string|max:50')]
     public string $google_tag_manager_id = '';
 
-    #[Validate('boolean')]
     public bool $index_site = true;
+
+    public mixed $seoOgImageUpload = null;
+
+    public bool $shouldRemoveSeoOgImage = false;
 
     public function mount(SeoSettings $settings): void
     {
-        $this->meta_title            = $settings->meta_title;
-        $this->meta_description      = $settings->meta_description;
-        $this->meta_keywords         = $settings->meta_keywords;
-        $this->og_image              = $settings->og_image;
-        $this->og_type               = $settings->og_type;
-        $this->twitter_card          = $settings->twitter_card;
-        $this->twitter_site          = $settings->twitter_site;
-        $this->google_analytics_id   = $settings->google_analytics_id;
+        $this->meta_title = $settings->meta_title;
+        $this->meta_description = $settings->meta_description;
+        $this->meta_keywords = $settings->meta_keywords;
+        $this->og_image = $settings->og_image;
+        $this->og_type = $settings->og_type;
+        $this->twitter_card = $settings->twitter_card;
+        $this->twitter_site = $settings->twitter_site;
+        $this->google_analytics_id = $settings->google_analytics_id;
         $this->google_tag_manager_id = $settings->google_tag_manager_id;
-        $this->index_site            = $settings->index_site;
+        $this->index_site = $settings->index_site;
+    }
+
+    #[Computed]
+    public function currentSeoOgImageUrl(): ?string
+    {
+        if ($this->seoOgImageUpload instanceof TemporaryUploadedFile) {
+            return $this->seoOgImageUpload->temporaryUrl();
+        }
+
+        if ($this->shouldRemoveSeoOgImage) {
+            return null;
+        }
+
+        return SettingAsset::findForKey(SettingAsset::SEO_OG_IMAGE_KEY)?->fileUrl('og') ?: (blank($this->og_image) ? null : $this->og_image);
+    }
+
+    protected function rules(): array
+    {
+        return [
+            'meta_title' => ['nullable', 'string', 'max:255'],
+            'meta_description' => ['nullable', 'string', 'max:500'],
+            'meta_keywords' => ['nullable', 'string', 'max:500'],
+            'og_type' => ['nullable', 'string', 'max:50'],
+            'twitter_card' => ['nullable', 'string', 'max:50'],
+            'twitter_site' => ['nullable', 'string', 'max:100'],
+            'google_analytics_id' => ['nullable', 'string', 'max:50'],
+            'google_tag_manager_id' => ['nullable', 'string', 'max:50'],
+            'index_site' => ['boolean'],
+            'seoOgImageUpload' => ['nullable', 'image', 'max:3072'],
+        ];
+    }
+
+    public function removeSeoOgImageMedia(): void
+    {
+        $this->seoOgImageUpload = null;
+        $this->shouldRemoveSeoOgImage = true;
     }
 
     public function save(SeoSettings $settings): void
     {
         $this->validate();
 
-        $settings->meta_title            = $this->meta_title;
-        $settings->meta_description      = $this->meta_description;
-        $settings->meta_keywords         = $this->meta_keywords;
-        $settings->og_image              = $this->og_image;
-        $settings->og_type               = $this->og_type;
-        $settings->twitter_card          = $this->twitter_card;
-        $settings->twitter_site          = $this->twitter_site;
-        $settings->google_analytics_id   = $this->google_analytics_id;
+        $settings->meta_title = $this->meta_title;
+        $settings->meta_description = $this->meta_description;
+        $settings->meta_keywords = $this->meta_keywords;
+        $settings->og_type = $this->og_type;
+        $settings->twitter_card = $this->twitter_card;
+        $settings->twitter_site = $this->twitter_site;
+        $settings->google_analytics_id = $this->google_analytics_id;
         $settings->google_tag_manager_id = $this->google_tag_manager_id;
-        $settings->index_site            = $this->index_site;
+        $settings->index_site = $this->index_site;
+
+        if ($this->shouldRemoveSeoOgImage) {
+            $settings->og_image = '';
+        }
 
         $settings->save();
+
+        $asset = SettingAsset::forKey(SettingAsset::SEO_OG_IMAGE_KEY);
+
+        if ($this->shouldRemoveSeoOgImage && ! $this->seoOgImageUpload instanceof TemporaryUploadedFile) {
+            $asset->clearMediaCollection(SettingAsset::FILE_COLLECTION);
+        }
+
+        if ($this->seoOgImageUpload instanceof TemporaryUploadedFile) {
+            $asset->clearMediaCollection(SettingAsset::FILE_COLLECTION);
+            $asset->addMedia($this->seoOgImageUpload->getRealPath())
+                ->usingName(pathinfo($this->seoOgImageUpload->getClientOriginalName(), PATHINFO_FILENAME))
+                ->usingFileName($this->seoOgImageUpload->hashName())
+                ->toMediaCollection(SettingAsset::FILE_COLLECTION);
+        }
 
         $this->dispatch('notify', type: 'success', content: __('SEO settings saved.'));
     }
@@ -75,7 +126,6 @@ new #[Title('SEO Settings'), Layout('layouts::app')] class extends Component {
 ?>
 
 <div class="mx-auto max-w-4xl space-y-6 p-6">
-
     <div>
         <x-ui.heading level="h1" size="lg">{{ __('Site Settings') }}</x-ui.heading>
         <x-ui.text class="mt-1 text-neutral-500 dark:text-neutral-400">
@@ -90,12 +140,11 @@ new #[Title('SEO Settings'), Layout('layouts::app')] class extends Component {
         :subheading="__('Control how your site appears in search engines and social shares.')"
     >
         <form wire:submit="save" class="space-y-6">
-
             <x-ui.separator :label="__('Meta Tags')" />
 
             <x-ui.field>
                 <x-ui.label>{{ __('Meta Title') }}</x-ui.label>
-                <x-ui.input wire:model="meta_title" placeholder="{{ __('My Portfolio — Developer & Designer') }}" />
+                <x-ui.input wire:model="meta_title" placeholder="{{ __('My Portfolio - Developer & Designer') }}" />
                 <x-ui.description>{{ __('Shown in browser tabs and search results. ~60 characters recommended.') }}</x-ui.description>
                 <x-ui.error name="meta_title" />
             </x-ui.field>
@@ -117,12 +166,16 @@ new #[Title('SEO Settings'), Layout('layouts::app')] class extends Component {
 
             <x-ui.separator :label="__('Open Graph')" />
 
-            <x-ui.field>
-                <x-ui.label>{{ __('OG Image URL') }}</x-ui.label>
-                <x-ui.input wire:model="og_image" type="url" placeholder="https://example.com/og.jpg" />
-                <x-ui.description>{{ __('Recommended: 1200×630px.') }}</x-ui.description>
-                <x-ui.error name="og_image" />
-            </x-ui.field>
+            <x-ui.media.single
+                :label="__('Default OG Image')"
+                :hint="__('Recommended size: 1200x630px. This image is used site-wide unless a post or page overrides it.')"
+                :preview-url="$this->currentSeoOgImageUrl"
+                :preview-alt="__('Default SEO image preview')"
+                input-model="seoOgImageUpload"
+                input-name="seoOgImageUpload"
+                remove-action="removeSeoOgImageMedia"
+                error="seoOgImageUpload"
+            />
 
             <div class="grid gap-5 sm:grid-cols-2">
                 <x-ui.field>
@@ -183,7 +236,6 @@ new #[Title('SEO Settings'), Layout('layouts::app')] class extends Component {
                     {{ __('Save Changes') }}
                 </x-ui.button>
             </div>
-
         </form>
     </x-admin::settings.layout>
 </div>

@@ -1,7 +1,7 @@
 <x-flux::card class="hover:shadow-lg transition-shadow">
     <div class="space-y-3">
-        @if ($post->og_image)
-            <img src="{{ $post->og_image }}" alt="{{ $post->title }}" class="w-full h-48 object-cover rounded-lg">
+        @if ($post->featuredImageUrl('card'))
+            <img src="{{ $post->featuredImageUrl('card') }}" alt="{{ $post->title }}" class="w-full h-48 object-cover rounded-lg">
         @endif
 
         <h3 class="text-lg font-semibold text-neutral-900 dark:text-white line-clamp-2">

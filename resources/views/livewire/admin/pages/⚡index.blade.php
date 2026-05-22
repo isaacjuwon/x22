@@ -20,7 +20,7 @@ new #[Title('Pages'), Layout('layouts::app')] class extends Component {
         $pages = $this->baseQuery()
             ->when(filled($this->sortBy), fn ($q) => $q->orderBy($this->sortBy, $this->sortDir))
             ->when(filled($this->searchQuery), fn ($q) => $this->applySearch($q))
-            ->with('user')
+            ->with('user', 'media')
             ->paginate($this->perPage);
 
         return $this->view(['pages' => $pages]);
@@ -179,15 +179,29 @@ new #[Title('Pages'), Layout('layouts::app')] class extends Component {
                         </x-ui.table.cell>
 
                         <x-ui.table.cell>
-                            <div class="max-w-xs">
-                                <div class="font-medium text-neutral-900 dark:text-neutral-100">
-                                    {{ $page->title }}
-                                </div>
-                                @if ($page->excerpt)
-                                    <div class="mt-1 line-clamp-1 text-xs text-neutral-500 dark:text-neutral-400">
-                                        {{ $page->excerpt }}
+                            <div class="flex max-w-xs items-center gap-3">
+                                @if ($page->featuredImageUrl('thumb'))
+                                    <img
+                                        src="{{ $page->featuredImageUrl('thumb') }}"
+                                        alt="{{ $page->title }}"
+                                        class="size-11 rounded-lg object-cover"
+                                    />
+                                @else
+                                    <div class="flex size-11 items-center justify-center rounded-lg border border-dashed border-neutral-300 text-neutral-400 dark:border-neutral-700 dark:text-neutral-600">
+                                        <x-ui.icon name="photo" class="size-5" />
                                     </div>
                                 @endif
+
+                                <div class="min-w-0">
+                                    <div class="font-medium text-neutral-900 dark:text-neutral-100">
+                                        {{ $page->title }}
+                                    </div>
+                                    @if ($page->excerpt)
+                                        <div class="mt-1 line-clamp-1 text-xs text-neutral-500 dark:text-neutral-400">
+                                            {{ $page->excerpt }}
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
                         </x-ui.table.cell>
 
@@ -199,11 +213,7 @@ new #[Title('Pages'), Layout('layouts::app')] class extends Component {
 
                         <x-ui.table.cell>
                             <div class="flex items-center gap-2">
-                                <img
-                                    src="https://api.dicebear.com/9.x/avataaars/svg?seed={{ $page->user->id }}"
-                                    alt="{{ $page->user->name }}"
-                                    class="size-6 rounded-full"
-                                />
+                                <x-ui.avatar :name="$page->user->name" size="xs" color="auto" />
                                 <span class="text-sm text-neutral-700 dark:text-neutral-300">
                                     {{ $page->user->name }}
                                 </span>
