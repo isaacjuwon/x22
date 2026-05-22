@@ -161,8 +161,8 @@ new #[Title('New Post'), Layout('layouts::app')] class extends Component {
 
         <x-ui.field>
             <x-ui.label required>{{ __('Content') }}</x-ui.label>
-		<x-tiptap-editor id="content" name="content" wire:model="content" :value="$content" />
-            <x-ui.textarea wire:model="content" rows="12" placeholder="{{ __('Write your post...') }}" />
+	    <x-tiptap-editor id="content" name="content" wire:model="content" :value="$content" />
+           {{-- <x-ui.textarea wire:model="content" rows="12" placeholder="{{ __('Write your post...') }}" /> --}}
             <x-ui.error name="content" />
         </x-ui.field>
 
