@@ -4,7 +4,7 @@
    ============================================================ */
 
 /* ── Google Fonts: JetBrains Mono ── */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap');
 
 /* ============================================================
    LIGHT (terminal on white / "paper terminal")
@@ -84,12 +84,18 @@
     letter-spacing: -0.01em;
 }
 
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
 /* ============================================================
    BODY — scanline texture + dark terminal bg
    ============================================================ */
 body {
     background-color: #f5f5f0;
     color: #323228;
+    transition: background-color 0.2s, color 0.2s;
 }
 
 .dark body {
@@ -118,13 +124,18 @@ body {
     font-size: 0.75rem;
     font-weight: 500;
     border-width: 1px;
-    transition: background 0.1s, color 0.1s, box-shadow 0.1s;
+    transition: background 0.15s, color 0.15s, box-shadow 0.15s, border-color 0.15s;
+    cursor: pointer;
 }
 
 [data-slot="button"]:focus-visible {
     outline: 1px solid #4ade80;
     outline-offset: 2px;
     box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.15);
+}
+
+[data-slot="button"]:active {
+    transform: translateY(1px);
 }
 
 /* Primary button */
@@ -175,7 +186,7 @@ body {
     border: 1px solid #d4d4cc !important;
     color: #1a1a14 !important;
     caret-color: #16a34a;
-    transition: border-color 0.1s, box-shadow 0.1s;
+    transition: border-color 0.15s, box-shadow 0.15s;
 }
 .dark [data-slot="input"],
 .dark [data-slot="textarea"],
