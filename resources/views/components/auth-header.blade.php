@@ -5,5 +5,5 @@
 
 <div class="flex w-full flex-col text-center">
     <x-ui.heading size="xl">{{ $title }}</x-ui.heading>
-    <x-ui.subheading>{{ $description }}</x-ui.subheading>
+    <x-ui.description>{{ $description }}</x-ui.description>
 </div>

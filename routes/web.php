@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => view('home'))->name('home');
@@ -9,9 +10,22 @@ Route::get('/posts', fn () => view('posts.index'))->name('posts.index');
 
 Route::get('/projects', fn () => view('projects.index'))->name('projects.index');
 
+Route::get('/projects/{project}', function (App\Models\Project $project) {
+    return view('projects.show', compact('project'));
+})->name('projects.show');
+
+Route::get('/testimonials', function () {
+    $testimonials = App\Models\Testimonial::with(['user', 'project'])->where('status', 'approved')->latest()->paginate(12);
+    return view('testimonials.index', compact('testimonials'));
+})->name('testimonials.index');
+
 Route::get('/posts/{post:slug}', function (Post $post) {
     return view('posts.show', compact('post'));
 })->name('posts.show');
+
+Route::get('/tags/{tag:slug}', function (Tag $tag) {
+    return view('tags.show', compact('tag'));
+})->name('tags.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');

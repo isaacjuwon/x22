@@ -9,7 +9,9 @@
     </div>
 
     <x-ui.heading level="h3" size="md" class="mb-2 text-neutral-700 dark:text-neutral-100 group-hover:text-green-400">
-        {{ $project->title }}
+        <a href="{{ route('projects.show', $project) }}" wire:navigate>
+            {{ $project->title }}
+        </a>
     </x-ui.heading>
 
     @isset($project->description)

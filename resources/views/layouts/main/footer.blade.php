@@ -47,10 +47,10 @@
                         <x-ui.link href="{{ route('posts.index') }}" wire:navigate class="text-sm text-neutral-600 dark:text-neutral-500 hover:text-green-600 dark:hover:text-green-400">{{ __('Blog') }}</x-ui.link>
                     @endif
                     @if ($general->show_projects_section)
-                        <x-ui.link href="{{ route('projects.index') }}" class="text-sm text-neutral-600 dark:text-neutral-500 hover:text-green-600 dark:hover:text-green-400">{{ __('Projects') }}</x-ui.link>
+                        <x-ui.link href="{{ route('projects.index') }}" wire:navigate class="text-sm text-neutral-600 dark:text-neutral-500 hover:text-green-600 dark:hover:text-green-400">{{ __('Projects') }}</x-ui.link>
                     @endif
                     @if ($general->show_testimonials_section)
-                        <x-ui.link href="{{ route('home') }}#testimonials" class="text-sm text-neutral-600 dark:text-neutral-500 hover:text-green-600 dark:hover:text-green-400">{{ __('Testimonials') }}</x-ui.link>
+                        <x-ui.link href="{{ route('testimonials.index') }}" wire:navigate class="text-sm text-neutral-600 dark:text-neutral-500 hover:text-green-600 dark:hover:text-green-400">{{ __('Testimonials') }}</x-ui.link>
                     @endif
                 </nav>
             </div>

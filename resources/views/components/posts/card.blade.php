@@ -59,7 +59,9 @@
         @if ($post->tags->isNotEmpty())
             <div class="flex flex-wrap gap-1.5 pt-1">
                 @foreach ($post->tags->take(3) as $tag)
-                    <x-ui.badge size="sm" color="green" variant="outline">{{ $tag->name }}</x-ui.badge>
+                    <a href="{{ route('tags.show', $tag->slug) }}" wire:navigate>
+                        <x-ui.badge size="sm" color="green" variant="outline">{{ $tag->name }}</x-ui.badge>
+                    </a>
                 @endforeach
             </div>
         @endif

@@ -130,7 +130,7 @@ new #[Title('Security settings')] class extends Component {
         @if ($canManageTwoFactor)
             <section class="mt-12">
                 <x-ui.heading>{{ __('Two-factor authentication') }}</x-ui.heading>
-                <x-ui.subheading>{{ __('Manage your two-factor authentication settings') }}</x-ui.subheading>
+                <x-ui.description>{{ __('Manage your two-factor authentication settings') }}</x-ui.description>
 
                 <div class="flex flex-col w-full mx-auto space-y-6 text-sm" wire:cloak>
                     @if ($twoFactorEnabled)
