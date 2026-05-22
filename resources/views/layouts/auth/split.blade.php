@@ -40,9 +40,7 @@
         </div>
 
         @persist('toast')
-            <x-ui.toast.group>
-                <x-ui.toast />
-            </x-ui.toast.group>
+            <x-ui.toast />
         @endpersist
 
         @x-ui.Scripts

@@ -22,12 +22,7 @@
             </div>
         </div>
 
-        @persist('toast')
-            <x-ui.toast.group>
-                <x-ui.toast />
-            </x-ui.toast.group>
-        @endpersist
+         <x-ui.toast />
 
-        @x-ui.Scripts
     </body>
 </html>
