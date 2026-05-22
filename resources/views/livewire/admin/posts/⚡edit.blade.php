@@ -13,6 +13,7 @@ use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Laravel\Ai\Ai;
 
 new #[Title('Edit Post'), Layout('layouts::app')] class extends Component {
     use WithFileUploads;
@@ -248,6 +249,17 @@ new #[Title('Edit Post'), Layout('layouts::app')] class extends Component {
             ->usingFileName($file->hashName())
             ->toMediaCollection($collection);
     }
+
+    public function generateExcerpt(): void
+    {
+        if (empty($this->content)) {
+            $this->addError('excerpt', 'Please write some content first to generate an excerpt.');
+            return;
+        }
+
+        $prompt = "Generate a concise, 1-2 sentence excerpt for the following article. Reply ONLY with the excerpt, no other text:\n\n" . strip_tags($this->content);
+        $this->excerpt = Ai::ask($prompt);
+    }
 };
 ?>
 
@@ -273,7 +285,13 @@ new #[Title('Edit Post'), Layout('layouts::app')] class extends Component {
         </x-ui.field>
 
         <x-ui.field>
-            <x-ui.label>{{ __('Excerpt') }}</x-ui.label>
+            <div class="flex items-center justify-between mb-1">
+                <x-ui.label>{{ __('Excerpt') }}</x-ui.label>
+                <x-ui.button wire:click="generateExcerpt" variant="ghost" size="sm" class="text-blue-600 dark:text-blue-400">
+                    <x-ui.icon name="sparkles" class="w-4 h-4 mr-1" />
+                    {{ __('Generate with AI') }}
+                </x-ui.button>
+            </div>
             <x-ui.textarea wire:model="excerpt" rows="2" placeholder="{{ __('Short summary...') }}" />
             <x-ui.error name="excerpt" />
         </x-ui.field>

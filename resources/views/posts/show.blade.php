@@ -113,6 +113,9 @@
                     </figure>
                 @endif
 
+                {{-- AI Reading Assistant --}}
+                <livewire:posts.summarizer :post="$post" />
+
                 {{-- Excerpt --}}
                 @if ($post->excerpt)
                     <p class="mb-8 border-l-4 border-blue-500 pl-6 text-xl italic text-neutral-400">
