@@ -9,20 +9,21 @@ import { TableRow } from '@tiptap/extension-table-row';
 import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
 
-window.setupTiptap = function (
-  elementId,
-  contentInputId,
-  initialContent = '',
-  onUpdateCallback = null,
-) {
+window.tiptapEditors = window.tiptapEditors || {};
+
+window.setupTiptap = function (elementId, contentInputId, initialContent = '', onUpdateCallback = null) {
+
+  // Destroy existing instance before re-initializing
+  if (window.tiptapEditors[elementId]) {
+    window.tiptapEditors[elementId].destroy();
+    delete window.tiptapEditors[elementId];
+  }
+
   const contentInput = document.getElementById(contentInputId);
 
   let content = initialContent;
   try {
-    if (
-      typeof initialContent === 'string' &&
-      (initialContent.startsWith('{') || initialContent.startsWith('['))
-    ) {
+    if (typeof initialContent === 'string' && (initialContent.startsWith('{') || initialContent.startsWith('['))) {
       content = JSON.parse(initialContent);
     }
   } catch (e) {
@@ -47,9 +48,7 @@ window.setupTiptap = function (
       }),
       Table.configure({
         resizable: true,
-        HTMLAttributes: {
-          class: 'tiptap-table',
-        },
+        HTMLAttributes: { class: 'tiptap-table' },
       }),
       TableRow,
       TableHeader,
@@ -58,14 +57,12 @@ window.setupTiptap = function (
         placeholder: 'Write something remarkable...',
       }),
     ],
-    content: content,
+    content,
     editorProps: {
       attributes: {
-        class:
-          'prose prose-zinc prose-lg md:prose-xl max-w-none focus:outline-none min-h-[500px] px-8 py-10',
+        class: 'prose prose-zinc prose-lg md:prose-xl max-w-none focus:outline-none min-h-[500px] px-8 py-10',
       },
     },
-    shouldRerenderOnTransaction: true,
     onUpdate: ({ editor }) => {
       contentInput.value = JSON.stringify(editor.getJSON());
       if (onUpdateCallback) onUpdateCallback();
@@ -78,9 +75,14 @@ window.setupTiptap = function (
     },
   });
 
-  // Expose editor globally for Alpine to access
-  window.tiptapEditors = window.tiptapEditors || {};
   window.tiptapEditors[elementId] = editor;
-
   return editor;
 };
+
+// Clean up on Livewire navigations to prevent stale editors
+document.addEventListener('livewire:navigating', () => {
+  Object.keys(window.tiptapEditors).forEach((id) => {
+    window.tiptapEditors[id].destroy();
+  });
+  window.tiptapEditors = {};
+});

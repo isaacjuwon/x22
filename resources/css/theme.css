@@ -521,3 +521,78 @@ kbd {
     border-color: #2d2d28;
     color: #c8c8b8;
 }
+
+/* ============================================================
+   TIPTAP / PROSE BLOCKQUOTES
+   ============================================================ */
+
+.prose blockquote,
+.tiptap-content blockquote {
+    position: relative;
+    margin: 1.5rem 0;
+    padding: 1rem 1.25rem 1rem 1.5rem;
+
+    border-left: 3px solid #16a34a;
+    border-radius: 0 !important;
+
+    background: #f0fdf4;
+    color: #323228;
+
+    font-style: italic;
+
+    box-shadow: none !important;
+}
+
+/* terminal prompt prefix */
+.prose blockquote::before,
+.tiptap-content blockquote::before {
+    content: '>_';
+    position: absolute;
+    left: 0.5rem;
+    top: 0.9rem;
+
+    color: #16a34a;
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* paragraph styling */
+.prose blockquote p,
+.tiptap-content blockquote p {
+    margin: 0;
+    padding-left: 1rem;
+
+    color: inherit;
+    font-size: 1rem;
+    line-height: 1.8;
+    font-weight: 500;
+}
+
+/* remove typography plugin quote marks */
+.prose blockquote p::before,
+.prose blockquote p::after,
+.tiptap-content blockquote p::before,
+.tiptap-content blockquote p::after {
+    content: none !important;
+}
+
+/* dark mode */
+.dark .prose blockquote,
+.dark .tiptap-content blockquote {
+    background: #0f130f;
+    border-left-color: #4ade80;
+    color: #c8c8b8;
+
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.02) 2px,
+        rgba(255,255,255,0.02) 4px
+    );
+}
+
+.dark .prose blockquote::before,
+.dark .tiptap-content blockquote::before {
+    color: #4ade80;
+}
