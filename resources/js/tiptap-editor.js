@@ -33,7 +33,11 @@ window.setupTiptap = function (elementId, contentInputId, initialContent = '', o
   const editor = new Editor({
     element: document.getElementById(elementId),
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        // Exclude these because we're adding them manually below with custom config
+        link: false,
+        underline: false,
+      }),
       Link.configure({
         openOnClick: false,
         HTMLAttributes: {
