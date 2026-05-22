@@ -315,13 +315,19 @@
         modalTitle: '',
         init() {
           const id = config.id;
+          const editorKey = 'tiptap-el-' + id;
+
+          // Destroy any stale editor before creating a new one
+          if (window.tiptapEditors?.[editorKey]) {
+            window.tiptapEditors[editorKey].destroy();
+            delete window.tiptapEditors[editorKey];
+          }
+
           const inputEl = document.getElementById('tiptap-input-' + id);
           const initialContent = inputEl ? inputEl.value : '';
-
           const savedDraft = localStorage.getItem('draft-' + id);
           let contentToLoad = initialContent;
 
-          // If we have a draft and no real initial content, use the draft
           if (
             savedDraft &&
             (!initialContent ||
@@ -337,7 +343,6 @@
             const content = document.getElementById('tiptap-input-' + id).value;
             localStorage.setItem('draft-' + id, content);
 
-            // Livewire sync
             if (window.Livewire && config.wireModel) {
               this.$wire.set(config.wireModel, content);
             }
@@ -345,13 +350,12 @@
 
           try {
             this.editor = window.setupTiptap(
-              'tiptap-el-' + id,
+              editorKey,
               'tiptap-input-' + id,
               contentToLoad,
               setupCallback,
             );
 
-            // Immediately sync back to Livewire on load if draft was used
             if (contentToLoad === savedDraft && window.Livewire && config.wireModel) {
               this.$wire.set(config.wireModel, savedDraft);
             }
@@ -362,13 +366,19 @@
             );
             localStorage.removeItem('draft-' + id);
 
-            // Fallback to original content
             this.editor = window.setupTiptap(
-              'tiptap-el-' + id,
+              editorKey,
               'tiptap-input-' + id,
               initialContent,
               setupCallback,
             );
+          }
+        },
+        destroy() {
+          const editorKey = 'tiptap-el-' + config.id;
+          if (window.tiptapEditors?.[editorKey]) {
+            window.tiptapEditors[editorKey].destroy();
+            delete window.tiptapEditors[editorKey];
           }
         },
         openModal(type, title, defaultValue = '') {
