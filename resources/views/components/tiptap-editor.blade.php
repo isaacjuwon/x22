@@ -302,7 +302,6 @@
   <!-- Hidden Input for Form -->
   <input type="hidden" name="{{ $name }}" id="tiptap-input-{{ $id }}" value="{{ $value }}" />
 </div>
-@script
 <script>
   if (typeof window.tiptapEditor !== 'function') {
     window.tiptapEditor = function (config) {
@@ -492,4 +491,3 @@
     };
   }
 </script>
-@endscript
