@@ -152,7 +152,7 @@ new class extends Component {
     }
 }; ?>
 
-<flux:modal
+<x-ui.modal
     name="two-factor-setup-modal"
     class="max-w-md md:min-w-md"
     @close="closeModal"
@@ -173,13 +173,13 @@ new class extends Component {
                             @endfor
                         </div>
 
-                        <flux:icon.qr-code class="relative z-20 dark:text-accent-foreground"/>
+                        <x-ui.icon.qr-code class="relative z-20 dark:text-accent-foreground"/>
                     </div>
                 </div>
 
                 <div class="space-y-2 text-center">
-                    <flux:heading size="lg">{{ $this->modalConfig['title'] }}</flux:heading>
-                    <flux:text>{{ $this->modalConfig['description'] }}</flux:text>
+                    <x-ui.heading size="lg">{{ $this->modalConfig['title'] }}</x-ui.heading>
+                    <x-ui.text>{{ $this->modalConfig['description'] }}</x-ui.text>
                 </div>
             </div>
 
@@ -190,7 +190,7 @@ new class extends Component {
                         x-data
                         x-init="$nextTick(() => $el.querySelector('input')?.focus())"
                     >
-                        <flux:otp
+                        <x-ui.otp
                             name="code"
                             wire:model="code"
                             length="6"
@@ -201,40 +201,40 @@ new class extends Component {
                     </div>
 
                     <div class="flex items-center space-x-3">
-                        <flux:button
+                        <x-ui.button
                             variant="outline"
                             class="flex-1"
                             wire:click="resetVerification"
                         >
                             {{ __('Back') }}
-                        </flux:button>
+                        </x-ui.button>
 
-                        <flux:button
+                        <x-ui.button
                             variant="primary"
                             class="flex-1"
                             wire:click="confirmTwoFactor"
                             x-bind:disabled="$wire.code.length < 6"
                         >
                             {{ __('Confirm') }}
-                        </flux:button>
+                        </x-ui.button>
                     </div>
                 </div>
             @else
                 @error('setupData')
-                    <flux:callout variant="danger" icon="x-circle" heading="{{ $message }}"/>
+                    <x-ui.callout variant="danger" icon="x-circle" heading="{{ $message }}"/>
                 @enderror
 
                 <div class="flex justify-center">
                     <div class="relative w-64 overflow-hidden border rounded-lg border-stone-200 dark:border-stone-700 aspect-square">
                         @empty($qrCodeSvg)
                             <div class="absolute inset-0 flex items-center justify-center bg-white dark:bg-stone-700 animate-pulse">
-                                <flux:icon.loading/>
+                                <x-ui.icon.loading/>
                             </div>
                         @else
                             <div x-data class="flex items-center justify-center h-full p-4">
                                 <div
                                     class="bg-white p-3 rounded"
-                                    :style="($flux.appearance === 'dark' || ($flux.appearance === 'system' && $flux.dark)) ? 'filter: invert(1) brightness(1.5)' : ''"
+                                    :style="($x-ui..appearance === 'dark' || ($x-ui..appearance === 'system' && $x-ui..dark)) ? 'filter: invert(1) brightness(1.5)' : ''"
                                 >
                                     {!! $qrCodeSvg !!}
                                 </div>
@@ -244,14 +244,14 @@ new class extends Component {
                 </div>
 
                 <div>
-                    <flux:button
+                    <x-ui.button
                         :disabled="$errors->has('setupData')"
                         variant="primary"
                         class="w-full"
                         wire:click="showVerificationIfNecessary"
                     >
                         {{ $this->modalConfig['buttonText'] }}
-                    </flux:button>
+                    </x-ui.button>
                 </div>
 
                 <div class="space-y-4">
@@ -280,7 +280,7 @@ new class extends Component {
                         <div class="flex items-stretch w-full border rounded-xl dark:border-stone-700">
                             @empty($manualSetupKey)
                                 <div class="flex items-center justify-center w-full p-3 bg-stone-100 dark:bg-stone-700">
-                                    <flux:icon.loading variant="mini"/>
+                                    <x-ui.icon.loading variant="mini"/>
                                 </div>
                             @else
                                 <input
@@ -294,12 +294,12 @@ new class extends Component {
                                     @click="copy()"
                                     class="px-3 transition-colors border-l cursor-pointer border-stone-200 dark:border-stone-600"
                                 >
-                                    <flux:icon.document-duplicate x-show="!copied" variant="outline"></flux:icon>
-                                    <flux:icon.check
+                                    <x-ui.icon.document-duplicate x-show="!copied" variant="outline"></x-ui.icon>
+                                    <x-ui.icon.check
                                         x-show="copied"
                                         variant="solid"
                                         class="text-green-500"
-                                    ></flux:icon>
+                                    ></x-ui.icon>
                                 </button>
                             @endempty
                         </div>
@@ -307,4 +307,4 @@ new class extends Component {
                 </div>
             @endif
         </div>
-</flux:modal>
+</x-ui.modal>

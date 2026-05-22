@@ -75,7 +75,7 @@
 
                 {{-- Back link --}}
                 <div class="mb-6">
-                    <x-ui.button as="a" href="{{ route('posts.index') }}" variant="ghost" size="sm" icon="arrow-left">
+                    <x-ui.button as="a" href="{{ route('posts.index') }}" wire:navigate variant="ghost" size="sm" icon="arrow-left">
                         {{ __('Back to Posts') }}
                     </x-ui.button>
                 </div>
@@ -161,7 +161,7 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             @if ($previousPost)
-                                <a href="{{ route('posts.show', $previousPost->slug) }}" class="flex flex-col gap-1">
+                                <a href="{{ route('posts.show', $previousPost->slug) }}" wire:navigate class="flex flex-col gap-1">
                                     <x-ui.text class="text-sm text-neutral-500">← {{ __('Previous') }}</x-ui.text>
                                     <x-ui.text class="font-semibold hover:text-blue-600 dark:hover:text-blue-400">
                                         {{ Str::limit($previousPost->title, 40) }}
@@ -177,7 +177,7 @@
 
                         <div class="text-right">
                             @if ($nextPost)
-                                <a href="{{ route('posts.show', $nextPost->slug) }}" class="flex flex-col items-end gap-1">
+                                <a href="{{ route('posts.show', $nextPost->slug) }}" wire:navigate class="flex flex-col items-end gap-1">
                                     <x-ui.text class="text-sm text-neutral-500">{{ __('Next') }} →</x-ui.text>
                                     <x-ui.text class="font-semibold hover:text-blue-600 dark:hover:text-blue-400">
                                         {{ Str::limit($nextPost->title, 40) }}

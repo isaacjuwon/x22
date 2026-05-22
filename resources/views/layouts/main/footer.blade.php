@@ -44,7 +44,7 @@
                 <nav class="flex flex-col gap-2">
                     <x-ui.link href="{{ route('home') }}" class="text-sm text-neutral-600 dark:text-neutral-500 hover:text-green-600 dark:hover:text-green-400">{{ __('Home') }}</x-ui.link>
                     @if ($general->show_posts_section)
-                        <x-ui.link href="{{ route('posts.index') }}" class="text-sm text-neutral-600 dark:text-neutral-500 hover:text-green-600 dark:hover:text-green-400">{{ __('Blog') }}</x-ui.link>
+                        <x-ui.link href="{{ route('posts.index') }}" wire:navigate class="text-sm text-neutral-600 dark:text-neutral-500 hover:text-green-600 dark:hover:text-green-400">{{ __('Blog') }}</x-ui.link>
                     @endif
                     @if ($general->show_projects_section)
                         <x-ui.link href="{{ route('projects.index') }}" class="text-sm text-neutral-600 dark:text-neutral-500 hover:text-green-600 dark:hover:text-green-400">{{ __('Projects') }}</x-ui.link>

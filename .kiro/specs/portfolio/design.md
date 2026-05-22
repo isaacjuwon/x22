@@ -2,7 +2,7 @@
 
 ## Overview
 
-A database-driven professional portfolio built on Laravel 13, Livewire 4, Flux UI v2, and Tailwind CSS v4. The application has two distinct surfaces:
+A database-driven professional portfolio built on Laravel 13, Livewire 4, x-ui. UI v2, and Tailwind CSS v4. The application has two distinct surfaces:
 
 - **Public portfolio** — a single-page-style Livewire application served at `/` with smooth anchor navigation, dark mode, and a contact form.
 - **Admin panel** — an auth-protected area at `/admin/*` where the owner manages all content via Livewire CRUD components.
@@ -18,7 +18,7 @@ Content is stored in a relational SQLite (dev) / MySQL (prod) database. File upl
 │                        Browser                              │
 │  Alpine.js (dark mode, mobile nav, scroll spy)              │
 │  Livewire 4 (reactive components over HTTP)                 │
-│  Flux UI v2 (component library)                             │
+│  x-ui. UI v2 (component library)                             │
 │  Tailwind CSS v4 (utility styling)                          │
 └────────────────────┬────────────────────────────────────────┘
                      │ HTTP / Livewire wire requests
@@ -111,7 +111,7 @@ All admin components use the existing `layouts.app` (sidebar) layout via `#[Layo
 | `App\Livewire\Admin\ExperienceManager` | CRUD for experience entries |
 | `App\Livewire\Admin\ContactInbox` | List contact messages; mark as read |
 
-Each manager component follows the pattern: list view with inline edit modal (using `<flux:modal>`), save dispatches `Flux::toast()` on success, validation errors surface via `$this->addError()` / `@error` directives.
+Each manager component follows the pattern: list view with inline edit modal (using `<x-ui.modal>`), save dispatches `x-ui.:toast()` on success, validation errors surface via `$this->addError()` / `@error` directives.
 
 ### Blade Layouts
 
@@ -121,7 +121,7 @@ New public layout (not the existing admin sidebar layout). Includes:
 - `<head>` with `@stack('meta')` slot for SEO tags
 - Fixed nav bar with anchor links and theme toggle
 - Alpine.js dark mode initialisation script on `<html>`
-- `@fluxScripts` and Vite assets
+- `@x-ui.Scripts` and Vite assets
 
 #### `resources/views/layouts/portfolio/head.blade.php`
 
@@ -465,8 +465,8 @@ The theme toggle component reads and writes `localStorage.theme` and toggles the
     "
     aria-label="Toggle dark mode"
 >
-    <template x-if="dark"><flux:icon.moon /></template>
-    <template x-if="!dark"><flux:icon.sun /></template>
+    <template x-if="dark"><x-ui.icon.moon /></template>
+    <template x-if="!dark"><x-ui.icon.sun /></template>
 </button>
 ```
 

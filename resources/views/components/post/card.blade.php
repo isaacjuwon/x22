@@ -1,4 +1,4 @@
-<x-flux::card class="hover:shadow-lg transition-shadow">
+<x-x-ui.:card class="hover:shadow-lg transition-shadow">
     <div class="space-y-3">
         @if ($post->featuredImageUrl('card'))
             <img src="{{ $post->featuredImageUrl('card') }}" alt="{{ $post->title }}" class="w-full h-48 object-cover rounded-lg">
@@ -25,17 +25,17 @@
         @if ($post->tags->count())
             <div class="flex flex-wrap gap-1">
                 @foreach ($post->tags as $tag)
-                    <x-flux::badge size="sm" variant="neutral">
+                    <x-x-ui.:badge size="sm" variant="neutral">
                         {{ $tag->name }}
-                    </x-flux::badge>
+                    </x-x-ui.:badge>
                 @endforeach
             </div>
         @endif
 
-        <a href="{{ route('posts.show', $post->slug) }}" class="inline-block mt-2">
-            <x-flux::button size="sm">
+        <a href="{{ route('posts.show', $post->slug) }}" wire:navigate class="inline-block mt-2">
+            <x-x-ui.:button size="sm">
                 Read More
-            </x-flux::button>
+            </x-x-ui.:button>
         </a>
     </div>
-</x-flux::card>
+</x-x-ui.:card>

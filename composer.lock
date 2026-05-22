@@ -2388,16 +2388,16 @@
             "time": "2026-03-08T20:05:35+00:00"
         },
         {
-            "name": "livewire/flux",
+            "name": "livewire/x-ui.",
             "version": "v2.14.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/livewire/flux.git",
+                "url": "https://github.com/livewire/x-ui..git",
                 "reference": "44f240efd186b5629d5e4c4a4cc7bbba0111fb48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/flux/zipball/44f240efd186b5629d5e4c4a4cc7bbba0111fb48",
+                "url": "https://api.github.com/repos/livewire/x-ui./zipball/44f240efd186b5629d5e4c4a4cc7bbba0111fb48",
                 "reference": "44f240efd186b5629d5e4c4a4cc7bbba0111fb48",
                 "shasum": ""
             },
@@ -2417,16 +2417,16 @@
             "extra": {
                 "laravel": {
                     "aliases": {
-                        "Flux": "Flux\\Flux"
+                        "x-ui.": "x-ui.\\x-ui."
                     },
                     "providers": [
-                        "Flux\\FluxServiceProvider"
+                        "x-ui.\\x-ui.ServiceProvider"
                     ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Flux\\": "src/"
+                    "x-ui.\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2442,14 +2442,14 @@
             "description": "The official UI component library for Livewire.",
             "keywords": [
                 "components",
-                "flux",
+                "x-ui.",
                 "laravel",
                 "livewire",
                 "ui"
             ],
             "support": {
-                "issues": "https://github.com/livewire/flux/issues",
-                "source": "https://github.com/livewire/flux/tree/v2.14.1"
+                "issues": "https://github.com/livewire/x-ui./issues",
+                "source": "https://github.com/livewire/x-ui./tree/v2.14.1"
             },
             "time": "2026-04-23T23:00:08+00:00"
         },

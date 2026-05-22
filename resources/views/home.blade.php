@@ -60,7 +60,7 @@
                             {{ __('Thoughts, tutorials, and updates from the team.') }}
                         </x-ui.text>
                     </div>
-                    <x-ui.button as="a" href="{{ route('posts.index') }}" variant="ghost" size="sm">
+                    <x-ui.button as="a" href="{{ route('posts.index') }}" wire:navigate variant="ghost" size="sm">
                         {{ __('All posts') }} →
                     </x-ui.button>
                 </div>

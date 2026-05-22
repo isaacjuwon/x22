@@ -1,30 +1,30 @@
-<flux:dropdown position="bottom" align="start">
-    <flux:sidebar.profile
+<x-ui.dropdown position="bottom" align="start">
+    <x-ui.sidebar.profile
         :name="auth()->user()->name"
         :initials="auth()->user()->initials()"
         icon:trailing="chevrons-up-down"
         data-test="sidebar-menu-button"
     />
 
-    <flux:menu>
+    <x-ui.menu>
         <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-            <flux:avatar
+            <x-ui.avatar
                 :name="auth()->user()->name"
                 :initials="auth()->user()->initials()"
             />
             <div class="grid flex-1 text-start text-sm leading-tight">
-                <flux:heading class="truncate">{{ auth()->user()->name }}</flux:heading>
-                <flux:text class="truncate">{{ auth()->user()->email }}</flux:text>
+                <x-ui.heading class="truncate">{{ auth()->user()->name }}</x-ui.heading>
+                <x-ui.text class="truncate">{{ auth()->user()->email }}</x-ui.text>
             </div>
         </div>
-        <flux:menu.separator />
-        <flux:menu.radio.group>
-            <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
+        <x-ui.menu.separator />
+        <x-ui.menu.radio.group>
+            <x-ui.menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
                 {{ __('Settings') }}
-            </flux:menu.item>
+            </x-ui.menu.item>
             <form method="POST" action="{{ route('logout') }}" class="w-full">
                 @csrf
-                <flux:menu.item
+                <x-ui.menu.item
                     as="button"
                     type="submit"
                     icon="arrow-right-start-on-rectangle"
@@ -32,8 +32,8 @@
                     data-test="logout-button"
                 >
                     {{ __('Log out') }}
-                </flux:menu.item>
+                </x-ui.menu.item>
             </form>
-        </flux:menu.radio.group>
-    </flux:menu>
-</flux:dropdown>
+        </x-ui.menu.radio.group>
+    </x-ui.menu>
+</x-ui.dropdown>

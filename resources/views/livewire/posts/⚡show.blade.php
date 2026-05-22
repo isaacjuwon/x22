@@ -74,11 +74,11 @@ new class extends Component {
     {{-- Header --}}
     <header class="mb-8 space-y-4">
         <div class="mb-4">
-            <flux:link href="{{ route('posts.index') }}">← {{ __('Back to Posts') }}</flux:link>
+            <x-ui.link href="{{ route('posts.index') }}" wire:navigate>← {{ __('Back tx-ui.sts') }}</flux:link>
         </div>
 
         @if ($post->featured)
-            <flux:badge color="amber">{{ __('Featured') }}</flux:badge>
+            <x-ui.badge color="amber">{{ __('Featured') }}</x-ui.badge>
         @endif
 
         <h1 class="text-4xl font-bold">{{ $post->title }}</h1>
@@ -92,11 +92,11 @@ new class extends Component {
                     class="h-10 w-10 rounded-full"
                 />
                 <div>
-                    <flux:text class="font-medium text-gray-900">{{ $post->user->name }}</flux:text>
-                    <flux:text class="text-sm">{{ $post->published_at->format('M d, Y') }}</flux:text>
+                    <x-ui.text class="font-medium text-gray-900">{{ $post->user->name }}</x-ui.text>
+                    <x-ui.text class="text-sm">{{ $post->published_at->format('M d, Y') }}</x-ui.text>
                 </div>
             </div>
-            <flux:text class="text-sm">{{ $post->view_count }} {{ __('views') }}</flux:text>
+            <x-ui.text class="text-sm">{{ $post->view_count }} {{ __('views') }}</x-ui.text>
         </div>
     </header>
 
@@ -126,12 +126,12 @@ new class extends Component {
     {{-- Tags --}}
     @if ($post->tags->isNotEmpty())
         <div class="mb-8 space-y-3 border-t border-gray-200 pt-6">
-            <flux:text class="font-semibold">{{ __('Tags') }}</flux:text>
+            <x-ui.text class="font-semibold">{{ __('Tags') }}</x-ui.text>
             <div class="flex flex-wrap gap-2">
                 @foreach ($post->tags as $tag)
-                    <flux:badge wire:key="tag-{{ $tag->id }}" color="gray">
+                    <x-ui.badge wire:key="tag-{{ $tag->id }}" color="gray">
                         {{ $tag->name }}
-                    </flux:badge>
+                    </x-ui.badge>
                 @endforeach
             </div>
         </div>
@@ -142,32 +142,32 @@ new class extends Component {
         <div class="grid grid-cols-2 gap-4">
             <div>
                 @if ($this->previousPost)
-                    <flux:link href="{{ route('posts.show', $this->previousPost) }}" class="flex flex-col gap-2">
-                        <flux:text class="text-sm text-gray-500">← {{ __('Previous') }}</flux:text>
-                        <flux:text class="font-semibold hover:text-blue-600">
+                    <x-ui.link href="{{ route('posts.show', $this->previousPost) }}" wire:navigate class="flex flex-col gap-2">
+                        <x-ui.text class="text-sm text-gray-500">← {{ __('Previous') }}</x-ui.text>
+                        <x-ui.text class="font-semibold hover:text-blue-600">
                             {{ Str::limit($this->previousPost->title, 40) }}
-                        </flux:text>
-                    </flux:link>
+                        </x-ui.text>
+                    </x-ui.link>
                 @else
                     <div class="opacity-50">
-                        <flux:text class="text-sm text-gray-500">← {{ __('Previous') }}</flux:text>
-                        <flux:text class="text-gray-300">{{ __('No previous post') }}</flux:text>
+                        <x-ui.text class="text-sm text-gray-500">← {{ __('Previous') }}</x-ui.text>
+                        <x-ui.text class="text-gray-300">{{ __('No previous post') }}</x-ui.text>
                     </div>
                 @endif
             </div>
 
             <div class="text-right">
                 @if ($this->nextPost)
-                    <flux:link href="{{ route('posts.show', $this->nextPost) }}" class="flex flex-col items-end gap-2">
-                        <flux:text class="text-sm text-gray-500">{{ __('Next') }} →</flux:text>
-                        <flux:text class="font-semibold hover:text-blue-600">
+                    <x-ui.link href="{{ route('posts.show', $this->nextPost) }}" wire:navigate class="flex flex-col items-end gap-2">
+                        <x-ui.text class="text-sm text-gray-500">{{ __('Next') }} →</x-ui.text>
+                        <x-ui.text class="font-semibold hover:text-blue-600">
                             {{ Str::limit($this->nextPost->title, 40) }}
-                        </flux:text>
-                    </flux:link>
+                        </x-ui.text>
+                    </x-ui.link>
                 @else
                     <div class="opacity-50">
-                        <flux:text class="text-sm text-gray-500">{{ __('Next') }} →</flux:text>
-                        <flux:text class="text-gray-300">{{ __('No next post') }}</flux:text>
+                        <x-ui.text class="text-sm text-gray-500">{{ __('Next') }} →</x-ui.text>
+                        <x-ui.text class="text-gray-300">{{ __('No next post') }}</x-ui.text>
                     </div>
                 @endif
             </div>
@@ -176,14 +176,14 @@ new class extends Component {
 
     {{-- Comments --}}
     <section class="mt-12 border-t border-gray-200 pt-8">
-        <flux:heading level="2" class="mb-6">{{ __('Comments') }}</flux:heading>
+        <x-ui.heading level="2" class="mb-6">{{ __('Comments') }}</x-ui.heading>
         <livewire:posts.comments :post="$post" />
     </section>
 
     {{-- Related posts --}}
     @if ($this->relatedPosts->isNotEmpty())
         <section class="mt-16 border-t border-gray-200 pt-12">
-            <flux:heading level="2" class="mb-6">{{ __('Related Posts') }}</flux:heading>
+            <x-ui.heading level="2" class="mb-6">{{ __('Related Posts') }}</x-ui.heading>
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                 @foreach ($this->relatedPosts as $relatedPost)
                     <x-posts::card wire:key="related-{{ $relatedPost->id }}" :post="$relatedPost" />

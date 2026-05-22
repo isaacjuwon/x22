@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A dynamic, content-manageable company portfolio application built on Laravel 13, Livewire 4, and Flux UI v2 with Tailwind CSS v4. The portfolio presents the company's identity through structured sections — Hero, About, Team, Services, Projects, Testimonials, Clients, and Contact — using a hybrid content strategy: static Markdown files for editorial content and a relational database for Projects and Contact Messages. An authenticated admin manages Projects and reads Contact Messages through a protected admin panel.
+A dynamic, content-manageable company portfolio application built on Laravel 13, Livewire 4, and x-ui. UI v2 with Tailwind CSS v4. The portfolio presents the company's identity through structured sections — Hero, About, Team, Services, Projects, Testimonials, Clients, and Contact — using a hybrid content strategy: static Markdown files for editorial content and a relational database for Projects and Contact Messages. An authenticated admin manages Projects and reads Contact Messages through a protected admin panel.
 
 ---
 
@@ -43,7 +43,7 @@ A dynamic, content-manageable company portfolio application built on Laravel 13,
 1. THE Portfolio SHALL render a fixed top navigation bar containing anchor links to each section (Hero, About, Team, Services, Projects, Testimonials, Contact).
 2. WHEN a Visitor clicks a navigation anchor, THE Portfolio SHALL scroll smoothly to the corresponding section without a full page reload.
 3. WHEN the viewport width is below 768px, THE Portfolio SHALL collapse the navigation bar into a mobile-friendly menu, displaying a visible toggle button that shows or hides the navigation links when clicked.
-4. THE Portfolio SHALL apply the Flux UI component library and Tailwind CSS v4 utility classes for all layout and styling.
+4. THE Portfolio SHALL apply the x-ui. UI component library and Tailwind CSS v4 utility classes for all layout and styling.
 5. THE Portfolio SHALL be accessible at the application root URL (`/`).
 6. WHEN the section occupying the topmost visible area of the viewport changes during scroll, THE Portfolio SHALL apply a visually distinct style to the corresponding navigation anchor that differs from all other anchors.
 
@@ -187,7 +187,7 @@ A dynamic, content-manageable company portfolio application built on Laravel 13,
 1. THE Admin_Panel SHALL be accessible only to authenticated users at `/admin`.
 2. WHEN an unauthenticated user attempts to access `/admin`, THE Admin_Panel SHALL redirect them to the login page.
 3. THE Admin_Panel SHALL provide CRUD interfaces for: Projects and Contact Messages.
-4. WHEN the Owner saves changes to a Project, THE Admin_Panel SHALL display a success toast notification using Flux UI.
+4. WHEN the Owner saves changes to a Project, THE Admin_Panel SHALL display a success toast notification using x-ui. UI.
 5. IF a save operation fails due to a validation error, THEN THE Admin_Panel SHALL display inline field-level error messages.
 6. THE Admin_Panel SHALL allow the Owner to reorder Projects via a manual sort-order input.
 7. THE Admin_Panel SHALL allow the Owner to toggle a Project's published status between draft and published.

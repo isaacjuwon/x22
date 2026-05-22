@@ -32,7 +32,7 @@
 
         {{-- Title --}}
         <h3 class="line-clamp-2 text-lg font-semibold text-neutral-700 dark:text-neutral-100 transition-colors group-hover:text-green-400">
-            <a href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a>
+            <a href="{{ route('posts.show', $post->slug) }}" wire:navigate>{{ $post->title }}</a>
         </h3>
 
         {{-- Excerpt --}}

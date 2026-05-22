@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
         $project1 = Project::create([
             'user_id'     => $admin->id,
             'title'       => 'Portfolio Platform',
-            'description' => 'A full-featured portfolio and blog platform built with Laravel, Livewire, and Flux UI.',
+            'description' => 'A full-featured portfolio and blog platform built with Laravel, Livewire, and x-ui. UI.',
             'status'      => ProjectStatus::Completed,
             'category'    => 'Web',
         ]);

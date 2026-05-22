@@ -2,7 +2,7 @@
 
 ## Overview
 
-Implement a database-driven professional portfolio on Laravel 13, Livewire 4, Flux UI v2, and Tailwind CSS v4. The plan covers database migrations, Eloquent models with factories and seeders, public Livewire components, admin CRUD components, mail, routing, views, and a full Pest test suite. Each task builds on the previous so there is no orphaned code.
+Implement a database-driven professional portfolio on Laravel 13, Livewire 4, x-ui. UI v2, and Tailwind CSS v4. The plan covers database migrations, Eloquent models with factories and seeders, public Livewire components, admin CRUD components, mail, routing, views, and a full Pest test suite. Each task builds on the previous so there is no orphaned code.
 
 ## Tasks
 
@@ -126,17 +126,17 @@ Implement a database-driven professional portfolio on Laravel 13, Livewire 4, Fl
 - [ ] 6. Public portfolio layout and views
   - [ ] 6.1 Create `resources/views/layouts/portfolio.blade.php`
     - `<html>` tag with Alpine.js dark mode `x-init` script (reads `localStorage.theme` and `prefers-color-scheme`, toggles `dark` class before first paint) as specified in the design document
-    - `<head>` includes `@stack('meta')`, Vite assets (`@vite(['resources/css/app.css','resources/js/app.js'])`), `@fluxStyles`
+    - `<head>` includes `@stack('meta')`, Vite assets (`@vite(['resources/css/app.css','resources/js/app.js'])`), `@x-ui.Styles`
     - Fixed nav bar: logo/name, anchor links (Hero, About, Skills, Projects, Experience, Contact), theme toggle button with Alpine.js `x-data` / `@click` toggling `dark` class and `localStorage.theme`, mobile hamburger menu using Alpine.js `x-show`
     - `<main>` with `{{ $slot }}`
     - `<footer>` with owner name and current year
-    - `@fluxScripts` before `</body>`
+    - `@x-ui.Scripts` before `</body>`
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 12.5_
   - [ ] 6.2 Create `resources/views/livewire/portfolio-page.blade.php`
     - Uses `@extends` or `#[Layout]` — follow full-page Livewire component convention with `<x-layouts.portfolio>`
     - `@push('meta')` block with title, description, OG tags, canonical as specified in the design document
     - Renders `<section id="hero">`, `<section id="about">`, `<section id="skills">`, `<section id="projects">` (nests `<livewire:portfolio.projects-section>`), `<section id="experience">`, `<section id="contact">` (nests `<livewire:portfolio.contact-form>`)
-    - Each section uses semantic HTML5 elements and Tailwind/Flux classes; images include `alt` and `loading="lazy"` where below the fold
+    - Each section uses semantic HTML5 elements and Tailwind/x-ui. classes; images include `alt` and `loading="lazy"` where below the fold
     - _Requirements: 1.1, 1.5, 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 5.1, 5.2, 5.3, 5.4, 7.1, 7.2, 7.3, 7.5, 12.1, 12.4, 12.5_
   - [ ] 6.3 Create `resources/views/livewire/portfolio/projects-section.blade.php`
     - Tag filter buttons (wire:click="filterByTag") and clear filter button (wire:click="clearFilter")
@@ -201,7 +201,7 @@ Implement a database-driven professional portfolio on Laravel 13, Livewire 4, Fl
     - `#[Layout('layouts.app')]` attribute
     - `mount()` loads `HeroContent::firstOrFail()` and `SocialLink::orderBy('sort_order')->get()`
     - Public properties for all hero fields; `WithFileUploads` trait for `$photo`
-    - `save()`: validate, handle photo upload (delete old, store new under `photos/hero/{uuid}.{ext}`), update hero record, `Flux::toast('Hero updated.')`
+    - `save()`: validate, handle photo upload (delete old, store new under `photos/hero/{uuid}.{ext}`), update hero record, `x-ui.:toast('Hero updated.')`
     - Social link CRUD: `addSocialLink()`, `removeSocialLink(int $id)`, `saveSocialLinks()`; enforce max 10 links at application layer
     - Run `php artisan make:livewire Admin/HeroEditor --no-interaction`
     - _Requirements: 3.1, 3.3, 3.4, 3.5, 9.1, 9.3, 9.4, 9.5_
@@ -209,32 +209,32 @@ Implement a database-driven professional portfolio on Laravel 13, Livewire 4, Fl
     - `#[Layout('layouts.app')]` attribute
     - `mount()` loads `AboutContent::firstOrFail()`
     - Public properties for all about fields; `WithFileUploads` for `$photo`
-    - `save()`: validate, handle photo upload under `photos/about/{uuid}.{ext}`, update record, `Flux::toast('About updated.')`
+    - `save()`: validate, handle photo upload under `photos/about/{uuid}.{ext}`, update record, `x-ui.:toast('About updated.')`
     - Run `php artisan make:livewire Admin/AboutEditor --no-interaction`
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 9.3, 9.4, 9.5_
   - [ ] 9.3 Create `App\Livewire\Admin\SkillManager` component
     - `#[Layout('layouts.app')]` attribute
-    - List all skills; inline edit via `<flux:modal>`; `$editingSkill` property holds current edit state
+    - List all skills; inline edit via `<x-ui.modal>`; `$editingSkill` property holds current edit state
     - `openCreate()`, `openEdit(int $id)`, `save()`, `delete(int $id)`, `updateSortOrder(int $id, int $order)`
     - `save()` validates name required, category nullable string, proficiency nullable integer 0–100, proficiency_label nullable in list, is_active boolean, sort_order integer
-    - `Flux::toast()` on success
+    - `x-ui.:toast()` on success
     - Run `php artisan make:livewire Admin/SkillManager --no-interaction`
     - _Requirements: 5.1, 5.2, 5.3, 9.3, 9.4, 9.5, 9.6_
   - [ ] 9.4 Create `App\Livewire\Admin\ProjectManager` component
     - `#[Layout('layouts.app')]` attribute
-    - List all projects; inline edit via `<flux:modal>`; `WithFileUploads` for `$coverImage`
+    - List all projects; inline edit via `<x-ui.modal>`; `WithFileUploads` for `$coverImage`
     - `openCreate()`, `openEdit(int $id)`, `save()`, `delete(int $id)`, `togglePublished(int $id)`, `updateSortOrder(int $id, int $order)`
     - `save()`: generate slug via `Project::generateUniqueSlug($title, $editingId)`, handle cover image upload under `projects/{uuid}.{ext}`, sync tags via `$project->tags()->sync($selectedTagIds)`
     - `$allTags` property for tag multi-select; `$selectedTagIds` array
-    - `Flux::toast()` on success
+    - `x-ui.:toast()` on success
     - Run `php artisan make:livewire Admin/ProjectManager --no-interaction`
     - _Requirements: 6.1, 6.3, 6.4, 6.5, 6.7, 9.3, 9.4, 9.5, 9.6, 9.7, 10.5, 10.6_
   - [ ] 9.5 Create `App\Livewire\Admin\ExperienceManager` component
     - `#[Layout('layouts.app')]` attribute
-    - List all experience entries ordered by start_date desc; inline edit via `<flux:modal>`
+    - List all experience entries ordered by start_date desc; inline edit via `<x-ui.modal>`
     - `openCreate()`, `openEdit(int $id)`, `save()`, `delete(int $id)`
     - Validate: title required, organisation required, type in ['work','education'], start_date required date, end_date nullable date after_or_equal:start_date, description nullable max:500
-    - `Flux::toast()` on success
+    - `x-ui.:toast()` on success
     - Run `php artisan make:livewire Admin/ExperienceManager --no-interaction`
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 9.3, 9.4, 9.5_
   - [ ] 9.6 Create `App\Livewire\Admin\ContactInbox` component
@@ -246,19 +246,19 @@ Implement a database-driven professional portfolio on Laravel 13, Livewire 4, Fl
 
 - [ ] 10. Admin Blade views
   - [ ] 10.1 Create `resources/views/livewire/admin/hero-editor.blade.php`
-    - Form fields for name, tagline, introduction, photo upload; social links repeater (platform, url, icon, sort_order); `@error` directives; save button with `wire:loading`; uses Flux UI form components
+    - Form fields for name, tagline, introduction, photo upload; social links repeater (platform, url, icon, sort_order); `@error` directives; save button with `wire:loading`; uses x-ui. UI form components
     - _Requirements: 3.1, 3.3, 3.4, 9.4, 9.5_
   - [ ] 10.2 Create `resources/views/livewire/admin/about-editor.blade.php`
     - Form fields for biography (textarea), photo upload, location, availability_status, years_of_experience; `@error` directives; save button
     - _Requirements: 4.1, 4.2, 4.3, 9.4, 9.5_
   - [ ] 10.3 Create `resources/views/livewire/admin/skill-manager.blade.php`
-    - Skills table with name, category, proficiency, is_active, sort_order, edit/delete actions; `<flux:modal>` for create/edit form; `@error` directives
+    - Skills table with name, category, proficiency, is_active, sort_order, edit/delete actions; `<x-ui.modal>` for create/edit form; `@error` directives
     - _Requirements: 5.1, 5.2, 5.3, 9.4, 9.5, 9.6_
   - [ ] 10.4 Create `resources/views/livewire/admin/project-manager.blade.php`
-    - Projects table with title, slug, published badge, sort_order, publish toggle, edit/delete actions; `<flux:modal>` for create/edit form including tag multi-select and cover image upload; `@error` directives
+    - Projects table with title, slug, published badge, sort_order, publish toggle, edit/delete actions; `<x-ui.modal>` for create/edit form including tag multi-select and cover image upload; `@error` directives
     - _Requirements: 6.1, 6.7, 9.4, 9.5, 9.6, 9.7_
   - [ ] 10.5 Create `resources/views/livewire/admin/experience-manager.blade.php`
-    - Experience entries table with title, organisation, type badge, date range, edit/delete actions; `<flux:modal>` for create/edit form; `@error` directives
+    - Experience entries table with title, organisation, type badge, date range, edit/delete actions; `<x-ui.modal>` for create/edit form; `@error` directives
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 9.4, 9.5_
   - [ ] 10.6 Create `resources/views/livewire/admin/contact-inbox.blade.php`
     - Messages table with sender name, email, subject, received timestamp, read/unread badge; "Mark as read" button per row using `wire:click="markAsRead($message->id)"`
@@ -273,7 +273,7 @@ Implement a database-driven professional portfolio on Laravel 13, Livewire 4, Fl
 
 - [ ] 12. Admin sidebar navigation
   - [ ] 12.1 Add portfolio admin nav items to `resources/views/layouts/app/sidebar.blade.php`
-    - Add a new `<flux:sidebar.group heading="Portfolio">` section with items: Hero (`admin.hero`), About (`admin.about`), Skills (`admin.skills`), Projects (`admin.projects`), Experience (`admin.experience`), Messages (`admin.messages`)
+    - Add a new `<x-ui.sidebar.group heading="Portfolio">` section with items: Hero (`admin.hero`), About (`admin.about`), Skills (`admin.skills`), Projects (`admin.projects`), Experience (`admin.experience`), Messages (`admin.messages`)
     - Use `icon` attributes matching existing sidebar items; use `:current="request()->routeIs('admin.hero')"` pattern for each item
     - _Requirements: 9.1, 9.3_
 

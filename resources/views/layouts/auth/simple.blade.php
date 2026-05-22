@@ -19,11 +19,11 @@
         </div>
 
         @persist('toast')
-            <flux:toast.group>
-                <flux:toast />
-            </flux:toast.group>
+            <x-ui.toast.group>
+                <x-ui.toast />
+            </x-ui.toast.group>
         @endpersist
 
-        @fluxScripts
+        @x-ui.Scripts
     </body>
 </html>
