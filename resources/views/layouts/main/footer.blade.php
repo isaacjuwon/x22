@@ -17,7 +17,7 @@
 
 <footer class="border-t border-neutral-300 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 py-12">
     <div class="mx-auto max-w-6xl px-6">
-        <div class="grid grid-cols-1 gap-10 sm:grid-cols-3">
+        <div class="grid grid-cols-1 gap-10 sm:grid-cols-4">
 
             {{-- Brand --}}
             <div class="space-y-3">
@@ -81,6 +81,23 @@
                     </nav>
                 @endif
             </div>
+
+            {{-- Pages --}}
+            @php
+                $pages = App\Models\Page::published()->get(['title', 'slug']);
+            @endphp
+            @if($pages->isNotEmpty())
+                <div class="space-y-3">
+                    <p class="text-xs font-semibold uppercase tracking-widest text-neutral-700 dark:text-neutral-400">{{ __('Company') }}</p>
+                    <nav class="flex flex-col gap-2">
+                        @foreach($pages as $page)
+                            <x-ui.link href="{{ route('pages.show', $page->slug) }}" wire:navigate class="text-sm text-neutral-600 dark:text-neutral-500 hover:text-green-600 dark:hover:text-green-400">
+                                {{ $page->title }}
+                            </x-ui.link>
+                        @endforeach
+                    </nav>
+                </div>
+            @endif
 
         </div>
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Page;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,11 @@ Route::get('/posts/{post:slug}', function (Post $post) {
 Route::get('/tags/{tag:slug}', function (Tag $tag) {
     return view('tags.show', compact('tag'));
 })->name('tags.show');
+
+Route::get('/page/{page:slug}', function (Page $page) {
+    abort_if($page->status->value !== 'published', 404);
+    return view('pages.show', compact('page'));
+})->name('pages.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
