@@ -12,7 +12,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Spatie\MediaLibrary\HasMedia;
-use Laravel\Ai\Ai;
+use App\Ai\Agents\WritingAssistance;
 
 new #[Title('New Post'), Layout('layouts::app')] class extends Component {
     use WithFileUploads;
@@ -127,7 +127,12 @@ new #[Title('New Post'), Layout('layouts::app')] class extends Component {
         }
 
         $prompt = "Generate a concise, 1-2 sentence excerpt for the following article. Reply ONLY with the excerpt, no other text:\n\n" . strip_tags($this->content);
-        $this->excerpt = Ai::ask($prompt);
+        $this->excerpt = (new WritingAssistance)->prompt($prompt)->text;
+    }
+
+    public function improveContent(): void
+    {
+        $this->dispatch('ai-action', action: 'improve', content: strip_tags($this->content));
     }
 
     private function resolvePublishedAt(): ?\Illuminate\Support\Carbon
@@ -204,7 +209,13 @@ new #[Title('New Post'), Layout('layouts::app')] class extends Component {
         </x-ui.field>
 
         <x-ui.field required>
-            <x-ui.label required>{{ __('Content') }}</x-ui.label>
+            <div class="flex items-center justify-between mb-1">
+                <x-ui.label required>{{ __('Content') }}</x-ui.label>
+                <x-ui.button type="button" wire:click="improveContent" variant="ghost" size="sm" class="text-blue-600 dark:text-blue-400">
+                    <x-ui.icon name="sparkles" class="w-4 h-4 mr-1" />
+                    {{ __('Improve with AI') }}
+                </x-ui.button>
+            </div>
             <x-tiptap-editor id="content" name="content" wire:model="content" :value="$content" />
             <x-ui.error name="content" />
         </x-ui.field>
@@ -284,4 +295,6 @@ new #[Title('New Post'), Layout('layouts::app')] class extends Component {
             </x-ui.button>
         </div>
     </form>
+
+    <livewire:admin.posts.ai-assistant />
 </div>

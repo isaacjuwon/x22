@@ -3,14 +3,15 @@
 namespace App\Models;
 
 use App\Concerns\HasContentMedia;
+use App\Enums\PostStatus;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Enums\PostStatus;
 use Spatie\MediaLibrary\HasMedia;
 
 #[Fillable(['user_id', 'title', 'slug', 'excerpt', 'content', 'status', 'featured', 'view_count', 'published_at', 'meta_description', 'meta_keywords', 'og_image'])]
@@ -18,6 +19,7 @@ class Post extends Model implements HasMedia
 {
     /** @use HasFactory */
     use HasContentMedia;
+
     use HasFactory;
     use SoftDeletes;
 
@@ -64,8 +66,24 @@ class Post extends Model implements HasMedia
         return $this->belongsToMany(Tag::class);
     }
 
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function incrementViewCount(): void
     {
         $this->increment('view_count');
+    }
+
+    /**
+     * Calculate estimated reading time in minutes based on word count.
+     * Assuming average reading speed of 200 words per minute.
+     */
+    public function getReadingTimeAttribute(): int
+    {
+        $wordCount = str_word_count(strip_tags($this->content ?? ''));
+
+        return max(1, ceil($wordCount / 200));
     }
 }

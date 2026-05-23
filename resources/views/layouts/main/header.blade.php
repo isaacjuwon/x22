@@ -10,21 +10,47 @@
             $general = app(GeneralSettings::class);
         @endphp
         <x-ui.layout.header>
-            <x-ui.navbar class="flex-1">
-                <x-ui.navbar.item icon="home" :label="$general->site_name" href="/" />
-            </x-ui.navbar>
+            {{-- Brand --}}
+            <a href="{{ route('home') }}" wire:navigate class="flex items-center gap-2">
+                <x-ui.icon name="command-line" class="h-5 w-5 text-green-500" />
+                <x-ui.text class="font-semibold tracking-tight">{{ $general->site_name }}</x-ui.text>
+            </a>
 
-            <div class="flex items-center gap-x-3">
+            {{-- Nav dropdown --}}
+            <x-ui.dropdown position="bottom-start">
+                <x-slot:button>
+                    <x-ui.button variant="ghost" size="sm" icon="bars-3">
+                        {{ __('Menu') }}
+                    </x-ui.button>
+                </x-slot:button>
+
+                <x-slot:menu class="w-52">
+                    <x-ui.dropdown.item :href="route('home')" icon="home" wire:navigate>
+                        {{ __('Home') }}
+                    </x-ui.dropdown.item>
+                    <x-ui.dropdown.item :href="route('posts.index')" icon="document-text" wire:navigate>
+                        {{ __('Blog') }}
+                    </x-ui.dropdown.item>
+                    <x-ui.dropdown.item :href="route('projects.index')" icon="folder-open" wire:navigate>
+                        {{ __('Projects') }}
+                    </x-ui.dropdown.item>
+                </x-slot:menu>
+            </x-ui.dropdown>
+
+            <div class="ml-auto flex items-center gap-x-2">
                 <x-ui.theme-switcher variant="dropdown" />
                 @auth
                     <x-ui.button as="a" variant="ghost" size="sm" :href="route('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </x-ui.button>
                 @else
-                    <x-ui.button variant="primary" :href="route('login')" wire:navigate>{{ __('Sign In') }}</x-ui.button>
+                    <x-ui.button variant="primary" size="sm" :href="route('login')" wire:navigate>
+                        {{ __('Sign In') }}
+                    </x-ui.button>
                 @endauth
             </div>
         </x-ui.layout.header>
+
         {{ $slot }}
     </body>
 </html>

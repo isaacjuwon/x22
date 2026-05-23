@@ -1,3 +1,20 @@
+@php
+    use App\Models\Project;
+    use App\Enums\ProjectStatus;
+
+    if (is_string($project)) {
+        $project = Project::findOrFail($project);
+    }
+    abort_if($project->status === ProjectStatus::Draft, 404);
+    $project->load('user', 'testimonials.user', 'teamMembers');
+    $relatedProjects = Project::where('status', ProjectStatus::Completed)
+        ->where('id', '!=', $project->id)
+        ->when($project->category, fn ($q) => $q->where('category', $project->category))
+        ->latest()
+        ->limit(3)
+        ->get();
+@endphp
+
 <x-layouts::main :title="$project->title">
     <div class="mx-auto max-w-4xl px-6 py-16">
         <div class="mb-8 space-y-4">
@@ -20,5 +37,16 @@
         <div class="prose prose-neutral dark:prose-invert max-w-none">
             {{ $project->description }}
         </div>
+
+        @if ($relatedProjects->isNotEmpty())
+            <section class="mt-16 border-t border-neutral-800 pt-12">
+                <x-ui.heading level="h2" size="lg" class="mb-6">{{ __('Related Projects') }}</x-ui.heading>
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    @foreach ($relatedProjects as $relatedProject)
+                        <x-landing.project :project="$relatedProject" />
+                    @endforeach
+                </div>
+            </section>
+        @endif
     </div>
 </x-layouts::main>

@@ -3,20 +3,20 @@
 use App\Models\Page;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\Testimonial;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => view('home'))->name('home');
 
 Route::get('/posts', fn () => view('posts.index'))->name('posts.index');
 
-Route::get('/projects', fn () => view('projects.index'))->name('projects.index');
+Route::view('/projects', 'projects.index')->name('projects.index');
 
-Route::get('/projects/{project}', function (App\Models\Project $project) {
-    return view('projects.show', compact('project'));
-})->name('projects.show');
+Route::view('/projects/{project}', 'projects.show')->name('projects.show');
 
 Route::get('/testimonials', function () {
-    $testimonials = App\Models\Testimonial::with(['user', 'project'])->where('status', 'approved')->latest()->paginate(12);
+    $testimonials = Testimonial::with(['user', 'project'])->where('status', 'approved')->latest()->paginate(12);
+
     return view('testimonials.index', compact('testimonials'));
 })->name('testimonials.index');
 
@@ -30,6 +30,7 @@ Route::get('/tags/{tag:slug}', function (Tag $tag) {
 
 Route::get('/page/{page:slug}', function (Page $page) {
     abort_if($page->status->value !== 'published', 404);
+
     return view('pages.show', compact('page'));
 })->name('pages.show');
 

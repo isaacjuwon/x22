@@ -1,32 +1,54 @@
 @props(['testimonial'])
 
-<blockquote data-slot="card" class="flex flex-col p-6">
-    {{-- Star rating --}}
-    <div class="mb-4 flex gap-0.5">
-        @for ($i = 1; $i <= 5; $i++)
-            <x-ui.icon
-                name="star"
-                variant="solid"
-                class="h-4 w-4 {{ $i <= $testimonial->rating ? 'text-green-400' : 'text-neutral-700' }}"
-            />
-        @endfor
+<blockquote data-slot="card" class="group flex flex-col overflow-hidden p-0 transition-all duration-200">
+
+    {{-- Terminal header bar --}}
+    <div class="flex items-center gap-1.5 border-b border-neutral-200 bg-neutral-50 px-4 py-2 dark:border-neutral-800 dark:bg-neutral-950">
+        {{-- Star rating --}}
+        <div class="flex items-center gap-0.5">
+            @for ($i = 1; $i <= 5; $i++)
+                <x-ui.icon
+                    name="star"
+                    variant="{{ $i <= $testimonial->rating ? 'solid' : 'outline' }}"
+                    class="h-3.5 w-3.5 {{ $i <= $testimonial->rating ? 'text-green-500' : 'text-neutral-400 dark:text-neutral-600' }}"
+                />
+            @endfor
+        </div>
+        <x-ui.text class="ml-auto text-xs text-neutral-500">
+            {{ $testimonial->rating }}/5
+        </x-ui.text>
     </div>
 
-    <x-ui.text class="flex-1 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-        "{{ $testimonial->comment }}"
-    </x-ui.text>
-
-    <footer class="mt-6 flex items-center gap-3 border-t border-neutral-800 pt-4">
-        <img
-            src="https://api.dicebear.com/9.x/avataaars/svg?seed={{ $testimonial->user->id }}"
-            alt="{{ $testimonial->user->name }}"
-            class="h-9 w-9"
-        />
-        <div>
-            <x-ui.text class="text-sm font-semibold text-neutral-700 dark:text-neutral-300">{{ $testimonial->user->name }}</x-ui.text>
-            @if ($testimonial->project)
-                <x-ui.text class="term-comment text-xs text-neutral-500 dark:text-neutral-600">{{ $testimonial->project->title }}</x-ui.text>
-            @endif
+    {{-- Quote body --}}
+    <div class="flex flex-1 flex-col gap-4 p-5">
+        {{-- Opening quote mark in terminal style --}}
+        <div class="flex gap-2">
+            <span class="mt-0.5 font-mono text-lg font-bold leading-none text-green-500 select-none">&gt;_</span>
+            <x-ui.text class="flex-1 text-sm leading-relaxed italic">
+                {{ $testimonial->comment }}
+            </x-ui.text>
         </div>
-    </footer>
+
+        <x-ui.separator />
+
+        {{-- Author --}}
+        <footer class="flex items-center gap-3">
+            <x-ui.avatar
+                :name="$testimonial->user->name"
+                size="sm"
+                color="auto"
+                circle
+            />
+            <div class="min-w-0 flex-1">
+                <x-ui.text class="truncate text-sm font-semibold">
+                    {{ $testimonial->user->name }}
+                </x-ui.text>
+                @if ($testimonial->project)
+                    <x-ui.text class="truncate text-xs text-neutral-500 dark:text-neutral-500">
+                        # {{ $testimonial->project->title }}
+                    </x-ui.text>
+                @endif
+            </div>
+        </footer>
+    </div>
 </blockquote>

@@ -96,6 +96,8 @@
                                 <time datetime="{{ $post->published_at->toIso8601String() }}">
                                     {{ $post->published_at->format('M d, Y') }}
                                 </time>
+                                <span class="mx-1">&middot;</span>
+                                <span>{{ $post->reading_time }} {{ trans_choice('min read|mins read', $post->reading_time) }}</span>
                             </div>
                         </div>
                         <x-ui.text class="text-sm">{{ number_format($post->view_count) }} {{ __('views') }}</x-ui.text>

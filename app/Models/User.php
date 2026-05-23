@@ -55,6 +55,11 @@ class User extends Authenticatable
         return $this->hasMany(Testimonial::class);
     }
 
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function teamMembers(): HasMany
     {
         return $this->hasMany(TeamMember::class);
