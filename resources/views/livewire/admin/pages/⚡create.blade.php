@@ -211,7 +211,7 @@ new #[Title('New Page'), Layout('layouts::app')] class extends Component {
         <div class="grid gap-5 sm:grid-cols-2">
             <x-ui.field required>
                 <x-ui.label required>{{ __('Status') }}</x-ui.label>
-                <x-ui.select wire:model="status">
+                <x-ui.select wire:model="status" placeholder="{{ __('Select a status...') }}">
                     @foreach (PageStatus::cases() as $case)
                         <x-ui.select.option :value="$case->value">{{ ucfirst($case->value) }}</x-ui.select.option>
                     @endforeach

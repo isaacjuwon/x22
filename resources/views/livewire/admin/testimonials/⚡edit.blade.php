@@ -90,7 +90,7 @@ new #[Title('Edit Testimonial'), Layout('layouts::app')] class extends Component
         {{-- Client --}}
         <x-ui.field required>
             <x-ui.label required>{{ __('Client') }}</x-ui.label>
-            <x-ui.select wire:model="userId">
+            <x-ui.select wire:model="userId" placeholder="{{ __('Select a user...') }}">
                 @foreach ($this->users as $user)
                     <x-ui.select.option :value="$user->id">{{ $user->name }} — {{ $user->email }}</x-ui.select.option>
                 @endforeach
@@ -123,7 +123,7 @@ new #[Title('Edit Testimonial'), Layout('layouts::app')] class extends Component
             {{-- Rating --}}
             <x-ui.field required>
                 <x-ui.label required>{{ __('Rating') }}</x-ui.label>
-                <x-ui.select wire:model="rating">
+                <x-ui.select wire:model="rating" placeholder="{{ __('Select a rating...') }}">
                     @foreach (range(5, 1) as $star)
                         <x-ui.select.option :value="$star">
                             {{ $star }} {{ $star === 1 ? __('star') : __('stars') }}
@@ -136,7 +136,7 @@ new #[Title('Edit Testimonial'), Layout('layouts::app')] class extends Component
             {{-- Status --}}
             <x-ui.field required>
                 <x-ui.label required>{{ __('Status') }}</x-ui.label>
-                <x-ui.select wire:model="status">
+                <x-ui.select wire:model="status" placeholder="{{ __('Select a status...') }}">
                     @foreach (TestimonialStatus::cases() as $case)
                         <x-ui.select.option :value="$case->value">{{ ucfirst($case->value) }}</x-ui.select.option>
                     @endforeach

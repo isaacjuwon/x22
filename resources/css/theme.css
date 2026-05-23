@@ -535,198 +535,60 @@ kbd {
     color: #c8c8b8;
 }
 
-/* ============================================================
-   TIPTAP / PROSE BLOCKQUOTES
-   ============================================================ */
-
+/* --- Prose / Tiptap Blockquotes ----------------------------- */
 .prose blockquote,
 .tiptap-content blockquote {
-    position: relative;
-    margin: 1.5rem 0;
-    padding: 1rem 1.25rem 1rem 1.5rem;
-
-    border-left: 3px solid #16a34a;
-    border-radius: 0 0.375rem 0.375rem 0 !important; /* right corners rounded, left flush to bar */
-
-    background: #f0fdf4;
-    color: #323228;
-
-    font-style: italic;
-
+    border-radius: 0 0.375rem 0.375rem 0 !important; /* 6px right corners */
+    background: #f5f5f0 !important;
+    border: 1px solid #e0e0d8 !important;
+    border-left: 3px solid #16a34a !important; /* phosphor green left border */
+    padding: 1.25rem 1.5rem !important;
+    font-style: italic !important;
     box-shadow: none !important;
+    margin: 1.5rem 0 !important;
+    position: relative;
+    quotes: none;
+}
+.dark .prose blockquote,
+.dark .tiptap-content blockquote {
+    background: #111110 !important;
+    border-color: #2d2d28 !important;
+    border-left-color: #4ade80 !important;
 }
 
-/* terminal prompt prefix */
-.prose blockquote::before,
-.tiptap-content blockquote::before {
-    content: '>_';
-    position: absolute;
-    left: 0.5rem;
-    top: 0.9rem;
-
-    color: #16a34a;
-    font-weight: 700;
-    font-style: normal;
-}
-
-/* paragraph styling */
 .prose blockquote p,
 .tiptap-content blockquote p {
-    margin: 0;
-    padding-left: 1rem;
-
-    color: inherit;
-    font-size: 1rem;
-    line-height: 1.8;
-    font-weight: 500;
+    color: #5a5a52 !important;
+    margin: 0 !important;
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    font-weight: 400 !important;
+}
+.dark .prose blockquote p,
+.dark .tiptap-content blockquote p {
+    color: #a8a89c !important;
 }
 
-/* remove typography plugin quote marks */
+/* Hide default Tailwind pseudo-elements */
 .prose blockquote p::before,
 .prose blockquote p::after,
 .tiptap-content blockquote p::before,
 .tiptap-content blockquote p::after {
-    content: none !important;
+    content: none !important; 
 }
 
-/* dark mode */
-.dark .prose blockquote,
-.dark .tiptap-content blockquote {
-    background: #0f130f;
-    border-left-color: #4ade80;
-    color: #c8c8b8;
-
-    background-image: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(255,255,255,0.02) 2px,
-        rgba(255,255,255,0.02) 4px
-    );
+/* Terminal prompt style quote marker instead of typographic quotes */
+.prose blockquote::before,
+.tiptap-content blockquote::before {
+    content: '>_';
+    display: block;
+    color: #16a34a;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-style: normal;
 }
-
 .dark .prose blockquote::before,
 .dark .tiptap-content blockquote::before {
     color: #4ade80;
-}
-
-
-.tiptap-content {
-  min-height: 500px;
-}
-
-.tiptap-content > .tiptap {
-  height: 100%;
-  min-height: 500px;
-}
-
-.ProseMirror {
-  min-height: 500px;
-  outline: none;
-}
-
-/* ── Placeholder ──────────────────────────────────────────── */
-.ProseMirror p.is-editor-empty:first-child::before {
-  color: #a8a89c;
-  content: attr(data-placeholder);
-  float: left;
-  height: 0;
-  pointer-events: none;
-}
-
-.dark .ProseMirror p.is-editor-empty:first-child::before {
-  color: #525248;
-}
-
-/* ── Tiptap Table ─────────────────────────────────────────── */
-.tiptap-table {
-  border-collapse: collapse;
-  margin: 1.5rem 0;
-  width: 100%;
-  table-layout: fixed;
-  overflow: hidden;
-}
-
-.tiptap-table td,
-.tiptap-table th {
-  border: 1px solid #d4d4cc;
-  padding: 0.5rem 0.75rem;
-  position: relative;
-  vertical-align: top;
-  min-width: 80px;
-}
-
-.tiptap-table th {
-  background: #f0f0ea;
-  font-weight: 700;
-  text-align: left;
-  color: #1a1a14;
-}
-
-.tiptap-table .selectedCell::after {
-  background: rgba(22, 163, 74, 0.12);
-  content: '';
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  pointer-events: none;
-  position: absolute;
-  z-index: 2;
-}
-
-.tiptap-table .column-resize-handle {
-  background-color: #16a34a;
-  bottom: -2px;
-  pointer-events: none;
-  position: absolute;
-  right: -2px;
-  top: 0;
-  width: 3px;
-}
-
-.dark .tiptap-table td,
-.dark .tiptap-table th {
-  border-color: #2d2d28;
-}
-
-.dark .tiptap-table th {
-  background: #1a1a16;
-  color: #c8c8b8;
-}
-
-.dark .tiptap-table .selectedCell::after {
-  background: rgba(74, 222, 128, 0.12);
-}
-
-.dark .tiptap-table .column-resize-handle {
-  background-color: #4ade80;
-}
-
-/* ── Tiptap Code Block ────────────────────────────────────── */
-.ProseMirror pre {
-  background: #0d0d0b;
-  border-radius: 0.375rem;
-  border: 1px solid #2d2d28;
-  color: #c8c8b8;
-  font-family: 'JetBrains Mono', monospace;
-  margin: 1.5rem 0;
-  padding: 1rem 1.25rem;
-  overflow-x: auto;
-}
-
-.ProseMirror pre code {
-  background: none;
-  color: inherit;
-  font-size: 0.875rem;
-  padding: 0;
-}
-
-/* ── Tiptap Editor Wrapper Dark Mode ──────────────────────── */
-.dark .tiptap-editor-wrapper {
-  background: #111110;
-}
-
-.dark .tiptap-toolbar {
-  background: rgba(17, 17, 16, 0.8);
 }

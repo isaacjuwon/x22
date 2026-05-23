@@ -101,7 +101,7 @@ new #[Title('Add Team Member'), Layout('layouts::app')] class extends Component 
             {{-- Role --}}
             <x-ui.field required>
                 <x-ui.label required>{{ __('Role') }}</x-ui.label>
-                <x-ui.select wire:model="role">
+                <x-ui.select wire:model="role" placeholder="{{ __('Select a role...') }}">
                     @foreach (TeamMemberRole::cases() as $case)
                         <x-ui.select.option :value="$case->value">{{ ucfirst($case->value) }}</x-ui.select.option>
                     @endforeach
@@ -112,7 +112,7 @@ new #[Title('Add Team Member'), Layout('layouts::app')] class extends Component 
             {{-- Status --}}
             <x-ui.field required>
                 <x-ui.label required>{{ __('Status') }}</x-ui.label>
-                <x-ui.select wire:model="status">
+                <x-ui.select wire:model="status" placeholder="{{ __('Select a status...') }}">
                     @foreach (TeamMemberStatus::cases() as $case)
                         <x-ui.select.option :value="$case->value">{{ ucfirst($case->value) }}</x-ui.select.option>
                     @endforeach

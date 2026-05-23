@@ -94,7 +94,7 @@ new #[Title('New Project'), Layout('layouts::app')] class extends Component {
             {{-- Status --}}
             <x-ui.field required>
                 <x-ui.label required>{{ __('Status') }}</x-ui.label>
-                <x-ui.select wire:model="status">
+                <x-ui.select wire:model="status" placeholder="{{ __('Select a status...') }}">
                     @foreach (ProjectStatus::cases() as $case)
                         <x-ui.select.option :value="$case->value">
                             {{ ucfirst(str_replace('_', ' ', $case->value)) }}
@@ -114,7 +114,7 @@ new #[Title('New Project'), Layout('layouts::app')] class extends Component {
             {{-- Owner --}}
             <x-ui.field required class="sm:col-span-2">
                 <x-ui.label required>{{ __('Owner') }}</x-ui.label>
-                <x-ui.select wire:model="userId">
+                <x-ui.select wire:model="userId" placeholder="{{ __('Select an owner...') }}">
                     @foreach ($this->users as $user)
                         <x-ui.select.option :value="$user->id">{{ $user->name }}</x-ui.select.option>
                     @endforeach

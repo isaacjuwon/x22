@@ -180,7 +180,7 @@ new #[Title('SEO Settings'), Layout('layouts::app')] class extends Component {
             <div class="grid gap-5 sm:grid-cols-2">
                 <x-ui.field>
                     <x-ui.label>{{ __('OG Type') }}</x-ui.label>
-                    <x-ui.select wire:model="og_type">
+                    <x-ui.select wire:model="og_type" placeholder="{{ __('Select OG type...') }}">
                         <x-ui.select.option value="website">website</x-ui.select.option>
                         <x-ui.select.option value="profile">profile</x-ui.select.option>
                         <x-ui.select.option value="blog">blog</x-ui.select.option>
@@ -190,7 +190,7 @@ new #[Title('SEO Settings'), Layout('layouts::app')] class extends Component {
 
                 <x-ui.field>
                     <x-ui.label>{{ __('Twitter Card') }}</x-ui.label>
-                    <x-ui.select wire:model="twitter_card">
+                    <x-ui.select wire:model="twitter_card" placeholder="{{ __('Select Twitter card...') }}">
                         <x-ui.select.option value="summary">summary</x-ui.select.option>
                         <x-ui.select.option value="summary_large_image">summary_large_image</x-ui.select.option>
                     </x-ui.select>

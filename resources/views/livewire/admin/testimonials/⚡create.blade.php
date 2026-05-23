@@ -111,7 +111,7 @@ new #[Title('New Testimonial'), Layout('layouts::app')] class extends Component 
             {{-- Rating --}}
             <x-ui.field required>
                 <x-ui.label required>{{ __('Rating') }}</x-ui.label>
-                <x-ui.select wire:model="rating">
+                <x-ui.select wire:model="rating" placeholder="{{ __('Select a rating...') }}">
                     @foreach (range(5, 1) as $star)
                         <x-ui.select.option :value="$star">
                             {{ $star }} {{ $star === 1 ? __('star') : __('stars') }}
@@ -124,7 +124,7 @@ new #[Title('New Testimonial'), Layout('layouts::app')] class extends Component 
             {{-- Status --}}
             <x-ui.field required>
                 <x-ui.label required>{{ __('Status') }}</x-ui.label>
-                <x-ui.select wire:model="status">
+                <x-ui.select wire:model="status" placeholder="{{ __('Select a status...') }}">
                     @foreach (TestimonialStatus::cases() as $case)
                         <x-ui.select.option :value="$case->value">{{ ucfirst($case->value) }}</x-ui.select.option>
                     @endforeach

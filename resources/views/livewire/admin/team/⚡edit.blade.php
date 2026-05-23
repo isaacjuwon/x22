@@ -86,7 +86,7 @@ new #[Title('Edit Team Member'), Layout('layouts::app')] class extends Component
         {{-- User --}}
         <x-ui.field required>
             <x-ui.label required>{{ __('User') }}</x-ui.label>
-            <x-ui.select wire:model="userId">
+            <x-ui.select wire:model="userId" placeholder="{{ __('Select a user...') }}">
                 @foreach ($this->users as $user)
                     <x-ui.select.option :value="$user->id">{{ $user->name }} — {{ $user->email }}</x-ui.select.option>
                 @endforeach
@@ -97,7 +97,7 @@ new #[Title('Edit Team Member'), Layout('layouts::app')] class extends Component
         {{-- Project --}}
         <x-ui.field required>
             <x-ui.label required>{{ __('Project') }}</x-ui.label>
-            <x-ui.select wire:model="projectId">
+            <x-ui.select wire:model="projectId" placeholder="{{ __('Select a project...') }}">
                 @foreach ($this->projects as $project)
                     <x-ui.select.option :value="$project->id">{{ $project->title }}</x-ui.select.option>
                 @endforeach
@@ -112,7 +112,7 @@ new #[Title('Edit Team Member'), Layout('layouts::app')] class extends Component
             {{-- Role --}}
             <x-ui.field required>
                 <x-ui.label required>{{ __('Role') }}</x-ui.label>
-                <x-ui.select wire:model="role">
+                <x-ui.select wire:model="role" placeholder="{{ __('Select a role...') }}">
                     @foreach (TeamMemberRole::cases() as $case)
                         <x-ui.select.option :value="$case->value">{{ ucfirst($case->value) }}</x-ui.select.option>
                     @endforeach
@@ -123,7 +123,7 @@ new #[Title('Edit Team Member'), Layout('layouts::app')] class extends Component
             {{-- Status --}}
             <x-ui.field required>
                 <x-ui.label required>{{ __('Status') }}</x-ui.label>
-                <x-ui.select wire:model="status">
+                <x-ui.select wire:model="status" placeholder="{{ __('Select a status...') }}">
                     @foreach (TeamMemberStatus::cases() as $case)
                         <x-ui.select.option :value="$case->value">{{ ucfirst($case->value) }}</x-ui.select.option>
                     @endforeach
