@@ -20,10 +20,14 @@ window.setupTiptap = function (elementId, contentInputId, initialContent = '', o
   }
 
   const contentInput = document.getElementById(contentInputId);
+  if (!contentInput) {
+    console.warn('[Tiptap] Could not find hidden input:', contentInputId);
+    return null;
+  }
 
   let content = initialContent;
   try {
-    if (typeof initialContent === 'string' && (initialContent.startsWith('{') || initialContent.startsWith('['))) {
+    if (typeof initialContent === 'string' && initialContent.trim().startsWith('{')) {
       content = JSON.parse(initialContent);
     }
   } catch (e) {
@@ -33,11 +37,7 @@ window.setupTiptap = function (elementId, contentInputId, initialContent = '', o
   const editor = new Editor({
     element: document.getElementById(elementId),
     extensions: [
-      StarterKit.configure({
-        // Exclude these because we're adding them manually below with custom config
-        link: false,
-        underline: false,
-      }),
+      StarterKit,
       Link.configure({
         openOnClick: false,
         HTMLAttributes: {
@@ -68,14 +68,10 @@ window.setupTiptap = function (elementId, contentInputId, initialContent = '', o
       },
     },
     onUpdate: ({ editor }) => {
-      contentInput.value = JSON.stringify(editor.getJSON());
-      if (onUpdateCallback) onUpdateCallback();
-    },
-    onSelectionUpdate: () => {
-      if (onUpdateCallback) onUpdateCallback();
-    },
-    onTransaction: () => {
-      if (onUpdateCallback) onUpdateCallback();
+      // Only sync on actual content changes, not cursor/selection moves
+      const json = JSON.stringify(editor.getJSON());
+      contentInput.value = json;
+      if (onUpdateCallback) onUpdateCallback(json);
     },
   });
 

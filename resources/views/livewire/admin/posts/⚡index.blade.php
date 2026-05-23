@@ -7,6 +7,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Renderless;
 use Livewire\Attributes\Session;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 new #[Title('Posts'), Layout('layouts::app')] class extends Component {
@@ -17,6 +18,9 @@ new #[Title('Posts'), Layout('layouts::app')] class extends Component {
     public int $perPage = 15;
     public array $selectedIds = [];
     public array $visibleIds = [];
+
+    #[Url(as: 'status')]
+    public string $statusFilter = 'all';
 
     #[Session]
     public array $positions = [];
@@ -33,13 +37,22 @@ new #[Title('Posts'), Layout('layouts::app')] class extends Component {
         $posts = $this->baseQuery()
             ->when(filled($this->sortBy), fn ($q) => $q->orderBy($this->sortBy, $this->sortDir))
             ->when(filled($this->searchQuery), fn ($q) => $this->applySearch($q))
-            ->when(filled($this->positions), fn ($q) => $this->applyPositionSorting($q))
+            ->when(filled($this->positions) && ! filled($this->sortBy), fn ($q) => $this->applyPositionSorting($q))
             ->with('user', 'tags', 'media')
             ->paginate($this->perPage);
 
         $this->visibleIds = $posts->pluck('id')->map(fn ($id) => (string) $id)->toArray();
 
-        return $this->view(['posts' => $posts]);
+        $counts = Post::query()
+            ->selectRaw('status, count(*) as total')
+            ->groupBy('status')
+            ->pluck('total', 'status')
+            ->toArray();
+
+        return $this->view([
+            'posts'  => $posts,
+            'counts' => $counts,
+        ]);
     }
 
     public function sortByColumn(string $column): void
@@ -52,6 +65,11 @@ new #[Title('Posts'), Layout('layouts::app')] class extends Component {
         }
     }
 
+    public function updatedStatusFilter(): void
+    {
+        $this->selectedIds = [];
+    }
+
     public function handleReordering(mixed $item, int $position): void
     {
         $itemId = (int) $item;
@@ -60,10 +78,52 @@ new #[Title('Posts'), Layout('layouts::app')] class extends Component {
         $this->positions = $positions;
     }
 
+    public function publish(int $id): void
+    {
+        $post = Post::findOrFail($id);
+        $post->update([
+            'status'       => PostStatus::Published,
+            'published_at' => $post->published_at ?? now(),
+        ]);
+        $this->dispatch('notify', type: 'success', content: __('Post published.'));
+    }
+
+    public function archive(int $id): void
+    {
+        Post::findOrFail($id)->update(['status' => PostStatus::Archived]);
+        $this->dispatch('notify', type: 'success', content: __('Post archived.'));
+    }
+
+    public function revertToDraft(int $id): void
+    {
+        Post::findOrFail($id)->update(['status' => PostStatus::Draft, 'published_at' => null]);
+        $this->dispatch('notify', type: 'success', content: __('Post reverted to draft.'));
+    }
+
     public function deleteSelected(): void
     {
         $this->baseQuery()->whereIn('id', $this->selectedIds)->delete();
         $this->selectedIds = [];
+        $this->dispatch('notify', type: 'success', content: __('Selected posts deleted.'));
+    }
+
+    public function bulkPublish(): void
+    {
+        Post::whereIn('id', $this->selectedIds)->each(function (Post $post): void {
+            $post->update([
+                'status'       => PostStatus::Published,
+                'published_at' => $post->published_at ?? now(),
+            ]);
+        });
+        $this->selectedIds = [];
+        $this->dispatch('notify', type: 'success', content: __('Selected posts published.'));
+    }
+
+    public function bulkArchive(): void
+    {
+        Post::whereIn('id', $this->selectedIds)->update(['status' => PostStatus::Archived]);
+        $this->selectedIds = [];
+        $this->dispatch('notify', type: 'success', content: __('Selected posts archived.'));
     }
 
     public function delete(int $id): void
@@ -85,7 +145,8 @@ new #[Title('Posts'), Layout('layouts::app')] class extends Component {
 
     protected function baseQuery(): Builder
     {
-        return Post::query();
+        return Post::query()
+            ->when($this->statusFilter !== 'all', fn ($q) => $q->where('status', $this->statusFilter));
     }
 
     protected function applySearch(Builder $query): Builder
@@ -104,7 +165,7 @@ new #[Title('Posts'), Layout('layouts::app')] class extends Component {
         foreach ($this->positions as $index => $id) {
             $case .= " WHEN id = {$id} THEN {$index}";
         }
-        $case .= ' END';
+        $case .= ' ELSE 9999 END';
 
         return $query->orderByRaw($case);
     }
@@ -112,7 +173,7 @@ new #[Title('Posts'), Layout('layouts::app')] class extends Component {
 ?>
 
 <div class="px-4 py-6">
-    <x-ui.table.container x-data="{ hiddenCols: ['status', 'tags'] }">
+    <x-ui.table.container x-data="{ hiddenCols: ['tags'] }">
 
         {{-- Toolbar --}}
         <div class="flex items-center">
@@ -141,6 +202,21 @@ new #[Title('Posts'), Layout('layouts::app')] class extends Component {
                         />
                     </x-slot:button>
                     <x-slot:menu>
+                        <x-ui.dropdown.item
+                            icon="check-circle"
+                            wire:click="bulkPublish"
+                            wire:confirm="{{ __('Publish selected posts?') }}"
+                        >
+                            {{ __('Publish selected') }}
+                        </x-ui.dropdown.item>
+                        <x-ui.dropdown.item
+                            icon="archive-box"
+                            wire:click="bulkArchive"
+                            wire:confirm="{{ __('Archive selected posts?') }}"
+                        >
+                            {{ __('Archive selected') }}
+                        </x-ui.dropdown.item>
+                        <x-ui.dropdown.separator />
                         <x-ui.dropdown.item icon="arrow-down-on-square" wire:click="toCsv">
                             {{ __('Export CSV') }}
                         </x-ui.dropdown.item>
@@ -179,27 +255,7 @@ new #[Title('Posts'), Layout('layouts::app')] class extends Component {
                 <x-slot:menu>
                     <x-ui.dropdown.item readOnly>{{ __('Hidden columns') }}</x-ui.dropdown.item>
                     <x-ui.dropdown.separator />
-                    <x-ui.dropdown.item x-model="hiddenCols">{{ __('status') }}</x-ui.dropdown.item>
                     <x-ui.dropdown.item x-model="hiddenCols">{{ __('tags') }}</x-ui.dropdown.item>
-                </x-slot:menu>
-            </x-ui.dropdown>
-
-            {{-- Filter by status --}}
-            <x-ui.dropdown checkbox checkboxVariant position="bottom-end">
-                <x-slot:button>
-                    <x-ui.button
-                        icon="funnel"
-                        variant="soft"
-                        size="sm"
-                        class="rounded-box ml-2 outline dark:outline-white/20 outline-neutral-900/10 shadow-sm"
-                    />
-                </x-slot:button>
-                <x-slot:menu>
-                    <x-ui.dropdown.item readOnly>{{ __('Status') }}</x-ui.dropdown.item>
-                    <x-ui.dropdown.separator />
-                    @foreach (PostStatus::cases() as $case)
-                        <x-ui.dropdown.item>{{ ucfirst($case->value) }}</x-ui.dropdown.item>
-                    @endforeach
                 </x-slot:menu>
             </x-ui.dropdown>
 
@@ -214,6 +270,38 @@ new #[Title('Posts'), Layout('layouts::app')] class extends Component {
             >
                 {{ __('New Post') }}
             </x-ui.button>
+        </div>
+
+        {{-- Status Tabs --}}
+        <div class="mt-4">
+            <x-ui.tabs variant="non-contained" wire:model.live="statusFilter">
+                <x-ui.tab.group class="justify-start">
+                    <x-ui.tab name="all">
+                        {{ __('All') }}
+                        <x-ui.badge size="sm" color="zinc" variant="soft" class="ml-1">
+                            {{ array_sum($counts) }}
+                        </x-ui.badge>
+                    </x-ui.tab>
+                    <x-ui.tab name="draft">
+                        {{ __('Drafts') }}
+                        <x-ui.badge size="sm" color="zinc" variant="soft" class="ml-1">
+                            {{ $counts['draft'] ?? 0 }}
+                        </x-ui.badge>
+                    </x-ui.tab>
+                    <x-ui.tab name="published">
+                        {{ __('Published') }}
+                        <x-ui.badge size="sm" color="green" variant="soft" class="ml-1">
+                            {{ $counts['published'] ?? 0 }}
+                        </x-ui.badge>
+                    </x-ui.tab>
+                    <x-ui.tab name="archived">
+                        {{ __('Archived') }}
+                        <x-ui.badge size="sm" color="zinc" variant="soft" class="ml-1">
+                            {{ $counts['archived'] ?? 0 }}
+                        </x-ui.badge>
+                    </x-ui.tab>
+                </x-ui.tab.group>
+            </x-ui.tabs>
         </div>
 
         {{-- Table --}}
@@ -241,8 +329,6 @@ new #[Title('Posts'), Layout('layouts::app')] class extends Component {
                         sortable
                         :currentSortBy="$sortBy"
                         :currentSortDir="$sortDir"
-                        x-show="!hiddenCols.includes('status')"
-                        x-cloak
                     >
                         {{ __('Status') }}
                     </x-ui.table.head>
@@ -313,7 +399,7 @@ new #[Title('Posts'), Layout('layouts::app')] class extends Component {
                             </div>
                         </x-ui.table.cell>
 
-                        <x-ui.table.cell x-show="!hiddenCols.includes('status')" x-cloak>
+                        <x-ui.table.cell>
                             @php
                                 $statusColor = match($post->status) {
                                     PostStatus::Published => 'green',
@@ -322,9 +408,15 @@ new #[Title('Posts'), Layout('layouts::app')] class extends Component {
                                     default               => null,
                                 };
                             @endphp
-                            <x-ui.badge :color="$statusColor" size="sm" variant="outline">
+                            <x-ui.badge :color="$statusColor" size="sm" variant="soft">
                                 {{ ucfirst($post->status->value) }}
                             </x-ui.badge>
+                            @if ($post->status === PostStatus::Published && $post->published_at?->isFuture())
+                                <div class="mt-1 text-xs text-amber-600 dark:text-amber-400">
+                                    <x-ui.icon name="clock" class="inline size-3" />
+                                    {{ __('Scheduled') }} {{ $post->published_at->format('M d') }}
+                                </div>
+                            @endif
                         </x-ui.table.cell>
 
                         <x-ui.table.cell x-show="!hiddenCols.includes('tags')" x-cloak>
@@ -334,6 +426,11 @@ new #[Title('Posts'), Layout('layouts::app')] class extends Component {
                                         {{ $tag->name }}
                                     </x-ui.badge>
                                 @endforeach
+                                @if ($post->tags->count() > 3)
+                                    <x-ui.badge size="sm" color="zinc" variant="outline">
+                                        +{{ $post->tags->count() - 3 }}
+                                    </x-ui.badge>
+                                @endif
                             </div>
                         </x-ui.table.cell>
 
@@ -351,6 +448,37 @@ new #[Title('Posts'), Layout('layouts::app')] class extends Component {
 
                         <x-ui.table.cell>
                             <div class="flex items-center gap-1">
+                                {{-- Context-sensitive quick status action --}}
+                                @if ($post->status === PostStatus::Draft)
+                                    <x-ui.button
+                                        wire:click="publish({{ $post->id }})"
+                                        wire:confirm="{{ __('Publish this post?') }}"
+                                        variant="ghost"
+                                        size="sm"
+                                        icon="check-circle"
+                                        color="green"
+                                        title="{{ __('Publish') }}"
+                                    />
+                                @elseif ($post->status === PostStatus::Published)
+                                    <x-ui.button
+                                        wire:click="archive({{ $post->id }})"
+                                        wire:confirm="{{ __('Archive this post?') }}"
+                                        variant="ghost"
+                                        size="sm"
+                                        icon="archive-box"
+                                        title="{{ __('Archive') }}"
+                                    />
+                                @elseif ($post->status === PostStatus::Archived)
+                                    <x-ui.button
+                                        wire:click="revertToDraft({{ $post->id }})"
+                                        wire:confirm="{{ __('Revert to draft?') }}"
+                                        variant="ghost"
+                                        size="sm"
+                                        icon="arrow-uturn-left"
+                                        title="{{ __('Revert to draft') }}"
+                                    />
+                                @endif
+
                                 <x-ui.button
                                     as="a"
                                     href="{{ route('admin.posts.edit', $post) }}"
@@ -376,8 +504,20 @@ new #[Title('Posts'), Layout('layouts::app')] class extends Component {
                                 <x-ui.icon name="document-text" class="size-10" />
                             </x-ui.empty.media>
                             <x-ui.empty.contents>
-                                <h3 class="text-lg font-semibold">{{ __('No posts found') }}</h3>
-                                <p class="text-sm text-neutral-500">{{ __('Create your first post to get started.') }}</p>
+                                <h3 class="text-lg font-semibold">
+                                    @if ($statusFilter !== 'all')
+                                        {{ __('No :status posts', ['status' => $statusFilter]) }}
+                                    @else
+                                        {{ __('No posts found') }}
+                                    @endif
+                                </h3>
+                                <p class="text-sm text-neutral-500">
+                                    @if ($statusFilter !== 'all')
+                                        {{ __('Try a different tab or create a new post.') }}
+                                    @else
+                                        {{ __('Create your first post to get started.') }}
+                                    @endif
+                                </p>
                             </x-ui.empty.contents>
                         </x-ui.empty>
                     </x-ui.table.empty>

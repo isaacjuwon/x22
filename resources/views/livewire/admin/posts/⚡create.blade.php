@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\PostStatus;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Support\Str;
@@ -25,12 +26,27 @@ new #[Title('New Post'), Layout('layouts::app')] class extends Component {
     #[Validate('required|string')]
     public string $content = '';
 
+    #[Validate('required|in:draft,published,archived')]
+    public string $status = 'draft';
+
+    #[Validate('nullable|date')]
+    public string $publishedAt = '';
+
+    #[Validate('array')]
+    public array $tagNames = [];
+
     #[Validate('nullable|image|max:3072')]
     public mixed $featuredImage = null;
 
     /** @var array<int, TemporaryUploadedFile> */
     #[Validate(['galleryImages.*' => 'image|max:3072'])]
     public array $galleryImages = [];
+
+    #[Computed]
+    public function tagSuggestions(): array
+    {
+        return Tag::orderBy('name')->pluck('name')->toArray();
+    }
 
     #[Computed]
     public function featuredImagePreviewUrl(): ?string
@@ -70,18 +86,57 @@ new #[Title('New Post'), Layout('layouts::app')] class extends Component {
     {
         $this->validate();
 
+        $publishedAt = $this->resolvePublishedAt();
+
         $post = Post::create([
-            'user_id'   => auth()->id(),
-            'title'     => $this->title,
-            'slug'      => Str::slug($this->title),
-            'excerpt'   => $this->excerpt ?: null,
-            'content'   => $this->content,
+            'user_id'      => auth()->id(),
+            'title'        => $this->title,
+            'slug'         => Str::slug($this->title),
+            'excerpt'      => $this->excerpt ?: null,
+            'content'      => $this->content,
+            'status'       => $this->status,
+            'published_at' => $publishedAt,
         ]);
+
+        $tagIds = collect($this->tagNames)->map(function (string $name): int {
+            return Tag::firstOrCreate(
+                ['name' => $name],
+                ['slug' => Str::slug($name)],
+            )->id;
+        })->toArray();
+
+        $post->tags()->sync($tagIds);
 
         $this->syncMedia($post);
 
         $this->dispatch('notify', type: 'success', content: __('Post created.'));
         $this->redirect(route('admin.posts.index'), navigate: true);
+    }
+
+    public function saveAsDraft(): void
+    {
+        $this->status = PostStatus::Draft->value;
+        $this->save();
+    }
+
+    public function generateExcerpt(): void
+    {
+        if (empty($this->content)) {
+            $this->addError('excerpt', 'Please write some content first to generate an excerpt.');
+            return;
+        }
+
+        $prompt = "Generate a concise, 1-2 sentence excerpt for the following article. Reply ONLY with the excerpt, no other text:\n\n" . strip_tags($this->content);
+        $this->excerpt = Ai::ask($prompt);
+    }
+
+    private function resolvePublishedAt(): ?\Illuminate\Support\Carbon
+    {
+        if ($this->status === PostStatus::Published->value) {
+            return filled($this->publishedAt) ? \Illuminate\Support\Carbon::parse($this->publishedAt) : now();
+        }
+
+        return filled($this->publishedAt) ? \Illuminate\Support\Carbon::parse($this->publishedAt) : null;
     }
 
     private function syncMedia(Post $post): void
@@ -112,17 +167,6 @@ new #[Title('New Post'), Layout('layouts::app')] class extends Component {
             ->usingFileName($file->hashName())
             ->toMediaCollection($collection);
     }
-
-    public function generateExcerpt(): void
-    {
-        if (empty($this->content)) {
-            $this->addError('excerpt', 'Please write some content first to generate an excerpt.');
-            return;
-        }
-
-        $prompt = "Generate a concise, 1-2 sentence excerpt for the following article. Reply ONLY with the excerpt, no other text:\n\n" . strip_tags($this->content);
-        $this->excerpt = Ai::ask($prompt);
-    }
 };
 ?>
 
@@ -141,7 +185,7 @@ new #[Title('New Post'), Layout('layouts::app')] class extends Component {
     <x-ui.separator />
 
     <form wire:submit="save" class="space-y-5">
-        <x-ui.field>
+        <x-ui.field required>
             <x-ui.label required>{{ __('Title') }}</x-ui.label>
             <x-ui.input wire:model="title" placeholder="{{ __('Post title') }}" />
             <x-ui.error name="title" />
@@ -159,11 +203,42 @@ new #[Title('New Post'), Layout('layouts::app')] class extends Component {
             <x-ui.error name="excerpt" />
         </x-ui.field>
 
-        <x-ui.field>
+        <x-ui.field required>
             <x-ui.label required>{{ __('Content') }}</x-ui.label>
-	    <x-tiptap-editor id="content" name="content" wire:model="content" :value="$content" />
-           {{-- <x-ui.textarea wire:model="content" rows="12" placeholder="{{ __('Write your post...') }}" /> --}}
+            <x-tiptap-editor id="content" name="content" wire:model="content" :value="$content" />
             <x-ui.error name="content" />
+        </x-ui.field>
+
+        <x-ui.separator label="{{ __('Settings') }}" />
+
+        <div class="grid gap-5 sm:grid-cols-2">
+            <x-ui.field required>
+                <x-ui.label required>{{ __('Status') }}</x-ui.label>
+                <x-ui.select wire:model="status">
+                    @foreach (PostStatus::cases() as $case)
+                        <x-ui.select.option :value="$case->value">{{ ucfirst($case->value) }}</x-ui.select.option>
+                    @endforeach
+                </x-ui.select>
+                <x-ui.description>{{ __('Draft posts are only visible to admins.') }}</x-ui.description>
+                <x-ui.error name="status" />
+            </x-ui.field>
+
+            <x-ui.field>
+                <x-ui.label>{{ __('Publish Date') }}</x-ui.label>
+                <x-ui.date-picker wire:model="publishedAt" clearable />
+                <x-ui.description>{{ __('Leave blank to publish immediately when set to Published.') }}</x-ui.description>
+                <x-ui.error name="publishedAt" />
+            </x-ui.field>
+        </div>
+
+        <x-ui.field>
+            <x-ui.label>{{ __('Tags') }}</x-ui.label>
+            <x-ui.tags-input
+                wire:model="tagNames"
+                placeholder="{{ __('Add tags...') }}"
+                :suggestions="$this->tagSuggestions"
+            />
+            <x-ui.error name="tagNames" />
         </x-ui.field>
 
         <x-ui.separator label="{{ __('Media') }}" />
@@ -195,6 +270,14 @@ new #[Title('New Post'), Layout('layouts::app')] class extends Component {
         <div class="flex justify-end gap-3">
             <x-ui.button as="a" href="{{ route('admin.posts.index') }}" variant="ghost">
                 {{ __('Cancel') }}
+            </x-ui.button>
+            <x-ui.button
+                wire:click="saveAsDraft"
+                wire:loading.attr="disabled"
+                variant="soft"
+                icon="document"
+            >
+                {{ __('Save as Draft') }}
             </x-ui.button>
             <x-ui.button type="submit" variant="primary" wire:loading.attr="disabled">
                 {{ __('Create Post') }}

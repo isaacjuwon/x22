@@ -51,8 +51,6 @@ new #[Title('Posts')] class extends Component {
 ?>
 
 <div class="w-full">
-    <x-ui.heading level="h1" size="xl" class="mb-4">{{ __('Latest Posts') }}</x-ui.heading>
-
     {{-- Tag filters --}}
     @if ($this->tags->isNotEmpty())
         <div class="mb-8 flex flex-wrap gap-2">

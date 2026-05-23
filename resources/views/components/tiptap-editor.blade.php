@@ -5,10 +5,10 @@
         wireModel: @js($attributes->get('wire:model')),
         initialContent: @js($value)
     })"
-  @submit.window="clearDraft()"
+  @submit.stop="clearDraft()"
 >
   <!-- Toolbar -->
-  <div class="tiptap-toolbar bg-muted/50 border-border z-60 flex flex-wrap gap-1 border-b p-2">
+  <div class="tiptap-toolbar bg-muted/50 border-border sticky top-0 z-50 flex flex-wrap gap-1 border-b p-2">
     <div class="bg-background/50 flex items-center gap-1 rounded-xl p-1">
       <button
         type="button"
@@ -296,8 +296,10 @@
     </div>
   </div>
 
-  <!-- Editor Content -->
-  <div id="tiptap-el-{{ $id }}" class="tiptap-content"></div>
+  <!-- Editor Content — wire:ignore prevents Livewire from morphing the editor DOM -->
+  <div wire:ignore>
+    <div id="tiptap-el-{{ $id }}" class="tiptap-content"></div>
+  </div>
 
   <!-- Hidden Input for Form -->
   <input type="hidden" name="{{ $name }}" id="tiptap-input-{{ $id }}" value="{{ $value }}" />
@@ -337,13 +339,12 @@
             contentToLoad = savedDraft;
           }
 
-          const setupCallback = () => {
+          const setupCallback = (json) => {
             this.updated++;
-            const content = document.getElementById('tiptap-input-' + id).value;
-            localStorage.setItem('draft-' + id, content);
+            localStorage.setItem('draft-' + id, json);
 
             if (window.Livewire && config.wireModel) {
-              this.$wire.set(config.wireModel, content);
+              this.$wire.set(config.wireModel, json);
             }
           };
 

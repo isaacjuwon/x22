@@ -622,3 +622,109 @@ kbd {
   min-height: 500px;
   outline: none;
 }
+
+/* ── Placeholder ──────────────────────────────────────────── */
+.ProseMirror p.is-editor-empty:first-child::before {
+  color: #a8a89c;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.dark .ProseMirror p.is-editor-empty:first-child::before {
+  color: #525248;
+}
+
+/* ── Tiptap Table ─────────────────────────────────────────── */
+.tiptap-table {
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  width: 100%;
+  table-layout: fixed;
+  overflow: hidden;
+}
+
+.tiptap-table td,
+.tiptap-table th {
+  border: 1px solid #d4d4cc;
+  padding: 0.5rem 0.75rem;
+  position: relative;
+  vertical-align: top;
+  min-width: 80px;
+}
+
+.tiptap-table th {
+  background: #f0f0ea;
+  font-weight: 700;
+  text-align: left;
+  color: #1a1a14;
+}
+
+.tiptap-table .selectedCell::after {
+  background: rgba(22, 163, 74, 0.12);
+  content: '';
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+}
+
+.tiptap-table .column-resize-handle {
+  background-color: #16a34a;
+  bottom: -2px;
+  pointer-events: none;
+  position: absolute;
+  right: -2px;
+  top: 0;
+  width: 3px;
+}
+
+.dark .tiptap-table td,
+.dark .tiptap-table th {
+  border-color: #2d2d28;
+}
+
+.dark .tiptap-table th {
+  background: #1a1a16;
+  color: #c8c8b8;
+}
+
+.dark .tiptap-table .selectedCell::after {
+  background: rgba(74, 222, 128, 0.12);
+}
+
+.dark .tiptap-table .column-resize-handle {
+  background-color: #4ade80;
+}
+
+/* ── Tiptap Code Block ────────────────────────────────────── */
+.ProseMirror pre {
+  background: #0d0d0b;
+  border-radius: 0;
+  border: 1px solid #2d2d28;
+  color: #c8c8b8;
+  font-family: 'JetBrains Mono', monospace;
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+}
+
+.ProseMirror pre code {
+  background: none;
+  color: inherit;
+  font-size: 0.875rem;
+  padding: 0;
+}
+
+/* ── Tiptap Editor Wrapper Dark Mode ──────────────────────── */
+.dark .tiptap-editor-wrapper {
+  background: #111110;
+}
+
+.dark .tiptap-toolbar {
+  background: rgba(17, 17, 16, 0.8);
+}
