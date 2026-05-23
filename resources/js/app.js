@@ -2,6 +2,10 @@ import './globals/theme.js'; /* By Sheaf.dev */
 import './tiptap-editor';
 import Lenis from 'lenis';
 import { animate, scroll, inView, spring, stagger } from 'motion';
+import { Livewire, Alpine } from "../../vendor/livewire/livewire/dist/livewire.esm"
+import rover from "@sheaf/rover"
+
+
 
 // 1. Expose Motion globally for use in Blade / Alpine components
 window.motion = { animate, scroll, inView, spring, stagger };
@@ -25,3 +29,5 @@ requestAnimationFrame(raf);
 
 window.lenis = lenis;
 
+Alpine.plugin(rover)
+Livewire.start()
