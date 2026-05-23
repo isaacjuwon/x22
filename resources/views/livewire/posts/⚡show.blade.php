@@ -118,6 +118,9 @@ new class extends Component {
         </p>
     @endif
 
+    {{-- AI Summary (auto-generates, fails silently) --}}
+    <livewire:posts.summarizer :post="$post" />
+
     {{-- Content --}}
     <div class="prose prose-lg mb-12 max-w-none">
         {!! nl2br(e($post->content)) !!}

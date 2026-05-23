@@ -8,6 +8,7 @@ new class extends Component {
     public Post $post;
     public string $summary = '';
     public bool $isGenerating = false;
+    public bool $failed = false;
 
     public function mount(Post $post): void
     {
@@ -24,7 +25,7 @@ new class extends Component {
             $response = (new ReadingAssistance)->prompt($prompt);
             $this->summary = $response->text;
         } catch (\Exception $e) {
-            $this->summary = __('Failed to generate summary.');
+            $this->failed = true;
         }
 
         $this->isGenerating = false;
@@ -32,20 +33,20 @@ new class extends Component {
 };
 ?>
 
-<div wire:init="summarize">
-    <x-ui.alerts variant="info" icon="sparkles" class="mb-8">
-        <x-ui.alerts.heading>{{ __('AI Summary') }}</x-ui.alerts.heading>
+@if (! $failed)
+    <div wire:init="summarize">
+        <x-ui.alerts variant="info" icon="sparkles" class="mb-8">
+            <x-ui.alerts.heading>{{ __('AI Summary') }}</x-ui.alerts.heading>
 
-        @if ($isGenerating)
-            <div class="mt-2 space-y-2">
-                <x-ui.skeleton class="h-4 w-full" />
-                <x-ui.skeleton class="h-4 w-5/6" />
-                <x-ui.skeleton class="h-4 w-4/6" />
-            </div>
-        @elseif ($summary)
-            <x-ui.alerts.description>{{ $summary }}</x-ui.alerts.description>
-        @else
-            <x-ui.alerts.description>{{ __('Could not generate summary.') }}</x-ui.alerts.description>
-        @endif
-    </x-ui.alerts>
-</div>
+            @if ($isGenerating)
+                <div class="mt-2 space-y-2">
+                    <x-ui.skeleton class="h-4 w-full" />
+                    <x-ui.skeleton class="h-4 w-5/6" />
+                    <x-ui.skeleton class="h-4 w-4/6" />
+                </div>
+            @else
+                <x-ui.alerts.description>{{ $summary }}</x-ui.alerts.description>
+            @endif
+        </x-ui.alerts>
+    </div>
+@endif
