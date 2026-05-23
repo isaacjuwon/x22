@@ -58,6 +58,8 @@
 @fonts
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
+@livewireStyles
+@livewireScriptConfig
 
 {{-- Apply stored theme immediately to prevent flash --}}
 <script>
