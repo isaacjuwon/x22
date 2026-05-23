@@ -10,199 +10,85 @@
   <!-- Toolbar -->
   <div class="tiptap-toolbar bg-muted/50 border-border z-60 flex flex-wrap gap-1 border-b p-2">
     <div class="bg-background/50 flex items-center gap-1 rounded-xl p-1">
-      <button
-        type="button"
-        @click="undo()"
-        class="hover:bg-background rounded-lg p-2 transition-colors"
-        title="Undo"
-      >
+      <x-ui.button variant="ghost" size="sm" squared @click="undo()" title="Undo">
         <i class="ph ph-arrow-counter-clockwise text-lg"></i>
-      </button>
-      <button
-        type="button"
-        @click="redo()"
-        class="hover:bg-background rounded-lg p-2 transition-colors"
-        title="Redo"
-      >
+      </x-ui.button>
+      <x-ui.button variant="ghost" size="sm" squared @click="redo()" title="Redo">
         <i class="ph ph-arrow-clockwise text-lg"></i>
-      </button>
+      </x-ui.button>
     </div>
 
     <div class="bg-border mx-1 h-6 w-px self-center"></div>
 
     <div class="bg-background/50 flex items-center gap-1 rounded-xl p-1">
-      <button
-        type="button"
-        @click="toggleHeading(1)"
-        :class="isActive('heading', { level: 1 })
-          ? 'bg-primary text-white shadow-sm'
-          : 'hover:bg-background'"
-        class="rounded-lg p-2 transition-all"
-        title="Heading 1"
-      >
+      <x-ui.button variant="ghost" size="sm" squared @click="toggleHeading(1)" :class="isActive('heading', { level: 1 }) ? 'bg-primary text-white shadow-sm hover:bg-primary/90' : ''" title="Heading 1">
         <i class="ph ph-text-h-one text-lg font-bold"></i>
-      </button>
-      <button
-        type="button"
-        @click="toggleHeading(2)"
-        :class="isActive('heading', { level: 2 })
-          ? 'bg-primary text-white shadow-sm'
-          : 'hover:bg-background'"
-        class="rounded-lg p-2 transition-all"
-        title="Heading 2"
-      >
+      </x-ui.button>
+      <x-ui.button variant="ghost" size="sm" squared @click="toggleHeading(2)" :class="isActive('heading', { level: 2 }) ? 'bg-primary text-white shadow-sm hover:bg-primary/90' : ''" title="Heading 2">
         <i class="ph ph-text-h-two text-lg font-bold"></i>
-      </button>
-      <button
-        type="button"
-        @click="toggleHeading(3)"
-        :class="isActive('heading', { level: 3 })
-          ? 'bg-primary text-white shadow-sm'
-          : 'hover:bg-background'"
-        class="rounded-lg p-2 transition-all"
-        title="Heading 3"
-      >
+      </x-ui.button>
+      <x-ui.button variant="ghost" size="sm" squared @click="toggleHeading(3)" :class="isActive('heading', { level: 3 }) ? 'bg-primary text-white shadow-sm hover:bg-primary/90' : ''" title="Heading 3">
         <i class="ph ph-text-h-three text-lg font-bold"></i>
-      </button>
+      </x-ui.button>
     </div>
 
     <div class="bg-border mx-1 h-6 w-px self-center"></div>
 
     <div class="bg-background/50 flex items-center gap-1 rounded-xl p-1">
-      <button
-        type="button"
-        @click="toggleBold()"
-        :class="isActive('bold') ? 'bg-primary text-white shadow-sm' : 'hover:bg-background'"
-        class="rounded-lg p-2 transition-all"
-        title="Bold"
-      >
+      <x-ui.button variant="ghost" size="sm" squared @click="toggleBold()" :class="isActive('bold') ? 'bg-primary text-white shadow-sm hover:bg-primary/90' : ''" title="Bold">
         <i class="ph ph-text-b text-lg font-bold"></i>
-      </button>
-      <button
-        type="button"
-        @click="toggleItalic()"
-        :class="isActive('italic') ? 'bg-primary text-white shadow-sm' : 'hover:bg-background'"
-        class="rounded-lg p-2 transition-all"
-        title="Italic"
-      >
+      </x-ui.button>
+      <x-ui.button variant="ghost" size="sm" squared @click="toggleItalic()" :class="isActive('italic') ? 'bg-primary text-white shadow-sm hover:bg-primary/90' : ''" title="Italic">
         <i class="ph ph-text-italic text-lg font-bold"></i>
-      </button>
-      <button
-        type="button"
-        @click="toggleUnderline()"
-        :class="isActive('underline') ? 'bg-primary text-white shadow-sm' : 'hover:bg-background'"
-        class="rounded-lg p-2 transition-all"
-        title="Underline"
-      >
+      </x-ui.button>
+      <x-ui.button variant="ghost" size="sm" squared @click="toggleUnderline()" :class="isActive('underline') ? 'bg-primary text-white shadow-sm hover:bg-primary/90' : ''" title="Underline">
         <i class="ph ph-text-underline text-lg font-bold"></i>
-      </button>
-      <button
-        type="button"
-        @click="toggleStrike()"
-        :class="isActive('strike') ? 'bg-primary text-white shadow-sm' : 'hover:bg-background'"
-        class="rounded-lg p-2 transition-all"
-        title="Strike"
-      >
+      </x-ui.button>
+      <x-ui.button variant="ghost" size="sm" squared @click="toggleStrike()" :class="isActive('strike') ? 'bg-primary text-white shadow-sm hover:bg-primary/90' : ''" title="Strike">
         <i class="ph ph-text-strikethrough text-lg font-bold"></i>
-      </button>
-      <button
-        type="button"
-        @click="toggleCode()"
-        :class="isActive('code') ? 'bg-primary text-white shadow-sm' : 'hover:bg-background'"
-        class="rounded-lg p-2 transition-all"
-        title="Inline Code"
-      >
+      </x-ui.button>
+      <x-ui.button variant="ghost" size="sm" squared @click="toggleCode()" :class="isActive('code') ? 'bg-primary text-white shadow-sm hover:bg-primary/90' : ''" title="Inline Code">
         <i class="ph ph-code text-lg font-bold"></i>
-      </button>
-      <button
-        type="button"
-        @click="toggleLink()"
-        :class="isActive('link') ? 'bg-primary text-white shadow-sm' : 'hover:bg-background'"
-        class="rounded-lg p-2 transition-all"
-        title="Insert Link"
-      >
+      </x-ui.button>
+      <x-ui.button variant="ghost" size="sm" squared @click="toggleLink()" :class="isActive('link') ? 'bg-primary text-white shadow-sm hover:bg-primary/90' : ''" title="Insert Link">
         <i class="ph ph-link text-lg font-bold"></i>
-      </button>
+      </x-ui.button>
     </div>
 
     <div class="bg-border mx-1 h-6 w-px self-center"></div>
 
     <div class="bg-background/50 flex items-center gap-1 rounded-xl p-1">
-      <button
-        type="button"
-        @click="toggleBulletList()"
-        :class="isActive('bulletList') ? 'bg-primary text-white shadow-sm' : 'hover:bg-background'"
-        class="rounded-lg p-2 transition-all"
-        title="Bullet List"
-      >
+      <x-ui.button variant="ghost" size="sm" squared @click="toggleBulletList()" :class="isActive('bulletList') ? 'bg-primary text-white shadow-sm hover:bg-primary/90' : ''" title="Bullet List">
         <i class="ph ph-list-bullets text-lg font-bold"></i>
-      </button>
-      <button
-        type="button"
-        @click="toggleOrderedList()"
-        :class="isActive('orderedList') ? 'bg-primary text-white shadow-sm' : 'hover:bg-background'"
-        class="rounded-lg p-2 transition-all"
-        title="Ordered List"
-      >
+      </x-ui.button>
+      <x-ui.button variant="ghost" size="sm" squared @click="toggleOrderedList()" :class="isActive('orderedList') ? 'bg-primary text-white shadow-sm hover:bg-primary/90' : ''" title="Ordered List">
         <i class="ph ph-list-numbers text-lg font-bold"></i>
-      </button>
-      <button
-        type="button"
-        @click="toggleBlockquote()"
-        :class="isActive('blockquote') ? 'bg-primary text-white shadow-sm' : 'hover:bg-background'"
-        class="rounded-lg p-2 transition-all"
-        title="Blockquote"
-      >
+      </x-ui.button>
+      <x-ui.button variant="ghost" size="sm" squared @click="toggleBlockquote()" :class="isActive('blockquote') ? 'bg-primary text-white shadow-sm hover:bg-primary/90' : ''" title="Blockquote">
         <i class="ph ph-quotes text-lg font-bold"></i>
-      </button>
-      <button
-        type="button"
-        @click="toggleCodeBlock()"
-        :class="isActive('codeBlock') ? 'bg-primary text-white shadow-sm' : 'hover:bg-background'"
-        class="rounded-lg p-2 transition-all"
-        title="Code Block"
-      >
+      </x-ui.button>
+      <x-ui.button variant="ghost" size="sm" squared @click="toggleCodeBlock()" :class="isActive('codeBlock') ? 'bg-primary text-white shadow-sm hover:bg-primary/90' : ''" title="Code Block">
         <i class="ph ph-terminal-window text-lg font-bold"></i>
-      </button>
+      </x-ui.button>
     </div>
 
     <div class="bg-border mx-1 h-6 w-px self-center"></div>
 
     <div class="bg-background/50 flex items-center gap-1 rounded-xl p-1" x-data="{ open: false }">
-      <button
-        type="button"
-        @click="insertTable()"
-        class="hover:bg-background rounded-lg p-2 transition-colors"
-        title="Insert Table"
-      >
+      <x-ui.button variant="ghost" size="sm" squared @click="insertTable()" title="Insert Table">
         <i class="ph ph-table text-lg"></i>
-      </button>
+      </x-ui.button>
       <template x-if="isActive('table')">
         <div class="flex items-center gap-1">
-          <button
-            type="button"
-            @click="addColumnAfter()"
-            class="hover:bg-background rounded-lg p-2 transition-colors"
-            title="Add Column"
-          >
+          <x-ui.button variant="ghost" size="sm" squared @click="addColumnAfter()" title="Add Column">
             <i class="ph ph-columns text-lg"></i>
-          </button>
-          <button
-            type="button"
-            @click="addRowAfter()"
-            class="hover:bg-background rounded-lg p-2 transition-colors"
-            title="Add Row"
-          >
+          </x-ui.button>
+          <x-ui.button variant="ghost" size="sm" squared @click="addRowAfter()" title="Add Row">
             <i class="ph ph-rows text-lg"></i>
-          </button>
-          <button
-            type="button"
-            @click="deleteTable()"
-            class="rounded-lg p-2 transition-colors hover:bg-red-500/10 hover:text-red-500"
-            title="Delete Table"
-          >
+          </x-ui.button>
+          <x-ui.button variant="ghost" size="sm" squared @click="deleteTable()" class="!text-red-500 hover:!bg-red-500/10" title="Delete Table">
             <i class="ph ph-trash text-lg"></i>
-          </button>
+          </x-ui.button>
         </div>
       </template>
     </div>
@@ -210,14 +96,9 @@
     <div class="bg-border mx-1 h-6 w-px self-center"></div>
 
     <div class="bg-background/50 flex items-center gap-1 rounded-xl p-1">
-      <button
-        type="button"
-        @click="addImage()"
-        class="hover:bg-background rounded-lg p-2 transition-colors"
-        title="Add Image"
-      >
+      <x-ui.button variant="ghost" size="sm" squared @click="addImage()" title="Add Image">
         <i class="ph ph-image text-lg"></i>
-      </button>
+      </x-ui.button>
     </div>
   </div>
 
@@ -277,20 +158,22 @@
         </div>
 
         <div class="flex gap-3 pt-2">
-          <button
-            type="button"
+          <x-ui.button
+            variant="solid"
+            size="lg"
+            class="flex-1 font-bold"
             @click="closeModal()"
-            class="bg-muted text-foreground hover:bg-muted/80 flex-1 rounded-xl px-4 py-3 font-bold transition-colors"
           >
             Cancel
-          </button>
-          <button
-            type="button"
+          </x-ui.button>
+          <x-ui.button
+            variant="primary"
+            size="lg"
+            class="flex-1 font-bold"
             @click="submitModal()"
-            class="bg-primary text-primary-foreground flex-1 rounded-xl px-4 py-3 font-bold transition-opacity hover:opacity-90"
           >
             Insert
-          </button>
+          </x-ui.button>
         </div>
       </div>
     </div>
