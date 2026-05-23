@@ -6,7 +6,7 @@ import { Livewire, Alpine } from "../../vendor/livewire/livewire/dist/livewire.e
 import rover from "@sheaf/rover"
 import './components/calendar/index.js';
 import './components/date-picker/index.js';
-
+import './components/select.js';
 
 // 1. Expose Motion globally for use in Blade / Alpine components
 window.motion = { animate, scroll, inView, spring, stagger };

@@ -1,6 +1,7 @@
 @import './theme.css'; /* By Sheaf.dev */ 
 @import 'tailwindcss';
-
+/* app.css */
+@import './components/calendar/cell.css';
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 

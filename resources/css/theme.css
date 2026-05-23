@@ -1,3 +1,6 @@
+/* app.css */
+@import './components/calendar/cell.css';
+
 /* ============================================================
    SHEAF UI — TERMINAL THEME
    Drop this into your project and import after app.css
