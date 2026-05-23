@@ -208,7 +208,7 @@ new #[Title('New Post'), Layout('layouts::app')] class extends Component {
             <x-ui.error name="excerpt" />
         </x-ui.field>
 
-        <x-ui.field required>
+        <x-ui.field required wire:ignore>
             <div class="flex items-center justify-between mb-1">
                 <x-ui.label required>{{ __('Content') }}</x-ui.label>
                 <x-ui.button type="button" wire:click="improveContent" variant="ghost" size="sm" class="text-blue-600 dark:text-blue-400">
