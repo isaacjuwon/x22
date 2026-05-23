@@ -16,38 +16,29 @@
                 <x-ui.text class="font-semibold tracking-tight">{{ $general->site_name }}</x-ui.text>
             </a>
 
-            {{-- Nav dropdown --}}
-            <x-ui.dropdown position="bottom-start">
-                <x-slot:button>
-                    <x-ui.button variant="ghost" size="sm" icon="bars-3">
-                        {{ __('Menu') }}
-                    </x-ui.button>
-                </x-slot:button>
-
-                <x-slot:menu class="w-52">
-                    <x-ui.dropdown.item :href="route('home')" icon="home" wire:navigate>
-                        {{ __('Home') }}
-                    </x-ui.dropdown.item>
-                    <x-ui.dropdown.item :href="route('posts.index')" icon="document-text" wire:navigate>
-                        {{ __('Blog') }}
-                    </x-ui.dropdown.item>
-                    <x-ui.dropdown.item :href="route('projects.index')" icon="folder-open" wire:navigate>
-                        {{ __('Projects') }}
-                    </x-ui.dropdown.item>
-                </x-slot:menu>
-            </x-ui.dropdown>
-
             <div class="ml-auto flex items-center gap-x-2">
                 <x-ui.theme-switcher variant="dropdown" />
-                @auth
-                    <x-ui.button as="a" variant="ghost" size="sm" :href="route('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
-                    </x-ui.button>
-                @else
-                    <x-ui.button variant="primary" size="sm" :href="route('login')" wire:navigate>
-                        {{ __('Sign In') }}
-                    </x-ui.button>
-                @endauth
+
+                {{-- Nav dropdown --}}
+                <x-ui.dropdown position="bottom-end">
+                    <x-slot:button>
+                        <x-ui.button variant="ghost" size="sm" icon="bars-3">
+                            {{ __('Menu') }}
+                        </x-ui.button>
+                    </x-slot:button>
+
+                    <x-slot:menu class="w-52">
+                        <x-ui.dropdown.item :href="route('home')" icon="home" wire:navigate>
+                            {{ __('Home') }}
+                        </x-ui.dropdown.item>
+                        <x-ui.dropdown.item :href="route('posts.index')" icon="document-text" wire:navigate>
+                            {{ __('Blog') }}
+                        </x-ui.dropdown.item>
+                        <x-ui.dropdown.item :href="route('projects.index')" icon="folder-open" wire:navigate>
+                            {{ __('Projects') }}
+                        </x-ui.dropdown.item>
+                    </x-slot:menu>
+                </x-ui.dropdown>
             </div>
         </x-ui.layout.header>
 
