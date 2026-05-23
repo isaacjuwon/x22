@@ -4,7 +4,8 @@ import Lenis from 'lenis';
 import { animate, scroll, inView, spring, stagger } from 'motion';
 import { Livewire, Alpine } from "../../vendor/livewire/livewire/dist/livewire.esm"
 import rover from "@sheaf/rover"
-
+import './components/calendar/index.js';
+import './components/date-picker/index.js';
 
 
 // 1. Expose Motion globally for use in Blade / Alpine components
