@@ -341,30 +341,48 @@ if (typeof window.tiptapEditor !== 'function') {
             redo()              { this.getEditor()?.chain().focus().redo().run(); },
 
             toggleLink() {
-                this.modalValue = this.getEditor()?.getAttributes('link').href ?? 'https://';
+                const editor = this.getEditor();
+                if (!editor) return;
+                // Save selection state before modal steals focus
+                this._savedSelection = editor.state.selection;
+                this.modalValue = editor.getAttributes('link').href ?? 'https://';
                 this.$modal.open(config.id + '-link-modal');
             },
             submitLinkModal() {
                 const val    = this.modalValue.trim();
                 const editor = this.getEditor();
                 if (!editor) return;
+                // Restore selection then apply command
+                if (this._savedSelection) {
+                    editor.commands.setTextSelection(this._savedSelection);
+                }
                 val === ''
                     ? editor.chain().focus().unsetLink().run()
                     : editor.chain().focus().extendMarkRange('link').setLink({ href: val }).run();
                 this.$modal.close(config.id + '-link-modal');
                 this.modalValue = '';
+                this._savedSelection = null;
             },
 
             addImage() {
+                const editor = this.getEditor();
+                if (!editor) return;
+                this._savedImageSelection = editor.state.selection;
                 this.imageValue = 'https://';
                 this.$modal.open(config.id + '-image-modal');
             },
             submitImageModal() {
                 const val    = this.imageValue.trim();
                 const editor = this.getEditor();
-                if (editor && val) editor.chain().focus().setImage({ src: val }).run();
+                if (editor && val) {
+                    if (this._savedImageSelection) {
+                        editor.commands.setTextSelection(this._savedImageSelection);
+                    }
+                    editor.chain().focus().setImage({ src: val }).run();
+                }
                 this.$modal.close(config.id + '-image-modal');
                 this.imageValue = '';
+                this._savedImageSelection = null;
             },
 
             insertTable()    { this.getEditor()?.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run(); },
