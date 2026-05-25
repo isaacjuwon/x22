@@ -180,96 +180,95 @@
     value="{{ is_string($value) ? $value : json_encode($value) }}"
 />
     
+    {{-- ── Link modal (teleports to body via Sheaf UI) ── --}}
+    <x-ui.modal
+        :id="$id . '-link-modal'"
+        width="md"
+        position="center"
+        backdrop="dark"
+        animation="scale"
+        x-on:modal-opened.window="
+            if ($event.detail.id === '{{ $id }}-link-modal') {
+                $nextTick(() => document.getElementById('tiptap-modal-input-{{ $id }}')?.focus())
+            }
+        "
+    >
+        <x-ui.field>
+            <x-ui.label>URL</x-ui.label>
+            <x-ui.input
+                type="url"
+                id="tiptap-modal-input-{{ $id }}"
+                x-model="modalValue"
+                placeholder="https://example.com"
+                @keydown.enter="submitLinkModal()"
+                @keydown.escape="$modal.close('{{ $id }}-link-modal')"
+                leftIcon="link"
+            />
+        </x-ui.field>
+
+        <x-slot name="footer">
+            <div class="flex justify-end gap-3">
+                <x-ui.button
+                    type="button"
+                    variant="ghost"
+                    x-on:click="$modal.close('{{ $id }}-link-modal')">
+                    Cancel
+                </x-ui.button>
+                <x-ui.button
+                    type="button"
+                    color="green"
+                    @click="submitLinkModal()">
+                    Insert
+                </x-ui.button>
+            </div>
+        </x-slot>
+    </x-ui.modal>
+
+    {{-- ── Image modal ── --}}
+    <x-ui.modal
+        :id="$id . '-image-modal'"
+        width="md"
+        position="center"
+        backdrop="dark"
+        animation="scale"
+        x-on:modal-opened.window="
+            if ($event.detail.id === '{{ $id }}-image-modal') {
+                $nextTick(() => document.getElementById('tiptap-image-input-{{ $id }}')?.focus())
+            }
+        "
+    >
+        <x-ui.field>
+            <x-ui.label>Image URL</x-ui.label>
+            <x-ui.input
+                type="url"
+                id="tiptap-image-input-{{ $id }}"
+                x-model="imageValue"
+                placeholder="https://example.com/image.jpg"
+                @keydown.enter="submitImageModal()"
+                @keydown.escape="$modal.close('{{ $id }}-image-modal')"
+                leftIcon="ps:image"
+            />
+        </x-ui.field>
+
+        <x-slot name="footer">
+            <div class="flex justify-end gap-3">
+                <x-ui.button
+                    type="button"
+                    variant="ghost"
+                    x-on:click="$modal.close('{{ $id }}-image-modal')">
+                    Cancel
+                </x-ui.button>
+                <x-ui.button
+                    type="button"
+                    color="green"
+                    @click="submitImageModal()">
+                    Insert
+                </x-ui.button>
+            </div>
+        </x-slot>
+    </x-ui.modal>
 
 </div>
-
-{{-- ── Link modal (teleports to body via Sheaf UI) ── --}}
-<x-ui.modal
-    :id="$id . '-link-modal'"
-    width="md"
-    position="center"
-    backdrop="dark"
-    animation="scale"
-    x-on:modal-opened.window="
-        if ($event.detail.id === '{{ $id }}-link-modal') {
-            $nextTick(() => document.getElementById('tiptap-modal-input-{{ $id }}')?.focus())
-        }
-    "
->
-    <x-ui.field>
-        <x-ui.label>URL</x-ui.label>
-        <x-ui.input
-            type="url"
-            id="tiptap-modal-input-{{ $id }}"
-            x-model="modalValue"
-            placeholder="https://example.com"
-            @keydown.enter="submitLinkModal()"
-            @keydown.escape="$modal.close('{{ $id }}-link-modal')"
-            leftIcon="link"
-        />
-    </x-ui.field>
-
-    <x-slot name="footer">
-        <div class="flex justify-end gap-3">
-            <x-ui.button
-                type="button"
-                variant="ghost"
-                x-on:click="$modal.close('{{ $id }}-link-modal')">
-                Cancel
-            </x-ui.button>
-            <x-ui.button
-                type="button"
-                color="green"
-                @click="submitLinkModal()">
-                Insert
-            </x-ui.button>
-        </div>
-    </x-slot>
-</x-ui.modal>
-
-{{-- ── Image modal ── --}}
-<x-ui.modal
-    :id="$id . '-image-modal'"
-    width="md"
-    position="center"
-    backdrop="dark"
-    animation="scale"
-    x-on:modal-opened.window="
-        if ($event.detail.id === '{{ $id }}-image-modal') {
-            $nextTick(() => document.getElementById('tiptap-image-input-{{ $id }}')?.focus())
-        }
-    "
->
-    <x-ui.field>
-        <x-ui.label>Image URL</x-ui.label>
-        <x-ui.input
-            type="url"
-            id="tiptap-image-input-{{ $id }}"
-            x-model="imageValue"
-            placeholder="https://example.com/image.jpg"
-            @keydown.enter="submitImageModal()"
-            @keydown.escape="$modal.close('{{ $id }}-image-modal')"
-            leftIcon="ps:image"
-        />
-    </x-ui.field>
-
-    <x-slot name="footer">
-        <div class="flex justify-end gap-3">
-            <x-ui.button
-                type="button"
-                variant="ghost"
-                x-on:click="$modal.close('{{ $id }}-image-modal')">
-                Cancel
-            </x-ui.button>
-            <x-ui.button
-                type="button"
-                color="green"
-                @click="submitImageModal()">
-                Insert
-            </x-ui.button>
-        </div>
-    </x-slot>
-</x-ui.modal>
 
 {{-- ── Alpine component (registered once) ── --}}
 <script>
