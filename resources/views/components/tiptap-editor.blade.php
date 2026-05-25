@@ -249,7 +249,7 @@
             placeholder="https://example.com/image.jpg"
             @keydown.enter="submitImageModal()"
             @keydown.escape="$modal.close('{{ $id }}-image-modal')"
-            leftIcon="image"
+            leftIcon="ps:image"
         />
     </x-ui.field>
 
