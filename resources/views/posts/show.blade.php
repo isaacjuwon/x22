@@ -1,6 +1,7 @@
 @php
     use App\Enums\PostStatus;
     use App\Models\Post;
+    use App\Support\ContentRenderer;
 
     abort_unless(
         $post->status === PostStatus::Published
@@ -126,8 +127,8 @@
                 @endif
 
                 {{-- Content --}}
-                <div class="prose prose-lg mb-12 max-w-none dark:prose-invert">
-                    {!! $post->content !!}
+                <div class="tiptap-content mb-12 max-w-none">
+                    {!! ContentRenderer::render($post->content) !!}
                 </div>
 
                 {{-- Gallery --}}
