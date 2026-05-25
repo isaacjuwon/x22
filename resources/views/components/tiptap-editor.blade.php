@@ -5,7 +5,7 @@
 ])
 
 <div
-    class="tiptap-editor-wrapper overflow-hidden rounded-[var(--radius-box)] border border-neutral-800 bg-neutral-900 transition-all focus-within:ring-1 focus-within:ring-primary"
+    class="tiptap-editor-wrapper overflow-hidden rounded-[var(--radius-box)] border border-neutral-800 bg-white transition-all focus-within:ring-1 focus-within:ring-primary dark:bg-neutral-900 dark:border-neutral-800"
     x-data="tiptapEditor({
         id: @js($id),
         wireModel: @js($attributes->get('wire:model')),
@@ -15,7 +15,7 @@
 >
 
     {{-- ── Toolbar ── --}}
-    <div class="flex flex-wrap items-center gap-1 border-b border-neutral-800 px-2 py-1.5">
+    <div class="flex flex-wrap items-center gap-1 border-b border-neutral-200 bg-neutral-50 px-2 py-1.5 dark:border-neutral-800 dark:bg-neutral-900">
 
         {{-- History --}}
         <div class="flex items-center">
@@ -168,7 +168,7 @@
     {{-- ── Editor surface ── --}}
     <div
         id="tiptap-el-{{ $id }}"
-        class="tiptap-content min-h-64 px-5 py-4 focus:outline-none"
+        class="tiptap-content min-h-64 bg-white px-5 py-4 text-neutral-700 focus:outline-none dark:bg-neutral-950 dark:text-neutral-300"
     ></div>
 
     {{-- Hidden form input --}}
