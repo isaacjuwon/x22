@@ -27,7 +27,7 @@
             </x-ui.button>
         </div>
 
-        <x-ui.separator orientation="vertical" class="mx-1 h-5 self-center" />
+        <x-ui.separator vertical class="mx-1 h-5 self-center" />
 
         {{-- Headings --}}
         <div class="flex items-center">
@@ -51,7 +51,7 @@
             </x-ui.button>
         </div>
 
-        <x-ui.separator orientation="vertical" class="mx-1 h-5 self-center" />
+        <x-ui.separator vertical class="mx-1 h-5 self-center" />
 
         {{-- Inline marks --}}
         <div class="flex items-center">
@@ -93,7 +93,7 @@
             </x-ui.button>
         </div>
 
-        <x-ui.separator orientation="vertical" class="mx-1 h-5 self-center" />
+        <x-ui.separator vertical class="mx-1 h-5 self-center" />
 
         {{-- Block nodes --}}
         <div class="flex items-center">
@@ -123,7 +123,7 @@
             </x-ui.button>
         </div>
 
-        <x-ui.separator orientation="vertical" class="mx-1 h-5 self-center" />
+        <x-ui.separator vertical class="mx-1 h-5 self-center" />
 
         {{-- Table --}}
         <div class="flex items-center">
@@ -146,7 +146,7 @@
                         title="Add Row After">
                         <x-ui.icon name="ps:rows" class="size-4" />
                     </x-ui.button>
-                    <x-ui.button type="button" variant="danger" size="xs"
+                    <x-ui.button type="button" variant="ghost" color="red" size="xs"
                         @mousedown.prevent="deleteTable()"
                         title="Delete Table">
                         <x-ui.icon name="ps:trash" class="size-4" />
@@ -155,7 +155,7 @@
             </template>
         </div>
 
-        <x-ui.separator orientation="vertical" class="mx-1 h-5 self-center" />
+        <x-ui.separator vertical class="mx-1 h-5 self-center" />
 
         {{-- Image --}}
         <x-ui.button type="button" variant="ghost" size="xs"

@@ -32,7 +32,16 @@ window.setupTiptap = function (
   const editor = new Editor({
     element: document.getElementById(elementId),
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        bulletList: {
+          keepMarks: true,
+          keepAttributes: false,
+        },
+        orderedList: {
+          keepMarks: true,
+          keepAttributes: false,
+        },
+      }),
       Link.configure({
         openOnClick: false,
         HTMLAttributes: {
@@ -62,7 +71,7 @@ window.setupTiptap = function (
     editorProps: {
       attributes: {
         class:
-          'prose prose-zinc prose-lg md:prose-xl max-w-none focus:outline-none min-h-[500px] px-8 py-10',
+          'tiptap prose prose-zinc prose-lg md:prose-xl max-w-none focus:outline-none min-h-[500px] px-8 py-10',
       },
     },
     shouldRerenderOnTransaction: true,
