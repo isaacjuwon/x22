@@ -670,3 +670,47 @@ kbd {
     color: var(--color-primary-fg) !important;
     border-color: var(--color-primary-content) !important;
 }
+
+/* ============================================================
+   TIPTAP TOOLBAR — active / hover button states
+   ============================================================ */
+
+/* Light mode — default */
+.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"] {
+    border-color: transparent !important;
+    color: #3e3e38 !important;
+}
+
+/* Light mode — hover */
+.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"]:hover {
+    background: rgba(22, 163, 74, 0.10) !important;
+    color: #16a34a !important;
+    border-color: transparent !important;
+}
+
+/* Light mode — active */
+.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"][data-active="true"] {
+    background: var(--color-primary) !important;
+    color: var(--color-primary-fg) !important;
+    border-color: var(--color-primary-content) !important;
+}
+
+/* Dark mode — default */
+.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"] {
+    border-color: transparent !important;
+    color: #a8a89c !important;
+}
+
+/* Dark mode — hover */
+.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"]:hover {
+    background: rgba(74, 222, 128, 0.10) !important;
+    color: #4ade80 !important;
+    border-color: transparent !important;
+}
+
+/* Dark mode — active */
+.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"][data-active="true"] {
+    background: var(--color-primary) !important;
+    color: var(--color-primary-fg) !important;
+    border-color: var(--color-primary-content) !important;
+}

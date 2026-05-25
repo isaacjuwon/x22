@@ -33,19 +33,19 @@
         <div class="flex items-center">
             <x-ui.button type="button" variant="ghost" size="xs"
                 @mousedown.prevent="toggleHeading(1)"
-                ::class="isActive('heading', { level: 1 }) ? 'bg-primary/10 !text-primary' : ''"
+                ::data-active="isActive('heading', { level: 1 }) ? 'true' : 'false'"
                 title="Heading 1">
                 <x-ui.icon name="ps:text-h-one" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
                 @mousedown.prevent="toggleHeading(2)"
-                ::class="isActive('heading', { level: 2 }) ? 'bg-primary/10 !text-primary' : ''"
+                ::data-active="isActive('heading', { level: 2 }) ? 'true' : 'false'"
                 title="Heading 2">
                 <x-ui.icon name="ps:text-h-two" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
                 @mousedown.prevent="toggleHeading(3)"
-                ::class="isActive('heading', { level: 3 }) ? 'bg-primary/10 !text-primary' : ''"
+                ::data-active="isActive('heading', { level: 3 }) ? 'true' : 'false'"
                 title="Heading 3">
                 <x-ui.icon name="ps:text-h-three" class="size-4" />
             </x-ui.button>
@@ -57,37 +57,37 @@
         <div class="flex items-center">
             <x-ui.button type="button" variant="ghost" size="xs"
                 @mousedown.prevent="toggleBold()"
-                ::class="isActive('bold') ? 'bg-primary/10 !text-primary' : ''"
+                ::data-active="isActive('bold') ? 'true' : 'false'"
                 title="Bold">
                 <x-ui.icon name="ps:text-b" variant="bold" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
                 @mousedown.prevent="toggleItalic()"
-                ::class="isActive('italic') ? 'bg-primary/10 !text-primary' : ''"
+                ::data-active="isActive('italic') ? 'true' : 'false'"
                 title="Italic">
                 <x-ui.icon name="ps:text-italic" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
                 @mousedown.prevent="toggleUnderline()"
-                ::class="isActive('underline') ? 'bg-primary/10 !text-primary' : ''"
+                ::data-active="isActive('underline') ? 'true' : 'false'"
                 title="Underline">
                 <x-ui.icon name="ps:text-underline" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
                 @mousedown.prevent="toggleStrike()"
-                ::class="isActive('strike') ? 'bg-primary/10 !text-primary' : ''"
+                ::data-active="isActive('strike') ? 'true' : 'false'"
                 title="Strikethrough">
                 <x-ui.icon name="ps:text-strikethrough" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
                 @mousedown.prevent="toggleCode()"
-                ::class="isActive('code') ? 'bg-primary/10 !text-primary' : ''"
+                ::data-active="isActive('code') ? 'true' : 'false'"
                 title="Inline Code">
                 <x-ui.icon name="ps:code" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
                 @mousedown.prevent="toggleLink()"
-                ::class="isActive('link') ? 'bg-primary/10 !text-primary' : ''"
+                ::data-active="isActive('link') ? 'true' : 'false'"
                 title="Insert Link">
                 <x-ui.icon name="ps:link" class="size-4" />
             </x-ui.button>
@@ -99,25 +99,25 @@
         <div class="flex items-center">
             <x-ui.button type="button" variant="ghost" size="xs"
                 @mousedown.prevent="toggleBulletList()"
-                ::class="isActive('bulletList') ? 'bg-primary/10 !text-primary' : ''"
+                ::data-active="isActive('bulletList') ? 'true' : 'false'"
                 title="Bullet List">
                 <x-ui.icon name="ps:list-bullets" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
                 @mousedown.prevent="toggleOrderedList()"
-                ::class="isActive('orderedList') ? 'bg-primary/10 !text-primary' : ''"
+                ::data-active="isActive('orderedList') ? 'true' : 'false'"
                 title="Ordered List">
                 <x-ui.icon name="ps:list-numbers" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
                 @mousedown.prevent="toggleBlockquote()"
-                ::class="isActive('blockquote') ? 'bg-primary/10 !text-primary' : ''"
+                ::data-active="isActive('blockquote') ? 'true' : 'false'"
                 title="Blockquote">
                 <x-ui.icon name="ps:quotes" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
                 @mousedown.prevent="toggleCodeBlock()"
-                ::class="isActive('codeBlock') ? 'bg-primary/10 !text-primary' : ''"
+                ::data-active="isActive('codeBlock') ? 'true' : 'false'"
                 title="Code Block">
                 <x-ui.icon name="ps:terminal-window" class="size-4" />
             </x-ui.button>
@@ -129,6 +129,7 @@
         <div class="flex items-center">
             <x-ui.button type="button" variant="ghost" size="xs"
                 @mousedown.prevent="insertTable()"
+                ::data-active="isActive('table') ? 'true' : 'false'"
                 title="Insert Table">
                 <x-ui.icon name="ps:table" class="size-4" />
             </x-ui.button>
@@ -172,15 +173,14 @@
     ></div>
 
     {{-- Hidden form input --}}
-    
     <input
-    type="hidden"
-    name="{{ $name }}"
-    id="tiptap-input-{{ $id }}"
-    value="{{ is_string($value) ? $value : json_encode($value) }}"
-/>
-    
-    {{-- ── Link modal (teleports to body via Sheaf UI) ── --}}
+        type="hidden"
+        name="{{ $name }}"
+        id="tiptap-input-{{ $id }}"
+        value="{{ is_string($value) ? $value : json_encode($value) }}"
+    />
+
+    {{-- ── Link modal ── --}}
     <x-ui.modal
         :id="$id . '-link-modal'"
         width="md"
@@ -343,7 +343,6 @@ if (typeof window.tiptapEditor !== 'function') {
             toggleLink() {
                 const editor = this.getEditor();
                 if (!editor) return;
-                // Save selection state before modal steals focus
                 this._savedSelection = editor.state.selection;
                 this.modalValue = editor.getAttributes('link').href ?? 'https://';
                 this.$modal.open(config.id + '-link-modal');
@@ -352,7 +351,6 @@ if (typeof window.tiptapEditor !== 'function') {
                 const val    = this.modalValue.trim();
                 const editor = this.getEditor();
                 if (!editor) return;
-                // Restore selection then apply command
                 if (this._savedSelection) {
                     editor.commands.setTextSelection(this._savedSelection);
                 }
