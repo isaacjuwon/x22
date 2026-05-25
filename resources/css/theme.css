@@ -1,6 +1,3 @@
-/* app.css */
-@import './components/calendar/cell.css';
-
 /* ============================================================
    SHEAF UI — TERMINAL THEME
    Drop this into your project and import after app.css
@@ -31,9 +28,9 @@
     --color-neutral-900: #242420;  /* card / surface backgrounds          */
     --color-neutral-950: #0a0a08;  /* section backgrounds                 */
 
-    /* Subtle rounding — tight enough to stay terminal, soft enough to feel modern */
-    --radius-field: 0.1875rem;  /* 3px  — inputs, textareas   */
-    --radius-box:   0.375rem;   /* 6px  — cards, modals       */
+    /* Sharp corners everywhere */
+    --radius-field: 0rem;
+    --radius-box:   0rem;
 
     /* Semantic accents */
     --color-success: #16a34a;   /* same green  */
@@ -121,7 +118,7 @@ body {
 
 /* --- Buttons ------------------------------------------------ */
 [data-slot="button"] {
-    border-radius: 0.25rem !important; /* 4px */
+    border-radius: 0 !important;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-size: 0.75rem;
@@ -184,7 +181,7 @@ body {
 [data-slot="input"],
 [data-slot="textarea"],
 [data-slot="select"] {
-    border-radius: 0.1875rem !important; /* 3px */
+    border-radius: 0 !important;
     background: #ffffff !important;
     border: 1px solid #d4d4cc !important;
     color: #1a1a14 !important;
@@ -225,7 +222,7 @@ body {
 
 /* --- Cards -------------------------------------------------- */
 [data-slot="card"] {
-    border-radius: 0.375rem !important; /* 6px */
+    border-radius: 0 !important;
     background: #ffffff !important;
     border: 1px solid #e0e0d8 !important;
     box-shadow: none !important;
@@ -246,13 +243,11 @@ body {
     padding: 6px 12px;
     border-bottom: 1px solid #e0e0d8;
     background: #f5f5f0;
-    border-radius: 0.375rem 0.375rem 0 0; /* match card top corners */
 }
 .dark [data-slot="card"]::before {
     color: #333330;
     border-bottom-color: #2d2d28;
     background: #0d0d0b;
-    border-radius: 0.375rem 0.375rem 0 0;
 }
 
 /* --- Labels & headings ------------------------------------- */
@@ -278,7 +273,7 @@ body {
 
 /* --- Badges ------------------------------------------------- */
 [data-slot="badge"] {
-    border-radius: 0.25rem !important; /* 4px */
+    border-radius: 0 !important;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-size: 0.65rem;
@@ -288,7 +283,7 @@ body {
 /* --- Modals / Dialogs -------------------------------------- */
 [data-slot="modal"],
 [data-slot="dialog"] {
-    border-radius: 0.5rem !important; /* 8px */
+    border-radius: 0 !important;
     background: #ffffff !important;
     border: 1px solid #16a34a !important;
     box-shadow: 0 0 24px rgba(22, 163, 74, 0.08) !important;
@@ -302,7 +297,7 @@ body {
 
 /* --- Tooltips ---------------------------------------------- */
 [data-slot="tooltip"] {
-    border-radius: 0.25rem !important; /* 4px */
+    border-radius: 0 !important;
     background: #f0f0ea !important;
     border: 1px solid #d4d4cc !important;
     color: #16a34a !important;
@@ -332,7 +327,7 @@ body {
 
 /* --- Tabs --------------------------------------------------- */
 [data-slot="tab"] {
-    border-radius: 0.25rem 0.25rem 0 0 !important; /* top corners only */
+    border-radius: 0 !important;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     font-size: 0.7rem;
@@ -352,7 +347,7 @@ body {
 
 /* --- Alerts ------------------------------------------------- */
 [data-slot="alert"] {
-    border-radius: 0.375rem !important; /* 6px, left edge defined by border-left */
+    border-radius: 0 !important;
     border-left: 3px solid #16a34a !important;
     background: #f0fdf4 !important;
 }
@@ -364,7 +359,7 @@ body {
 /* --- Checkboxes & Radios ----------------------------------- */
 [data-slot="checkbox"],
 [data-slot="radio"] {
-    border-radius: 0.1875rem !important; /* 3px */
+    border-radius: 0 !important;
     border-color: #16a34a !important;
     accent-color: #16a34a;
 }
@@ -376,7 +371,7 @@ body {
 
 /* --- Progress ---------------------------------------------- */
 [data-slot="progress"] {
-    border-radius: 0.25rem !important; /* 4px */
+    border-radius: 0 !important;
     background: #e0e0d8 !important;
     border: 1px solid #d4d4cc;
     overflow: hidden;
@@ -387,7 +382,7 @@ body {
 }
 [data-slot="progress-bar"],
 [data-slot="progress"] > * {
-    border-radius: 0.25rem !important;
+    border-radius: 0 !important;
     background: #16a34a !important;
 }
 .dark [data-slot="progress-bar"],
@@ -404,7 +399,7 @@ body {
 
 /* --- Skeleton loader --------------------------------------- */
 [data-slot="skeleton"] {
-    border-radius: 0.25rem !important; /* 4px */
+    border-radius: 0 !important;
     background: #e8e8e0 !important;
     animation: terminal-scan 1.5s linear infinite !important;
 }
@@ -426,7 +421,7 @@ body {
 
 /* --- Toast notifications ----------------------------------- */
 [data-slot="toast"] {
-    border-radius: 0.375rem !important; /* 6px */
+    border-radius: 0 !important;
     background: #ffffff !important;
     border: 1px solid #e0e0d8 !important;
     border-left: 3px solid #16a34a !important;
@@ -443,7 +438,7 @@ body {
 /* --- Kbd (keyboard shortcut) ------------------------------- */
 [data-slot="kbd"],
 kbd {
-    border-radius: 0.25rem !important; /* 4px */
+    border-radius: 0 !important;
     background: #f0f0ea !important;
     border: 1px solid #d4d4cc !important;
     border-bottom-width: 2px !important;
@@ -463,7 +458,7 @@ kbd {
 [data-slot="sidebar"] {
     background: #f5f5f0 !important;
     border-right: 1px solid #e0e0d8 !important;
-    border-radius: 0 !important; /* sidebar flush to edge — intentionally square */
+    border-radius: 0 !important;
 }
 .dark [data-slot="sidebar"] {
     background: #0a0a08 !important;
@@ -474,7 +469,7 @@ kbd {
 [data-slot="header"] {
     background: #ffffff !important;
     border-bottom: 1px solid #e0e0d8 !important;
-    border-radius: 0 !important; /* header flush to edge — intentionally square */
+    border-radius: 0 !important;
 }
 .dark [data-slot="header"] {
     background: #0d0d0b !important;
@@ -538,60 +533,131 @@ kbd {
     color: #c8c8b8;
 }
 
-/* --- Prose / Tiptap Blockquotes ----------------------------- */
+/* ============================================================
+   TIPTAP / PROSE BLOCKQUOTES
+   ============================================================ */
+
 .prose blockquote,
 .tiptap-content blockquote {
-    border-radius: 0 0.375rem 0.375rem 0 !important; /* 6px right corners */
-    background: #f5f5f0 !important;
-    border: 1px solid #e0e0d8 !important;
-    border-left: 3px solid #16a34a !important; /* phosphor green left border */
-    padding: 1.25rem 1.5rem !important;
-    font-style: italic !important;
-    box-shadow: none !important;
-    margin: 1.5rem 0 !important;
     position: relative;
-    quotes: none;
-}
-.dark .prose blockquote,
-.dark .tiptap-content blockquote {
-    background: #111110 !important;
-    border-color: #2d2d28 !important;
-    border-left-color: #4ade80 !important;
+    margin: 1.5rem 0;
+    padding: 1rem 1.25rem 1rem 1.5rem;
+
+    border-left: 3px solid #16a34a;
+    border-radius: 0 !important;
+
+    background: #f0fdf4;
+    color: #323228;
+
+    font-style: italic;
+
+    box-shadow: none !important;
 }
 
+/* terminal prompt prefix */
+.prose blockquote::before,
+.tiptap-content blockquote::before {
+    content: '>_';
+    position: absolute;
+    left: 0.5rem;
+    top: 0.9rem;
+
+    color: #16a34a;
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* paragraph styling */
 .prose blockquote p,
 .tiptap-content blockquote p {
-    color: #5a5a52 !important;
-    margin: 0 !important;
-    font-size: 0.95rem !important;
-    line-height: 1.6 !important;
-    font-weight: 400 !important;
-}
-.dark .prose blockquote p,
-.dark .tiptap-content blockquote p {
-    color: #a8a89c !important;
+    margin: 0;
+    padding-left: 1rem;
+
+    color: inherit;
+    font-size: 1rem;
+    line-height: 1.8;
+    font-weight: 500;
 }
 
-/* Hide default Tailwind pseudo-elements */
+/* remove typography plugin quote marks */
 .prose blockquote p::before,
 .prose blockquote p::after,
 .tiptap-content blockquote p::before,
 .tiptap-content blockquote p::after {
-    content: none !important; 
+    content: none !important;
 }
 
-/* Terminal prompt style quote marker instead of typographic quotes */
-.prose blockquote::before,
-.tiptap-content blockquote::before {
-    content: '>_';
-    display: block;
-    color: #16a34a;
-    font-weight: 700;
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-    font-style: normal;
+/* dark mode */
+.dark .prose blockquote,
+.dark .tiptap-content blockquote {
+    background: #0f130f;
+    border-left-color: #4ade80;
+    color: #c8c8b8;
+
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.02) 2px,
+        rgba(255,255,255,0.02) 4px
+    );
 }
+
 .dark .prose blockquote::before,
 .dark .tiptap-content blockquote::before {
     color: #4ade80;
+}
+
+
+.tiptap-content {
+  min-height: 500px;
+}
+
+.tiptap-content > .tiptap {
+  height: 100%;
+  min-height: 500px;
+}
+
+.ProseMirror {
+  min-height: 500px;
+  outline: none;
+}
+
+/* ============================================================
+   TIPTAP TOOLBAR — active / hover button states
+   Scoped so these don't bleed into other ghost buttons
+   ============================================================ */
+
+/* Light mode */
+.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"] {
+    border-color: transparent !important;
+    color: #3e3e38 !important;
+}
+.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"]:hover {
+    background: rgba(22, 163, 74, 0.10) !important;
+    color: #16a34a !important;
+    border-color: transparent !important;
+}
+.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"].\\!text-primary,
+.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"][class*="text-primary"] {
+    background: rgba(22, 163, 74, 0.12) !important;
+    color: #16a34a !important;
+    border-color: rgba(22, 163, 74, 0.3) !important;
+}
+
+/* Dark mode */
+.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"] {
+    border-color: transparent !important;
+    color: #a8a89c !important;
+}
+.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"]:hover {
+    background: rgba(74, 222, 128, 0.10) !important;
+    color: #4ade80 !important;
+    border-color: transparent !important;
+}
+.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"].\\!text-primary,
+.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"][class*="text-primary"] {
+    background: rgba(74, 222, 128, 0.12) !important;
+    color: #4ade80 !important;
+    border-color: rgba(74, 222, 128, 0.3) !important;
 }
