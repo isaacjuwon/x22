@@ -268,143 +268,167 @@ new #[Title('Edit Post'), Layout('layouts::app')] class extends Component {
 };
 ?>
 
-<div class="mx-auto max-w-3xl space-y-6 p-6">
-    <div class="flex items-center gap-3">
-        <x-ui.button
-            as="a"
-            href="{{ route('admin.posts.index') }}"
-            variant="ghost"
-            size="sm"
-            icon="arrow-left"
-        />
-        <x-ui.heading level="h1" size="lg">{{ __('Edit Post') }}</x-ui.heading>
+<div class="mx-auto max-w-7xl space-y-6 p-6">
+    <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <x-ui.button
+                as="a"
+                href="{{ route('admin.posts.index') }}"
+                variant="ghost"
+                size="sm"
+                icon="arrow-left"
+            />
+            <x-ui.heading level="h1" size="lg">{{ __('Edit Post') }}</x-ui.heading>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <x-ui.button type="button" variant="ghost" @click="history.back()">
+                {{ __('Cancel') }}
+            </x-ui.button>
+            <x-ui.button type="submit" form="post-form" variant="primary" wire:loading.attr="disabled">
+                {{ __('Save Changes') }}
+            </x-ui.button>
+        </div>
     </div>
 
     <x-ui.separator />
 
-    <form wire:submit="save" class="space-y-5">
-        <x-ui.field required>
-            <x-ui.label required>{{ __('Title') }}</x-ui.label>
-            <x-ui.input wire:model="title" placeholder="{{ __('Post title') }}" />
-            <x-ui.error name="title" />
-        </x-ui.field>
+    <form wire:submit="save" id="post-form" class="grid gap-6 lg:grid-cols-3">
+        {{-- Main Content --}}
+        <div class="lg:col-span-2 space-y-6">
+            <x-ui.card class="p-6 space-y-5">
+                <x-ui.field required>
+                    <x-ui.label required>{{ __('Title') }}</x-ui.label>
+                    <x-ui.input wire:model="title" placeholder="{{ __('Post title') }}" />
+                    <x-ui.error name="title" />
+                </x-ui.field>
 
-        <x-ui.field>
-            <div class="flex items-center justify-between mb-1">
-                <x-ui.label>{{ __('Excerpt') }}</x-ui.label>
-                <x-ui.button wire:click="generateExcerpt" variant="ghost" size="sm" class="text-blue-600 dark:text-blue-400">
-                    <x-ui.icon name="sparkles" class="w-4 h-4 mr-1" />
-                    {{ __('Generate with AI') }}
-                </x-ui.button>
-            </div>
-            <x-ui.textarea wire:model="excerpt" rows="2" placeholder="{{ __('Short summary...') }}" />
-            <x-ui.error name="excerpt" />
-        </x-ui.field>
+                <x-ui.field required wire:ignore>
+                    <div class="flex items-center justify-between mb-1">
+                        <x-ui.label required>{{ __('Content') }}</x-ui.label>
+                        <x-ui.button type="button" wire:click="improveContent" variant="ghost" size="sm" class="text-blue-600 dark:text-blue-400">
+                            <x-ui.icon name="sparkles" class="w-4 h-4 mr-1" />
+                            {{ __('Improve with AI') }}
+                        </x-ui.button>
+                    </div>
+                    <x-tiptap-editor id="content" name="content" wire:model="content" :value="$content" />
+                    <x-ui.error name="content" />
+                </x-ui.field>
 
-        <x-ui.field required>
-            <div class="flex items-center justify-between mb-1">
-                <x-ui.label required>{{ __('Content') }}</x-ui.label>
-                <x-ui.button type="button" wire:click="improveContent" variant="ghost" size="sm" class="text-blue-600 dark:text-blue-400">
-                    <x-ui.icon name="sparkles" class="w-4 h-4 mr-1" />
-                    {{ __('Improve with AI') }}
-                </x-ui.button>
-            </div>
-            <x-tiptap-editor id="content" name="content" wire:model="content" :value="$content" />
-            <x-ui.error name="content" />
-        </x-ui.field>
+                <x-ui.field>
+                    <div class="flex items-center justify-between mb-1">
+                        <x-ui.label>{{ __('Excerpt') }}</x-ui.label>
+                        <x-ui.button type="button" wire:click="generateExcerpt" variant="ghost" size="sm" class="text-blue-600 dark:text-blue-400">
+                            <x-ui.icon name="sparkles" class="w-4 h-4 mr-1" />
+                            {{ __('Generate with AI') }}
+                        </x-ui.button>
+                    </div>
+                    <x-ui.textarea wire:model="excerpt" rows="3" placeholder="{{ __('Short summary...') }}" />
+                    <x-ui.error name="excerpt" />
+                </x-ui.field>
+            </x-ui.card>
 
-        <x-ui.separator label="{{ __('Settings') }}" />
+            <x-ui.card class="p-6 space-y-5">
+                <x-ui.heading level="h2" size="sm" class="uppercase tracking-widest text-neutral-500">
+                    {{ __('Gallery') }}
+                </x-ui.heading>
+                <x-ui.media.gallery
+                    input-model="galleryImages"
+                    input-name="galleryImages"
+                    :existing-media="$this->existingGalleryMedia"
+                    :new-preview-urls="$this->newGalleryPreviewUrls"
+                    remove-existing-action="removeExistingGalleryMedia"
+                    remove-new-action="removeNewGalleryMedia"
+                    error="galleryImages.*"
+                />
+            </x-ui.card>
 
-        <div class="grid gap-5 sm:grid-cols-2">
-            <x-ui.field required>
-                <x-ui.label required>{{ __('Status') }}</x-ui.label>
-                <x-ui.select wire:model="status" placeholder="{{ __('Select a status...') }}">
-                    @foreach (PostStatus::cases() as $case)
-                        <x-ui.select.option :value="$case->value">{{ ucfirst($case->value) }}</x-ui.select.option>
-                    @endforeach
-                </x-ui.select>
-                <x-ui.error name="status" />
-            </x-ui.field>
+            <x-ui.card class="p-6 space-y-5">
+                <x-ui.heading level="h2" size="sm" class="uppercase tracking-widest text-neutral-500">
+                    {{ __('SEO') }}
+                </x-ui.heading>
 
-            <x-ui.field>
-                <x-ui.label>{{ __('Publish Date') }}</x-ui.label>
-                <x-ui.date-picker wire:model="publishedAt" clearable />
-                <x-ui.error name="publishedAt" />
-            </x-ui.field>
+                <x-ui.field>
+                    <x-ui.label>{{ __('Meta Description') }}</x-ui.label>
+                    <x-ui.textarea wire:model="metaDescription" rows="2" placeholder="{{ __('160 characters max...') }}" />
+                    <x-ui.error name="metaDescription" />
+                </x-ui.field>
+
+                <x-ui.media.single
+                    :label="__('SEO OG Image')"
+                    :preview-url="$this->currentSeoOgImageUrl"
+                    :preview-alt="$title ?: __('SEO image preview')"
+                    input-model="seoOgImage"
+                    input-name="seoOgImage"
+                    remove-action="removeSeoOgImageMedia"
+                    error="seoOgImage"
+                />
+
+                <x-ui.field>
+                    <x-ui.label>{{ __('Legacy OG Image URL') }}</x-ui.label>
+                    <x-ui.input wire:model="ogImage" placeholder="https://..." leftIcon="photo" />
+                    <x-ui.description class="text-[10px]">{{ __('Compatibility fallback.') }}</x-ui.description>
+                    <x-ui.error name="ogImage" />
+                </x-ui.field>
+            </x-ui.card>
         </div>
 
-        <x-ui.field>
-            <x-ui.label>{{ __('Tags') }}</x-ui.label>
-            <x-ui.tags-input
-                wire:model="tagNames"
-                placeholder="{{ __('Add tags...') }}"
-                :suggestions="$this->tagSuggestions"
-            />
-            <x-ui.error name="tagNames" />
-        </x-ui.field>
+        {{-- Sidebar --}}
+        <div class="space-y-6">
+            <x-ui.card class="p-6 space-y-5">
+                <x-ui.heading level="h2" size="sm" class="uppercase tracking-widest text-neutral-500">
+                    {{ __('Publishing') }}
+                </x-ui.heading>
 
-        <x-ui.separator label="{{ __('Media') }}" />
+                <x-ui.field required>
+                    <x-ui.label required>{{ __('Status') }}</x-ui.label>
+                    <x-ui.select wire:model="status">
+                        @foreach (PostStatus::cases() as $case)
+                            <x-ui.select.option :value="$case->value">{{ ucfirst($case->value) }}</x-ui.select.option>
+                        @endforeach
+                    </x-ui.select>
+                    <x-ui.error name="status" />
+                </x-ui.field>
 
-        <x-ui.media.single
-            :label="__('Featured Image')"
-            :hint="__('Used in cards and as the default fallback for social sharing.')"
-            :preview-url="$this->currentFeaturedImageUrl"
-            :preview-alt="$title ?: __('Featured image preview')"
-            input-model="featuredImage"
-            input-name="featuredImage"
-            remove-action="removeFeaturedImageMedia"
-            error="featuredImage"
-        />
+                <x-ui.field>
+                    <x-ui.label>{{ __('Publish Date') }}</x-ui.label>
+                    <x-ui.date-picker wire:model="publishedAt" clearable />
+                    <x-ui.description class="text-[10px]">{{ __('Leave blank for current time.') }}</x-ui.description>
+                    <x-ui.error name="publishedAt" />
+                </x-ui.field>
 
-        <x-ui.media.gallery
-            :label="__('Gallery')"
-            :hint="__('Append new images or remove existing ones before saving.')"
-            input-model="galleryImages"
-            input-name="galleryImages"
-            :existing-media="$this->existingGalleryMedia"
-            :new-preview-urls="$this->newGalleryPreviewUrls"
-            remove-existing-action="removeExistingGalleryMedia"
-            remove-new-action="removeNewGalleryMedia"
-            error="galleryImages.*"
-        />
+                <x-ui.switch wire:model="featured" label="{{ __('Featured post') }}" />
+            </x-ui.card>
 
-        <x-ui.separator label="{{ __('SEO') }}" />
+            <x-ui.card class="p-6 space-y-5">
+                <x-ui.heading level="h2" size="sm" class="uppercase tracking-widest text-neutral-500">
+                    {{ __('Metadata') }}
+                </x-ui.heading>
 
-        <x-ui.field>
-            <x-ui.label>{{ __('Meta Description') }}</x-ui.label>
-            <x-ui.textarea wire:model="metaDescription" rows="2" placeholder="{{ __('160 characters max...') }}" />
-            <x-ui.error name="metaDescription" />
-        </x-ui.field>
+                <x-ui.field>
+                    <x-ui.label>{{ __('Tags') }}</x-ui.label>
+                    <x-ui.tags-input
+                        wire:model="tagNames"
+                        placeholder="{{ __('Add tags...') }}"
+                        :suggestions="$this->tagSuggestions"
+                    />
+                    <x-ui.error name="tagNames" />
+                </x-ui.field>
+            </x-ui.card>
 
-        <x-ui.media.single
-            :label="__('SEO OG Image')"
-            :hint="__('Overrides the featured image for social sharing. If left empty, the featured image or legacy URL will be used.')"
-            :preview-url="$this->currentSeoOgImageUrl"
-            :preview-alt="$title ?: __('SEO image preview')"
-            input-model="seoOgImage"
-            input-name="seoOgImage"
-            remove-action="removeSeoOgImageMedia"
-            error="seoOgImage"
-        />
-
-        <x-ui.field>
-            <x-ui.label>{{ __('Legacy OG Image URL') }}</x-ui.label>
-            <x-ui.input wire:model="ogImage" placeholder="https://..." leftIcon="photo" />
-            <x-ui.description>{{ __('Used only as a compatibility fallback when no uploaded media exists.') }}</x-ui.description>
-            <x-ui.error name="ogImage" />
-        </x-ui.field>
-
-        <x-ui.switch wire:model="featured" label="{{ __('Featured post') }}" />
-
-        <x-ui.separator />
-
-        <div class="flex justify-end gap-3">
-            <x-ui.button as="a" href="{{ route('admin.posts.index') }}" variant="ghost">
-                {{ __('Cancel') }}
-            </x-ui.button>
-            <x-ui.button type="submit" variant="primary" wire:loading.attr="disabled">
-                {{ __('Save Changes') }}
-            </x-ui.button>
+            <x-ui.card class="p-6 space-y-5">
+                <x-ui.heading level="h2" size="sm" class="uppercase tracking-widest text-neutral-500">
+                    {{ __('Featured Image') }}
+                </x-ui.heading>
+                <x-ui.media.single
+                    :preview-url="$this->currentFeaturedImageUrl"
+                    :preview-alt="$title ?: __('Featured image preview')"
+                    input-model="featuredImage"
+                    input-name="featuredImage"
+                    remove-action="removeFeaturedImageMedia"
+                    error="featuredImage"
+                />
+            </x-ui.card>
         </div>
     </form>
 
