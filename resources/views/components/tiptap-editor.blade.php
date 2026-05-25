@@ -353,12 +353,23 @@ if (typeof window.tiptapEditor !== 'function') {
                 const val    = this.modalValue.trim();
                 const editor = this.getEditor();
                 if (!editor) return;
+
+                // Restore selection if saved
                 if (this._savedSelection) {
                     editor.commands.setTextSelection(this._savedSelection);
                 }
-                val === ''
-                    ? editor.chain().focus().unsetLink().run()
-                    : editor.chain().focus().extendMarkRange('link').setLink({ href: val }).run();
+
+                if (val === '') {
+                    editor.chain().focus().extendMarkRange('link').unsetLink().run();
+                } else {
+                    // If selection is empty, insert the link text
+                    if (editor.state.selection.empty) {
+                        editor.chain().focus().insertContent(`<a href="${val}">${val}</a>`).run();
+                    } else {
+                        editor.chain().focus().extendMarkRange('link').setLink({ href: val }).run();
+                    }
+                }
+
                 this.$modal.close(config.id + '-link-modal');
                 this.modalValue = '';
                 this._savedSelection = null;
