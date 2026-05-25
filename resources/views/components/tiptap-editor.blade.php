@@ -19,10 +19,10 @@
 
         {{-- History --}}
         <div class="flex items-center">
-            <x-ui.button type="button" variant="ghost" size="xs" @click="undo()" title="Undo">
+            <x-ui.button type="button" variant="ghost" size="xs" @mousedown.prevent="undo()" title="Undo">
                 <x-ui.icon name="ps:arrow-counter-clockwise" class="size-4" />
             </x-ui.button>
-            <x-ui.button type="button" variant="ghost" size="xs" @click="redo()" title="Redo">
+            <x-ui.button type="button" variant="ghost" size="xs" @mousedown.prevent="redo()" title="Redo">
                 <x-ui.icon name="ps:arrow-clockwise" class="size-4" />
             </x-ui.button>
         </div>
@@ -32,19 +32,19 @@
         {{-- Headings --}}
         <div class="flex items-center">
             <x-ui.button type="button" variant="ghost" size="xs"
-                @click="toggleHeading(1)"
+                @mousedown.prevent="toggleHeading(1)"
                 ::class="isActive('heading', { level: 1 }) ? 'bg-primary/10 !text-primary' : ''"
                 title="Heading 1">
                 <x-ui.icon name="ps:text-h-one" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
-                @click="toggleHeading(2)"
+                @mousedown.prevent="toggleHeading(2)"
                 ::class="isActive('heading', { level: 2 }) ? 'bg-primary/10 !text-primary' : ''"
                 title="Heading 2">
                 <x-ui.icon name="ps:text-h-two" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
-                @click="toggleHeading(3)"
+                @mousedown.prevent="toggleHeading(3)"
                 ::class="isActive('heading', { level: 3 }) ? 'bg-primary/10 !text-primary' : ''"
                 title="Heading 3">
                 <x-ui.icon name="ps:text-h-three" class="size-4" />
@@ -56,37 +56,37 @@
         {{-- Inline marks --}}
         <div class="flex items-center">
             <x-ui.button type="button" variant="ghost" size="xs"
-                @click="toggleBold()"
+                @mousedown.prevent="toggleBold()"
                 ::class="isActive('bold') ? 'bg-primary/10 !text-primary' : ''"
                 title="Bold">
                 <x-ui.icon name="ps:text-b" variant="bold" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
-                @click="toggleItalic()"
+                @mousedown.prevent="toggleItalic()"
                 ::class="isActive('italic') ? 'bg-primary/10 !text-primary' : ''"
                 title="Italic">
                 <x-ui.icon name="ps:text-italic" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
-                @click="toggleUnderline()"
+                @mousedown.prevent="toggleUnderline()"
                 ::class="isActive('underline') ? 'bg-primary/10 !text-primary' : ''"
                 title="Underline">
                 <x-ui.icon name="ps:text-underline" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
-                @click="toggleStrike()"
+                @mousedown.prevent="toggleStrike()"
                 ::class="isActive('strike') ? 'bg-primary/10 !text-primary' : ''"
                 title="Strikethrough">
                 <x-ui.icon name="ps:text-strikethrough" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
-                @click="toggleCode()"
+                @mousedown.prevent="toggleCode()"
                 ::class="isActive('code') ? 'bg-primary/10 !text-primary' : ''"
                 title="Inline Code">
                 <x-ui.icon name="ps:code" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
-                @click="toggleLink()"
+                @mousedown.prevent="toggleLink()"
                 ::class="isActive('link') ? 'bg-primary/10 !text-primary' : ''"
                 title="Insert Link">
                 <x-ui.icon name="ps:link" class="size-4" />
@@ -98,25 +98,25 @@
         {{-- Block nodes --}}
         <div class="flex items-center">
             <x-ui.button type="button" variant="ghost" size="xs"
-                @click="toggleBulletList()"
+                @mousedown.prevent="toggleBulletList()"
                 ::class="isActive('bulletList') ? 'bg-primary/10 !text-primary' : ''"
                 title="Bullet List">
                 <x-ui.icon name="ps:list-bullets" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
-                @click="toggleOrderedList()"
+                @mousedown.prevent="toggleOrderedList()"
                 ::class="isActive('orderedList') ? 'bg-primary/10 !text-primary' : ''"
                 title="Ordered List">
                 <x-ui.icon name="ps:list-numbers" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
-                @click="toggleBlockquote()"
+                @mousedown.prevent="toggleBlockquote()"
                 ::class="isActive('blockquote') ? 'bg-primary/10 !text-primary' : ''"
                 title="Blockquote">
                 <x-ui.icon name="ps:quotes" class="size-4" />
             </x-ui.button>
             <x-ui.button type="button" variant="ghost" size="xs"
-                @click="toggleCodeBlock()"
+                @mousedown.prevent="toggleCodeBlock()"
                 ::class="isActive('codeBlock') ? 'bg-primary/10 !text-primary' : ''"
                 title="Code Block">
                 <x-ui.icon name="ps:terminal-window" class="size-4" />
@@ -128,7 +128,7 @@
         {{-- Table --}}
         <div class="flex items-center">
             <x-ui.button type="button" variant="ghost" size="xs"
-                @click="insertTable()"
+                @mousedown.prevent="insertTable()"
                 title="Insert Table">
                 <x-ui.icon name="ps:table" class="size-4" />
             </x-ui.button>
@@ -136,17 +136,17 @@
             <template x-if="isActive('table')">
                 <div class="flex items-center">
                     <x-ui.button type="button" variant="ghost" size="xs"
-                        @click="addColumnAfter()"
+                        @mousedown.prevent="addColumnAfter()"
                         title="Add Column After">
                         <x-ui.icon name="ps:columns" class="size-4" />
                     </x-ui.button>
                     <x-ui.button type="button" variant="ghost" size="xs"
-                        @click="addRowAfter()"
+                        @mousedown.prevent="addRowAfter()"
                         title="Add Row After">
                         <x-ui.icon name="ps:rows" class="size-4" />
                     </x-ui.button>
                     <x-ui.button type="button" variant="danger" size="xs"
-                        @click="deleteTable()"
+                        @mousedown.prevent="deleteTable()"
                         title="Delete Table">
                         <x-ui.icon name="ps:trash" class="size-4" />
                     </x-ui.button>
@@ -158,7 +158,7 @@
 
         {{-- Image --}}
         <x-ui.button type="button" variant="ghost" size="xs"
-            @click="addImage()"
+            @mousedown.prevent="addImage()"
             title="Insert Image">
             <x-ui.icon name="ps:image" class="size-4" />
         </x-ui.button>
