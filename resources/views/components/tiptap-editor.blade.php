@@ -5,7 +5,7 @@
 ])
 
 <div
-    class="tiptap-editor-wrapper overflow-hidden rounded-[var(--radius-box)] border border-neutral-800 bg-white transition-all focus-within:ring-1 focus-within:ring-primary dark:bg-neutral-900 dark:border-neutral-800"
+    class="tiptap-editor-wrapper flex flex-col overflow-hidden border border-neutral-200 bg-neutral-50 transition-all focus-within:border-primary dark:border-neutral-800 dark:bg-neutral-950"
     x-data="tiptapEditor({
         id: @js($id),
         wireModel: @js($attributes->get('wire:model')),
@@ -15,7 +15,7 @@
 >
 
     {{-- ── Toolbar ── --}}
-    <div class="flex flex-wrap items-center gap-1 border-b border-neutral-200 bg-neutral-50 px-2 py-1.5 dark:border-neutral-800 dark:bg-neutral-900">
+    <div class="flex flex-wrap items-center gap-1 border-b border-neutral-200 bg-neutral-100/50 px-2 py-1.5 dark:border-neutral-800 dark:bg-neutral-900/50">
 
         {{-- History --}}
         <div class="flex items-center">
@@ -169,7 +169,7 @@
     {{-- ── Editor surface ── --}}
     <div
         id="tiptap-el-{{ $id }}"
-        class="tiptap-content min-h-64 bg-white px-5 py-4 text-neutral-700 focus:outline-none dark:bg-neutral-950 dark:text-neutral-300"
+        class="tiptap-content min-h-64 bg-white px-5 py-4 text-neutral-900 focus:outline-none dark:bg-neutral-900 dark:text-neutral-100"
     ></div>
 
     {{-- Hidden form input --}}
@@ -194,7 +194,7 @@
         "
     >
         <x-ui.field>
-            <x-ui.label>URL</x-ui.label>
+            <x-ui.label class="term-prompt">{{ __('URL') }}</x-ui.label>
             <x-ui.input
                 type="url"
                 id="tiptap-modal-input-{{ $id }}"
@@ -215,58 +215,60 @@
                     Cancel
                 </x-ui.button>
                 <x-ui.button
-                    type="button"
-                    color="green"
-                    @click="submitLinkModal()">
-                    Insert
-                </x-ui.button>
-            </div>
-        </x-slot>
-    </x-ui.modal>
+                type="button"
+                variant="outline"
+                color="green"
+                @click="submitLinkModal()">
+                {{ __('Insert Link') }}
+            </x-ui.button>
+        </div>
+    </x-slot>
+</x-ui.modal>
 
-    {{-- ── Image modal ── --}}
-    <x-ui.modal
-        :id="$id . '-image-modal'"
-        width="md"
-        position="center"
-        backdrop="dark"
-        animation="scale"
-        x-on:modal-opened.window="
-            if ($event.detail.id === '{{ $id }}-image-modal') {
-                $nextTick(() => document.getElementById('tiptap-image-input-{{ $id }}')?.focus())
-            }
-        "
-    >
-        <x-ui.field>
-            <x-ui.label>Image URL</x-ui.label>
-            <x-ui.input
-                type="url"
-                id="tiptap-image-input-{{ $id }}"
-                x-model="imageValue"
-                placeholder="https://example.com/image.jpg"
-                @keydown.enter="submitImageModal()"
-                @keydown.escape="$modal.close('{{ $id }}-image-modal')"
-                leftIcon="ps:image"
-            />
-        </x-ui.field>
+{{-- ── Image modal ── --}}
+<x-ui.modal
+    :id="$id . '-image-modal'"
+    width="md"
+    position="center"
+    backdrop="dark"
+    animation="scale"
+    x-on:modal-opened.window="
+        if ($event.detail.id === '{{ $id }}-image-modal') {
+            $nextTick(() => document.getElementById('tiptap-image-input-{{ $id }}')?.focus())
+        }
+    "
+>
+    <x-ui.field>
+        <x-ui.label class="term-prompt">{{ __('Image URL') }}</x-ui.label>
+        <x-ui.input
+            type="url"
+            id="tiptap-image-input-{{ $id }}"
+            x-model="imageValue"
+            placeholder="https://example.com/image.jpg"
+            @keydown.enter="submitImageModal()"
+            @keydown.escape="$modal.close('{{ $id }}-image-modal')"
+            leftIcon="ps:image"
+        />
+    </x-ui.field>
 
-        <x-slot name="footer">
-            <div class="flex justify-end gap-3">
-                <x-ui.button
-                    type="button"
-                    variant="ghost"
-                    x-on:click="$modal.close('{{ $id }}-image-modal')">
-                    Cancel
-                </x-ui.button>
-                <x-ui.button
-                    type="button"
-                    color="green"
-                    @click="submitImageModal()">
-                    Insert
-                </x-ui.button>
-            </div>
-        </x-slot>
-    </x-ui.modal>
+    <x-slot name="footer">
+        <div class="flex justify-end gap-3">
+            <x-ui.button
+                type="button"
+                variant="ghost"
+                x-on:click="$modal.close('{{ $id }}-image-modal')">
+                {{ __('Cancel') }}
+            </x-ui.button>
+            <x-ui.button
+                type="button"
+                variant="outline"
+                color="green"
+                @click="submitImageModal()">
+                {{ __('Insert Image') }}
+            </x-ui.button>
+        </div>
+    </x-slot>
+</x-ui.modal>
 
 </div>
 

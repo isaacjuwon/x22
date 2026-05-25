@@ -58,6 +58,7 @@ new #[Title('Posts')] class extends Component {
                 wire:click="clearFilter"
                 size="sm"
                 :variant="$activeTag === null ? 'primary' : 'ghost'"
+                class="{{ $activeTag === null ? 'term-prompt' : '' }}"
             >
                 {{ __('All') }}
             </x-ui.button>
@@ -68,6 +69,7 @@ new #[Title('Posts')] class extends Component {
                     wire:key="tag-{{ $tag->id }}"
                     size="sm"
                     :variant="$activeTag === $tag->slug ? 'primary' : 'ghost'"
+                    class="{{ $activeTag === $tag->slug ? 'term-prompt' : '' }}"
                 >
                     {{ $tag->name }}
                 </x-ui.button>

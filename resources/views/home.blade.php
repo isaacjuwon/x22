@@ -22,29 +22,42 @@
 <x-layouts::main :title="$general->site_name">
 
     {{-- ─── Hero ──────────────────────────────────────────────────────────── --}}
-    <section class="border-b border-neutral-800 dark:border-neutral-800 px-6 py-24 text-center">
-        <div class="mx-auto max-w-3xl space-y-6">
-            <x-ui.badge color="green" class="mx-auto">{{ __('Welcome') }}</x-ui.badge>
+    <section class="relative overflow-hidden border-b border-neutral-200 dark:border-neutral-800 px-6 py-28 text-center">
+        {{-- subtle grid background --}}
+        <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#16a34a08_1px,transparent_1px),linear-gradient(to_bottom,#16a34a08_1px,transparent_1px)] bg-[size:32px_32px] dark:bg-[linear-gradient(to_right,#4ade8008_1px,transparent_1px),linear-gradient(to_bottom,#4ade8008_1px,transparent_1px)]"></div>
 
-            <x-ui.heading level="h1" size="xl" class="term-prompt text-5xl font-bold tracking-tight text-green-600 dark:text-green-400">
+        <div class="relative mx-auto max-w-3xl space-y-6">
+            <x-ui.badge color="green" variant="outline" class="mx-auto">{{ __('System::Online') }}</x-ui.badge>
+
+            <h1 class="term-prompt text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 sm:text-5xl">
                 {{ $general->hero_title }}
-            </x-ui.heading>
+            </h1>
 
-            <x-ui.text class="mx-auto max-w-xl text-lg text-neutral-600 dark:text-neutral-400">
-                {{ $general->hero_subtitle }}
-            </x-ui.text>
+            <p class="mx-auto max-w-xl text-lg leading-relaxed text-neutral-500 dark:text-neutral-400">
+                <span class="term-comment">{{ $general->hero_subtitle }}</span>
+            </p>
 
             <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
                 @if ($general->show_posts_section)
                     <x-ui.button as="a" href="#posts" variant="primary" size="lg">
-                        {{ __('Read the Blog') }}
+                        {{ __('Run Blog.exe') }}
                     </x-ui.button>
                 @endif
                 @if ($general->show_projects_section)
-                    <x-ui.button as="a" href="#projects" variant="ghost" size="lg">
-                        {{ __('View Projects') }}
+                    <x-ui.button as="a" href="#projects" variant="outline" size="lg">
+                        {{ __('List Projects') }}
                     </x-ui.button>
                 @endif
+            </div>
+
+            {{-- terminal status line --}}
+            <div class="mx-auto max-w-md">
+                <p class="term-block text-left text-xs text-neutral-400 dark:text-neutral-600">
+{{ __('Status: System Ready') }}
+{{ __('Version: 2.0.4-stable') }}
+{{ __('Uptime: 99.9%') }}
+{{ __('Time: ') }} {{ now()->format('Y-m-d H:i') }}
+                </p>
             </div>
         </div>
     </section>
