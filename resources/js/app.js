@@ -1,4 +1,5 @@
 import './globals/theme.js'; /* By Sheaf.dev */ 
+import './globals/modals.js'; /* By Sheaf.dev */ 
 import './tiptap-editor';
 import Lenis from 'lenis';
 import { animate, scroll, inView, spring, stagger } from 'motion';

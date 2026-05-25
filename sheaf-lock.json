@@ -1,7 +1,8 @@
 {
     "files": {
         "resources/js/utils.js": [
-            "dark-theme"
+            "dark-theme",
+            "modal"
         ],
         "resources/js/components/date-picker/index.js": [
             "date-picker"
@@ -56,6 +57,9 @@
         ],
         "resources/css/components/calendar/cell.css": [
             "calendar"
+        ],
+        "resources/js/globals/modals.js": [
+            "modal"
         ]
     },
     "helpers": [],
