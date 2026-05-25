@@ -639,6 +639,49 @@ kbd {
     display: inline !important;
 }
 
+.tiptap-content h1,
+.tiptap-content h2,
+.tiptap-content h3 {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-weight: 700 !important;
+    margin-top: 2rem !important;
+    margin-bottom: 1rem !important;
+    line-height: 1.2 !important;
+}
+
+.tiptap-content h1 {
+    font-size: 2rem !important;
+    color: var(--color-primary) !important;
+}
+
+.tiptap-content h2 {
+    font-size: 1.5rem !important;
+    color: var(--color-neutral-700) !important;
+    border-bottom: 1px solid var(--color-neutral-200) !important;
+    padding-bottom: 0.25rem !important;
+}
+
+.dark .tiptap-content h2 {
+    color: var(--color-neutral-300) !important;
+    border-bottom-color: var(--color-neutral-800) !important;
+}
+
+.tiptap-content h3 {
+    font-size: 1.25rem !important;
+    color: var(--color-neutral-600) !important;
+}
+
+.dark .tiptap-content h3 {
+    color: var(--color-neutral-400) !important;
+}
+
+.tiptap-content h1::before,
+.tiptap-content h2::before,
+.tiptap-content h3::before {
+    content: '# ';
+    opacity: 0.5;
+}
+
 .tiptap-content > .tiptap {
   height: 100%;
   min-height: 500px;
