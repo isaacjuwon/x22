@@ -622,7 +622,6 @@ kbd {
   min-height: 500px;
   outline: none;
 }
-
 /* ============================================================
    TIPTAP TOOLBAR — active / hover button states
    Scoped so these don't bleed into other ghost buttons
@@ -638,11 +637,16 @@ kbd {
     color: #16a34a !important;
     border-color: transparent !important;
 }
-.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"].\\!text-primary,
+
+/* Active state — all known TipTap active signals */
+.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"].is-active,
+.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"][data-active="true"],
+.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"][aria-pressed="true"],
+.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"].\!\text-primary,
 .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"][class*="text-primary"] {
-    background: rgba(22, 163, 74, 0.12) !important;
-    color: #16a34a !important;
-    border-color: rgba(22, 163, 74, 0.3) !important;
+    background: var(--color-primary) !important;
+    color: var(--color-primary-fg) !important;
+    border-color: var(--color-primary-content) !important;
 }
 
 /* Dark mode */
@@ -655,15 +659,14 @@ kbd {
     color: #4ade80 !important;
     border-color: transparent !important;
 }
-.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"].\\!text-primary,
-.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"][class*="text-primary"] {
-    background: rgba(74, 222, 128, 0.12) !important;
-    color: #4ade80 !important;
-    border-color: rgba(74, 222, 128, 0.3) !important;
-}
 
-.tiptap-toolbar .is-active > [data-slot="button"] {
-    background-color: var(--color-primary) !important;
+/* Dark mode active state */
+.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"].is-active,
+.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"][data-active="true"],
+.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"][aria-pressed="true"],
+.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"].\!\text-primary,
+.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"][class*="text-primary"] {
+    background: var(--color-primary) !important;
     color: var(--color-primary-fg) !important;
     border-color: var(--color-primary-content) !important;
 }
