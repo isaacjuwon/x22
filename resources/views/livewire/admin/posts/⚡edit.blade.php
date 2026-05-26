@@ -178,6 +178,8 @@ new #[Title('Edit Post'), Layout('layouts::app')] class extends Component {
     {
         $this->validate();
 
+        $publishedAt = $this->resolvePublishedAt();
+
         $this->post->update([
             'title' => $this->title,
             'slug' => Str::slug($this->title),
@@ -185,7 +187,7 @@ new #[Title('Edit Post'), Layout('layouts::app')] class extends Component {
             'content' => $this->content,
             'status' => $this->status,
             'featured' => $this->featured,
-            'published_at' => $this->publishedAt ?: null,
+            'published_at' => $publishedAt,
             'meta_description' => $this->metaDescription ?: null,
             'og_image' => $this->ogImage ?: null,
         ]);
@@ -203,6 +205,19 @@ new #[Title('Edit Post'), Layout('layouts::app')] class extends Component {
 
         $this->dispatch('notify', type: 'success', content: __('Post updated.'));
         $this->redirect(route('admin.posts.index'), navigate: true);
+    }
+
+    private function resolvePublishedAt(): ?\Illuminate\Support\Carbon
+    {
+        if ($this->status === PostStatus::Published->value) {
+            if (filled($this->publishedAt)) {
+                return \Illuminate\Support\Carbon::parse($this->publishedAt);
+            }
+
+            return $this->post->published_at ?? now();
+        }
+
+        return filled($this->publishedAt) ? \Illuminate\Support\Carbon::parse($this->publishedAt) : null;
     }
 
     protected function syncMedia(): void
