@@ -23,7 +23,7 @@
         @else
             <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 @foreach ($testimonials as $testimonial)
-                    <article data-slot="card" class="flex flex-col p-6 border border-neutral-200 dark:border-neutral-800 rounded-lg">
+                    <article data-slot="card" class="flex flex-col p-6 border border-neutral-200 dark:border-neutral-200 rounded-lg">
                         <div class="mb-4">
                             <div class="flex items-center gap-1 text-amber-500 mb-2">
                                 @for ($i = 0; $i < $testimonial->rating; $i++)
@@ -34,7 +34,7 @@
                                 "{{ $testimonial->comment }}"
                             </x-ui.text>
                         </div>
-                        <div class="mt-auto pt-4 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between">
+                        <div class="mt-auto pt-4 border-t border-neutral-100 dark:border-neutral-200 flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <x-ui.avatar :name="$testimonial->user->name ?? 'Anonymous'" size="sm" />
                                 <x-ui.text class="text-sm font-medium text-neutral-700 dark:text-neutral-300">

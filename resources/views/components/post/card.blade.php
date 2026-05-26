@@ -4,7 +4,7 @@
 
     {{-- Featured image --}}
     @if ($post->featuredImageUrl('card'))
-        <div class="overflow-hidden border-b border-neutral-200 dark:border-neutral-800">
+        <div class="overflow-hidden border-b border-neutral-200 dark:border-neutral-200">
             <img
                 src="{{ $post->featuredImageUrl('card') }}"
                 alt="{{ $post->title }}"
