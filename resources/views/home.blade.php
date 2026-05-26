@@ -22,7 +22,7 @@
 <x-layouts::main :title="$general->site_name">
 
     {{-- ─── Hero ──────────────────────────────────────────────────────────── --}}
-    <section class="relative border-b border-neutral-200 dark:border-neutral-900 px-6 py-28 overflow-hidden bg-neutral-50 dark:bg-[#050505]">
+    <section class="relative border-b border-neutral-200 dark:border-white/5 px-6 py-28 overflow-hidden bg-neutral-50 dark:bg-neutral-950">
         <div class="mx-auto max-w-5xl">
             <div class="grid gap-16 lg:grid-cols-2 items-center">
                 <div class="space-y-10">
@@ -61,7 +61,7 @@
 
     {{-- ─── Latest Posts ───────────────────────────────────────────────────── --}}
     @if ($general->show_posts_section)
-        <section id="posts" class="border-b border-neutral-200 dark:border-neutral-800 px-6 py-20">
+        <section id="posts" class="border-b border-neutral-200 dark:border-white/5 px-6 py-20">
             <div class="mx-auto max-w-6xl">
                 <div class="mb-12 flex items-end justify-between">
                     <div class="space-y-1">
@@ -80,7 +80,7 @@
 
     {{-- ─── Projects ───────────────────────────────────────────────────────── --}}
     @if ($general->show_projects_section)
-        <section id="projects" class="border-b border-neutral-200 dark:border-neutral-800 px-6 py-20">
+        <section id="projects" class="border-b border-neutral-200 dark:border-white/5 px-6 py-20">
             <div class="mx-auto max-w-6xl">
                 <div class="mb-12 text-center space-y-2">
                     <p class="term-comment text-xs uppercase tracking-widest">{{ __('Case Studies') }}</p>

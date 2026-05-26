@@ -48,18 +48,18 @@
    ============================================================ */
 @layer theme {
     .dark {
-        /* macOS Dark / Obsidian Palette */
-        --color-neutral-50:  #1e1e1e !important; /* Main Background */
-        --color-neutral-100: #161616 !important; /* Sidebar Background */
-        --color-neutral-200: #2a2a2a !important; /* Border / Surface */
-        --color-neutral-300: #333333 !important; /* Hover */
-        --color-neutral-400: #4a4a4a !important; /* Muted */
-        --color-neutral-500: #888888 !important; /* Secondary */
-        --color-neutral-600: #bbbbbb !important; /* Primary */
-        --color-neutral-700: #dddddd !important; /* High Contrast */
-        --color-neutral-800: #eeeeee !important;
-        --color-neutral-900: #ffffff !important;
-        --color-neutral-950: #ffffff !important;
+        /* macOS Dark / Obsidian Palette - Standard Order */
+        --color-neutral-50:  #ffffff !important;
+        --color-neutral-100: #f5f5f5 !important;
+        --color-neutral-200: #eeeeee !important;
+        --color-neutral-300: #dddddd !important; /* High contrast text */
+        --color-neutral-400: #bbbbbb !important; /* Primary text */
+        --color-neutral-500: #888888 !important; /* Secondary text */
+        --color-neutral-600: #4a4a4a !important; /* Muted text / UI elements */
+        --color-neutral-700: #333333 !important; /* Hover */
+        --color-neutral-800: #2a2a2a !important; /* Card BG / Border */
+        --color-neutral-900: #181818 !important; /* Sidebar Background */
+        --color-neutral-950: #1e1e1e !important; /* Main Background */
 
         /* Maroon: Sophisticated & Rich */
         --color-primary:         #b03040;   
@@ -104,7 +104,7 @@
 
 /* --- Sidebar (macOS Style) --------------------------------- */
 .dark [data-slot="sidebar"] {
-    background-color: var(--color-neutral-100) !important;
+    background-color: var(--color-neutral-900) !important;
     border-right: 1px solid rgba(0, 0, 0, 0.2) !important;
     box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.02) !important;
     position: relative;
@@ -133,9 +133,20 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
 
+/* --- Footer ------------------------------------------------ */
+[data-slot="footer"] {
+    border-top: 1px solid var(--color-neutral-200);
+    background-color: var(--color-neutral-100);
+}
+
+.dark [data-slot="footer"] {
+    border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+    background-color: var(--color-neutral-900) !important; /* #181818 in dark */
+}
+
 /* --- Cards ------------------------------------------------- */
 .dark [data-slot="card"] {
-    background-color: #262626 !important;
+    background-color: var(--color-neutral-800) !important; /* #2a2a2a in dark */
     border: 1px solid rgba(255, 255, 255, 0.06) !important;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
     border-radius: 12px !important;
@@ -150,16 +161,17 @@
     font-size: 13px !important;
     font-weight: 400 !important;
     position: relative;
+    color: var(--color-neutral-400) !important;
 }
 
 .dark [data-slot="navlist-item"]:hover {
-    background-color: rgba(255, 255, 255, 0.04) !important;
-    color: #ffffff !important;
+    background-color: var(--color-neutral-700) !important; /* #333333 in dark */
+    color: var(--color-neutral-50) !important;
 }
 
 .dark [data-slot="navlist-item"][data-active-link] {
-    background-color: rgba(255, 255, 255, 0.07) !important;
-    color: #ffffff !important;
+    background-color: var(--color-neutral-800) !important; /* #2a2a2a in dark */
+    color: var(--color-neutral-50) !important;
 }
 
 /* Active indicator line */
@@ -235,8 +247,8 @@ body {
 }
 
 .dark body {
-    background-color: #1e1e1e;
-    color: var(--color-neutral-600);
+    background-color: var(--color-neutral-950);
+    color: var(--color-neutral-300);
 }
 
 /* Selection */

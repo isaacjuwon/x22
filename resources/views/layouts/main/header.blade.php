@@ -12,7 +12,7 @@
         <x-ui.layout.header>
             {{-- Brand --}}
             <a href="{{ route('home') }}" wire:navigate class="flex items-center gap-2">
-                <x-ui.icon name="command-line" class="h-5 w-5 text-green-500" />
+                <x-ui.icon name="command-line" class="h-5 w-5 text-primary" />
                 <x-ui.text class="font-semibold tracking-tight">{{ $general->site_name }}</x-ui.text>
             </a>
 
