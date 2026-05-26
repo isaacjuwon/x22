@@ -1,131 +1,129 @@
 /* ============================================================
-   SHEAF UI — JSK TERMINAL AESTHETIC
-   Inspired by JustSteveKing.com
+   SHEAF UI — NEW TERMINAL AESTHETIC (PS)
+   Ultra-clean, High-contrast, Phosphor-powered
    ============================================================ */
 
 /* ── Google Fonts: JetBrains Mono ── */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 
 /* ============================================================
    THEME VARIABLES
    ============================================================ */
 @theme {
-    /* Primary: Clean Terminal Green */
-    --color-primary:         #4ade80;   /* green-400 */
-    --color-primary-content: #22c55e;   /* green-500 */
+    /* Primary: Electric Phosphor Green */
+    --color-primary:         #22c55e;   /* green-500 */
+    --color-primary-content: #16a34a;   /* green-600 */
     --color-primary-fg:      #052e16;   /* green-950 */
 
-    /* Neutral palette — Deep Monochrome */
-    --color-neutral-50:  #fafafa;
-    --color-neutral-100: #f5f5f5;
-    --color-neutral-200: #e5e5e5;
-    --color-neutral-300: #d4d4d4;
-    --color-neutral-400: #a3a3a3;
-    --color-neutral-500: #737373;
-    --color-neutral-600: #525252;
-    --color-neutral-700: #404040;
+    /* Neutral palette — Pure Ink & Smoke */
+    --color-neutral-50:  #ffffff;
+    --color-neutral-100: #fafafa;
+    --color-neutral-200: #f5f5f5;
+    --color-neutral-300: #e5e5e5;
+    --color-neutral-400: #d4d4d4;
+    --color-neutral-500: #a3a3a3;
+    --color-neutral-600: #737373;
+    --color-neutral-700: #525252;
     --color-neutral-800: #262626;
     --color-neutral-900: #171717;
     --color-neutral-950: #0a0a0a;
 
-    /* Sharp terminal corners */
+    /* Sharp corners (The Terminal Way) */
     --radius-field: 0rem;
     --radius-box:   0rem;
 
-    /* Semantic accents (JSK style) */
-    --color-success: #4ade80;   /* green-400 (OK) */
-    --color-error:   #f87171;   /* red-400 (CRITICAL) */
-    --color-warning: #fbbf24;   /* amber-400 (SLOW) */
-    --color-info:    #60a5fa;   /* blue-400 */
+    /* Semantic Status (PS Palette) */
+    --color-success: #22c55e;   /* OK */
+    --color-error:   #ef4444;   /* CRITICAL */
+    --color-warning: #f59e0b;   /* WARNING */
+    --color-info:    #0ea5e9;   /* INFO */
 }
 
 /* ============================================================
-   DARK MODE — The default terminal feel
+   DARK MODE — Obsidian Interface
    ============================================================ */
 @layer theme {
     .dark {
         --color-neutral-50:  #0a0a0a !important;
-        --color-neutral-100: #171717 !important;
-        --color-neutral-200: #262626 !important;
-        --color-neutral-300: #404040 !important;
-        --color-neutral-400: #525252 !important;
-        --color-neutral-500: #737373 !important;
-        --color-neutral-600: #a3a3a3 !important;
-        --color-neutral-700: #d4d4d4 !important;
-        --color-neutral-800: #e5e5e5 !important;
-        --color-neutral-900: #f5f5f5 !important;
+        --color-neutral-100: #111111 !important;
+        --color-neutral-200: #171717 !important;
+        --color-neutral-300: #262626 !important;
+        --color-neutral-400: #404040 !important;
+        --color-neutral-500: #525252 !important;
+        --color-neutral-600: #737373 !important;
+        --color-neutral-700: #a3a3a3 !important;
+        --color-neutral-800: #d4d4d4 !important;
+        --color-neutral-900: #e5e5e5 !important;
         --color-neutral-950: #fafafa !important;
     }
 }
 
 /* ============================================================
-   GLOBAL TYPOGRAPHY — Monospace everywhere
+   GLOBAL TYPOGRAPHY — Monospace Obsession
    ============================================================ */
 *, *::before, *::after {
-    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
-    letter-spacing: -0.02em;
-}
-
-/* Smooth scrolling */
-html {
-    scroll-behavior: smooth;
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace !important;
+    letter-spacing: -0.015em;
 }
 
 body {
     background-color: var(--color-neutral-50);
     color: var(--color-neutral-800);
-    transition: background-color 0.2s, color 0.2s;
-    line-height: 1.5;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
 }
 
 .dark body {
-    background-color: #0d0d0d;
+    background-color: #050505;
     color: var(--color-neutral-400);
 }
 
 /* ============================================================
-   COMPONENT STYLING
+   COMPONENT STYLING (TERMINAL)
    ============================================================ */
 
 /* --- Buttons ------------------------------------------------ */
 [data-slot="button"] {
     border-radius: 0 !important;
-    font-weight: 500;
     text-transform: lowercase;
-    transition: all 0.1s;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid transparent;
 }
 
 [data-slot="button"]::before {
-    content: '--';
-    margin-right: 0.25rem;
-    opacity: 0.5;
+    content: '[';
+    margin-right: 0.35rem;
+    opacity: 0.4;
 }
 
-/* Primary button */
-[data-slot="button"][data-variant="primary"],
-[data-slot="button"].btn-primary {
+[data-slot="button"]::after {
+    content: ']';
+    margin-left: 0.35rem;
+    opacity: 0.4;
+}
+
+/* Primary button (Active State) */
+[data-slot="button"][data-variant="primary"] {
     background: var(--color-primary);
     color: var(--color-primary-fg);
     border-color: var(--color-primary-content);
 }
 
-[data-slot="button"][data-variant="primary"]:hover,
-[data-slot="button"].btn-primary:hover {
+[data-slot="button"][data-variant="primary"]:hover {
     background: var(--color-primary-content);
+    transform: translateY(-1px);
 }
 
-/* Outline / ghost button */
+/* Outline/Ghost (Command State) */
 [data-slot="button"][data-variant="outline"],
 [data-slot="button"][data-variant="ghost"] {
     border-color: var(--color-neutral-200);
     color: var(--color-neutral-600);
-    background: transparent;
 }
 
 .dark [data-slot="button"][data-variant="outline"],
 .dark [data-slot="button"][data-variant="ghost"] {
-    border-color: var(--color-neutral-800);
+    border-color: var(--color-neutral-300);
     color: var(--color-neutral-400);
 }
 
@@ -136,139 +134,133 @@ body {
     border-color: var(--color-primary);
 }
 
-/* --- Inputs ------------------------------------------------ */
-[data-slot="input"],
-[data-slot="textarea"],
-[data-slot="select"] {
-    border-radius: 0 !important;
-    background: transparent !important;
-    border: 1px solid var(--color-neutral-200) !important;
-    color: inherit !important;
-}
-
-[data-slot="input"]:focus,
-[data-slot="textarea"]:focus,
-[data-slot="select"]:focus {
-    border-color: var(--color-primary) !important;
-    box-shadow: none !important;
-    outline: none !important;
-}
-
-.dark [data-slot="input"],
-.dark [data-slot="textarea"],
-.dark [data-slot="select"] {
-    border-color: var(--color-neutral-800) !important;
-}
-
 /* --- Cards ------------------------------------------------- */
 [data-slot="card"] {
     border-radius: 0 !important;
     background: var(--color-neutral-50) !important;
     border: 1px solid var(--color-neutral-200) !important;
     box-shadow: none !important;
+    position: relative;
 }
 
 .dark [data-slot="card"] {
-    background: #111111 !important;
-    border-color: #262626 !important;
+    background: #0a0a0a !important;
+    border-color: #1a1a1a !important;
+}
+
+/* Window Chrome (Modern Terminal) */
+[data-slot="card"]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1.5rem;
+    background: var(--color-neutral-100);
+    border-bottom: 1px solid var(--color-neutral-200);
+    display: block !important;
+    z-index: 10;
+}
+
+.dark [data-slot="card"]::before {
+    background: #111;
+    border-bottom-color: #222;
 }
 
 /* --- Badges ------------------------------------------------ */
 [data-slot="badge"] {
     border-radius: 0 !important;
-    font-weight: 400;
-    text-transform: lowercase;
-    padding: 0.1rem 0.4rem;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.1em;
     border: 1px solid currentColor;
+    padding: 0.125rem 0.5rem;
 }
 
 /* ============================================================
-   UTILITY CLASSES (JSK Style)
+   UTILITY CLASSES (PS Terminal)
    ============================================================ */
 
 .term-prompt::before {
-    content: '$ ';
+    content: 'admin@system:~# ';
     color: var(--color-primary);
+    font-weight: 700;
 }
 
 .term-comment {
     color: var(--color-neutral-500);
+    font-style: italic;
 }
 
 .term-comment::before {
-    content: '# ';
+    content: '/* ';
 }
 
-.term-arrow::before {
-    content: '↳ ';
-    color: var(--color-primary);
-    margin-right: 0.5rem;
+.term-comment::after {
+    content: ' */';
 }
-
-.term-dot::before {
-    content: '● ';
-    margin-right: 0.5rem;
-}
-
-.term-dot-success::before { color: var(--color-success); }
-.term-dot-error::before   { color: var(--color-error); }
-.term-dot-warning::before { color: var(--color-warning); }
 
 .term-block {
-    background: #000000;
-    color: #ffffff;
-    padding: 1.5rem;
-    border: 1px solid var(--color-neutral-800);
-    font-size: 0.9rem;
-    line-height: 1.6;
+    background: #000;
+    color: #eee;
+    padding: 2rem;
+    border: 1px solid #222;
+    font-size: 13px;
+}
+
+.term-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.term-indicator::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    box-shadow: 0 0 8px currentColor;
 }
 
 /* ============================================================
-   CONTENT STYLING
+   CONTENT STYLING (PS)
    ============================================================ */
 
 .tiptap-content h1,
 .tiptap-content h2,
 .tiptap-content h3 {
-    font-weight: 700;
     color: var(--color-neutral-900);
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 1.25rem;
 }
 
 .dark .tiptap-content h1,
 .dark .tiptap-content h2,
 .dark .tiptap-content h3 {
-    color: var(--color-neutral-200);
+    color: var(--color-neutral-100);
 }
 
-.tiptap-content h1::before { content: '# '; opacity: 0.3; }
-.tiptap-content h2::before { content: '## '; opacity: 0.3; }
-.tiptap-content h3::before { content: '### '; opacity: 0.3; }
+.tiptap-content h1::before { content: '01. '; color: var(--color-primary); }
+.tiptap-content h2::before { content: '02. '; color: var(--color-primary); }
+.tiptap-content h3::before { content: '03. '; color: var(--color-primary); }
 
 .tiptap-content blockquote {
-    border-left: 2px solid var(--color-primary);
-    padding-left: 1.5rem;
-    margin: 1.5rem 0;
-    color: var(--color-neutral-500);
-    font-style: italic;
+    background: var(--color-neutral-100);
+    border-left: 4px solid var(--color-primary);
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+}
+
+.dark .tiptap-content blockquote {
+    background: #0a0a0a;
 }
 
 .tiptap-content pre {
-    background: #000000;
-    color: #ffffff;
-    padding: 1.25rem;
-    border: 1px solid var(--color-neutral-800);
-    margin: 1.5rem 0;
+    background: #000;
+    color: var(--color-primary);
+    padding: 1.5rem;
+    border: 1px solid #222;
+    margin: 2rem 0;
     overflow-x: auto;
-}
-
-.tiptap-content code {
-    background: var(--color-neutral-100);
-    padding: 0.1rem 0.3rem;
-    font-size: 0.9em;
-}
-
-.dark .tiptap-content code {
-    background: var(--color-neutral-900);
 }

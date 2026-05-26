@@ -107,62 +107,76 @@
                 </div>
 
                 {{-- Header --}}
-                <header class="mb-12 space-y-8">
-                    <div class="flex items-center gap-4 text-[10px] uppercase tracking-[0.3em] text-neutral-400">
-                        <time datetime="{{ $post->published_at->toIso8601String() }}">
-                            {{ $post->published_at->format('Y.m.d') }}
-                        </time>
-                        <span class="opacity-30">|</span>
-                        <span>{{ $post->reading_time }}m read</span>
+                <header class="mb-16 space-y-10">
+                    <div class="flex items-center gap-6 text-[10px] uppercase tracking-[0.4em] text-neutral-400 font-bold">
+                        <div class="flex items-center gap-2">
+                            <x-ui.icon name="ps:calendar-blank" class="size-3 text-primary" />
+                            <time datetime="{{ $post->published_at->toIso8601String() }}">
+                                {{ $post->published_at->format('Y.m.d') }}
+                            </time>
+                        </div>
+                        <span class="opacity-20">|</span>
+                        <div class="flex items-center gap-2">
+                            <x-ui.icon name="ps:clock" class="size-3 text-primary" />
+                            <span>{{ $post->reading_time }}m read</span>
+                        </div>
                         @if ($post->featured)
-                            <span class="opacity-30">|</span>
-                            <span class="text-primary">{{ __('Featured') }}</span>
+                            <span class="opacity-20">|</span>
+                            <span class="text-primary">{{ __('Pinned Asset') }}</span>
                         @endif
                     </div>
 
-                    <h1 class="text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 lg:text-7xl leading-tight">
+                    <h1 class="text-5xl font-bold tracking-tighter text-neutral-900 dark:text-neutral-50 lg:text-8xl leading-[0.85] uppercase">
                         {{ $post->title }}
                     </h1>
 
-                    <div class="flex items-center justify-between border-y border-neutral-100 dark:border-neutral-900 py-8">
-                        <div class="flex items-center gap-4">
-                            <x-ui.avatar :name="$post->user->name" size="lg" color="auto" />
+                    <div class="flex items-center justify-between border-y border-neutral-100 dark:border-neutral-900 py-10">
+                        <div class="flex items-center gap-6">
+                            <x-ui.avatar :name="$post->user->name" size="xl" color="auto" class="rounded-none border-2 border-primary p-1" />
                             <div class="space-y-1">
-                                <p class="text-sm font-bold text-neutral-900 dark:text-neutral-100 uppercase tracking-widest">{{ $post->user->name }}</p>
-                                <p class="text-xs text-neutral-500 lowercase">{{ __('Author / System Admin') }}</p>
+                                <p class="text-sm font-bold text-neutral-900 dark:text-neutral-100 uppercase tracking-[0.2em]">{{ $post->user->name }}</p>
+                                <p class="text-[10px] text-neutral-500 uppercase tracking-widest">{{ __('System Administrator') }}</p>
                             </div>
                         </div>
-                        <div class="text-right space-y-1">
-                            <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400">{{ number_format($post->view_count) }} {{ __('Total Views') }}</p>
-                            <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-green-400">{{ __('Status: Active') }}</p>
+                        <div class="text-right space-y-2">
+                            <div class="flex items-center justify-end gap-3">
+                                <x-ui.icon name="ps:eye" class="size-4 text-neutral-400" />
+                                <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-neutral-400">{{ number_format($post->view_count) }}</p>
+                            </div>
+                            <span class="term-indicator text-success text-[9px] uppercase font-bold tracking-widest">{{ __('Active Module') }}</span>
                         </div>
                     </div>
                 </header>
 
                 {{-- Featured image --}}
                 @if ($post->featuredImageUrl('hero'))
-                    <figure class="mb-16 border border-neutral-200 dark:border-neutral-800 p-2">
+                    <figure class="mb-20 border border-neutral-200 dark:border-neutral-800 p-3 bg-neutral-50 dark:bg-[#080808]">
                         <img
                             src="{{ $post->featuredImageUrl('hero') }}"
                             alt="{{ $post->title }}"
-                            class="h-[36rem] w-full object-cover"
+                            class="h-[40rem] w-full object-cover grayscale opacity-90 transition-all hover:grayscale-0 hover:opacity-100 duration-700"
                         />
-                        <figcaption class="mt-4 text-[10px] text-center uppercase tracking-[0.2em] text-neutral-400">
-                            {{ __('Fig 1.0 — Primary Featured Asset') }}
+                        <figcaption class="mt-6 flex items-center justify-center gap-4 text-[9px] uppercase tracking-[0.4em] text-neutral-400 font-bold">
+                            <span class="opacity-20">---</span>
+                            {{ __('Fig 1.0 — Primary Media Asset') }}
+                            <span class="opacity-20">---</span>
                         </figcaption>
                     </figure>
                 @endif
 
                 {{-- AI Reading Assistant --}}
-                <div class="mb-16 term-block border-l-4 border-l-primary">
+                <div class="mb-20 term-block border-l-4 border-l-primary relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-30 transition-opacity">
+                        <x-ui.icon name="ps:brain" class="size-20" />
+                    </div>
                     <livewire:posts.summarizer :post="$post" />
                 </div>
 
                 {{-- Excerpt --}}
                 @if ($post->excerpt)
-                    <div class="mb-16 border-l-2 border-primary pl-8">
-                        <p class="text-2xl font-medium leading-relaxed text-neutral-700 dark:text-neutral-200 italic">
-                            {{ $post->excerpt }}
+                    <div class="mb-20 border-l-2 border-neutral-200 dark:border-neutral-800 pl-12">
+                        <p class="text-3xl font-medium leading-tight text-neutral-700 dark:text-neutral-300 italic tracking-tight">
+                            <span class="text-primary mr-2">//</span> {{ $post->excerpt }}
                         </p>
                     </div>
                 @endif

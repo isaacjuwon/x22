@@ -6,98 +6,87 @@
     <body class="flex min-h-screen flex-col items-center justify-center p-6 lg:p-8">
         <main class="w-full max-w-4xl space-y-12">
             
-            {{-- ── Hero Section (JSK Style) ── --}}
-            <section class="space-y-6">
-                <div class="space-y-2">
-                    <p class="term-comment text-sm uppercase tracking-widest">{{ __('System Initialization') }}</p>
-                    <h1 class="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 lg:text-5xl">
-                        {{ __('Better content, fewer incidents, faster delivery.') }}
+            {{-- ── Hero Section (New Terminal) ── --}}
+            <section class="space-y-8">
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3">
+                        <x-ui.icon name="ps:terminal-window" class="size-6 text-primary" />
+                        <p class="term-comment text-xs uppercase tracking-[0.2em]">{{ __('System v4.0.0-stable') }}</p>
+                    </div>
+                    <h1 class="text-4xl font-bold tracking-tighter text-neutral-900 dark:text-neutral-50 lg:text-6xl uppercase">
+                        {{ __('Engineering Remarkable Digital Experiences.') }}
                     </h1>
                 </div>
 
-                <div class="term-block font-mono shadow-2xl">
-                    <div class="flex items-center gap-2 mb-4 border-b border-neutral-800 pb-2">
-                        <div class="h-2 w-2 rounded-full bg-red-500"></div>
-                        <div class="h-2 w-2 rounded-full bg-amber-500"></div>
-                        <div class="h-2 w-2 rounded-full bg-green-500"></div>
-                        <span class="ml-2 text-[10px] uppercase opacity-50">{{ __('Terminal — v1.0.0') }}</span>
+                <div class="term-block border-l-4 border-l-primary shadow-2xl">
+                    <div class="flex items-center justify-between mb-6 border-b border-neutral-800 pb-4">
+                        <div class="flex gap-2">
+                            <div class="h-1.5 w-1.5 bg-neutral-800"></div>
+                            <div class="h-1.5 w-1.5 bg-neutral-800"></div>
+                            <div class="h-1.5 w-1.5 bg-neutral-800"></div>
+                        </div>
+                        <span class="text-[9px] uppercase tracking-widest opacity-40">{{ __('active_session: root@sheaf') }}</span>
                     </div>
-                    <p class="term-prompt mb-2">{{ __('audit --check=platform') }}</p>
-                    <p class="term-arrow mb-4">{{ __('Profiling system modules...') }}</p>
-                    <ul class="space-y-1 text-sm">
-                        <li class="term-dot term-dot-success text-green-400">GET /api/v1/auth <span class="opacity-50">142ms p95 [OK]</span></li>
-                        <li class="term-dot term-dot-success text-green-400">GET /api/v1/posts <span class="opacity-50">198ms p95 [OK]</span></li>
-                        <li class="term-dot term-dot-warning text-amber-400">POST /api/v1/search <span class="opacity-50">1,180ms p95 [SLOW]</span></li>
-                        <li class="term-dot term-dot-error text-red-400">GET /api/v1/analytics <span class="opacity-50">timeout p95 [CRITICAL]</span></li>
-                    </ul>
-                    <p class="mt-4 text-xs opacity-50">↳ 1 critical, 1 slow — avg 480ms, target <200ms</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex gap-4">
+                            <span class="term-prompt"></span>
+                            <span class="animate-pulse">_</span>
+                        </div>
+                        
+                        <div class="grid gap-4 sm:grid-cols-2">
+                            <div class="space-y-2">
+                                <p class="text-primary text-[10px] uppercase font-bold tracking-widest">{{ __('Core Modules') }}</p>
+                                <ul class="space-y-1 text-xs opacity-70">
+                                    <li class="flex items-center gap-2"><x-ui.icon name="ps:check-circle" class="size-3" /> {{ __('Authentication Engine') }}</li>
+                                    <li class="flex items-center gap-2"><x-ui.icon name="ps:check-circle" class="size-3" /> {{ __('Content Pipeline') }}</li>
+                                    <li class="flex items-center gap-2"><x-ui.icon name="ps:check-circle" class="size-3" /> {{ __('Media Storage') }}</li>
+                                </ul>
+                            </div>
+                            <div class="space-y-2">
+                                <p class="text-primary text-[10px] uppercase font-bold tracking-widest">{{ __('System Stats') }}</p>
+                                <ul class="space-y-1 text-xs opacity-70">
+                                    <li class="flex items-center gap-2 text-success"><x-ui.icon name="ps:activity" class="size-3" /> {{ __('Uptime: 99.9%') }}</li>
+                                    <li class="flex items-center gap-2 text-info"><x-ui.icon name="ps:git-branch" class="size-3" /> {{ __('Version: 4.2.1') }}</li>
+                                    <li class="flex items-center gap-2"><x-ui.icon name="ps:database" class="size-3" /> {{ __('DB: Connected') }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            {{-- ── Main Content ── --}}
-            <x-ui.card class="p-8 lg:p-12">
-                <div class="mb-12 flex items-center justify-between">
-                    <x-app-logo class="h-8" />
-                    
-                    @if (Route::has('login'))
-                        <nav class="flex gap-4">
-                            @auth
-                                <x-ui.button as="a" href="{{ route('dashboard') }}" variant="primary" size="sm" wire:navigate>
-                                    {{ __('Dashboard') }}
-                                </x-ui.button>
-                            @else
-                                <x-ui.button as="a" href="{{ route('login') }}" variant="ghost" size="sm" wire:navigate>
-                                    {{ __('Log in') }}
-                                </x-ui.button>
+            {{-- ── Quick Access ── --}}
+            <div class="grid gap-6 sm:grid-cols-3">
+                <x-ui.button as="a" href="{{ route('login') }}" variant="primary" size="lg" class="w-full">
+                    <x-ui.icon name="ps:user-focus" class="size-4 mr-2" />
+                    {{ __('Access System') }}
+                </x-ui.button>
+                
+                <x-ui.button as="a" href="https://laravel.com/docs" target="_blank" variant="outline" size="lg" class="w-full">
+                    <x-ui.icon name="ps:book-open-text" class="size-4 mr-2" />
+                    {{ __('Documentation') }}
+                </x-ui.button>
 
-                                @if (Route::has('register'))
-                                    <x-ui.button as="a" href="{{ route('register') }}" variant="outline" size="sm" wire:navigate>
-                                        {{ __('Register') }}
-                                    </x-ui.button>
-                                @endif
-                            @endauth
-                        </nav>
-                    @endif
+                <x-ui.button as="a" href="https://laracasts.com" target="_blank" variant="outline" size="lg" class="w-full">
+                    <x-ui.icon name="ps:monitor-play" class="size-4 mr-2" />
+                    {{ __('View Training') }}
+                </x-ui.button>
+            </div>
+
+            {{-- ── Footer ── --}}
+            <footer class="pt-12 border-t border-neutral-100 dark:border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-6">
+                    <x-app-logo class="h-6 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all" />
+                    <p class="text-[10px] uppercase tracking-[0.2em] text-neutral-400">
+                        &copy; {{ date('Y') }} {{ config('app.name') }}
+                    </p>
                 </div>
-
-                <div class="grid gap-12 lg:grid-cols-2">
-                    <div class="space-y-4 border-l-2 border-neutral-200 dark:border-neutral-800 pl-6 transition-colors hover:border-primary">
-                        <h2 class="text-xl font-bold uppercase tracking-tight">{{ __('Documentation') }}</h2>
-                        <p class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-                            {{ __('A focused investigation into the performance, reliability, and design issues slowing your team down.') }}
-                        </p>
-                        <x-ui.button as="a" href="https://laravel.com/docs" target="_blank" variant="ghost" size="sm">
-                            {{ __('Read Docs') }}
-                        </x-ui.button>
-                    </div>
-
-                    <div class="space-y-4 border-l-2 border-neutral-200 dark:border-neutral-800 pl-6 transition-colors hover:border-primary">
-                        <h2 class="text-xl font-bold uppercase tracking-tight">{{ __('Video Tutorials') }}</h2>
-                        <p class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-                            {{ __('Hands-on work to remove bottlenecks, cut avoidable incidents, and make delivery feel less stressful.') }}
-                        </p>
-                        <x-ui.button as="a" href="https://laracasts.com" target="_blank" variant="ghost" size="sm">
-                            {{ __('Watch Videos') }}
-                        </x-ui.button>
-                    </div>
+                <div class="flex items-center gap-4">
+                    <span class="term-indicator text-success text-[9px] uppercase font-bold tracking-widest">{{ __('Network: Online') }}</span>
+                    <span class="opacity-20">|</span>
+                    <span class="text-[9px] uppercase tracking-widest text-neutral-500">{{ __('Secure Session') }}</span>
                 </div>
-
-                <div class="mt-12 border-t border-neutral-100 pt-8 dark:border-neutral-800">
-                    <div class="flex flex-col items-center justify-between gap-6 lg:flex-row">
-                        <p class="term-comment text-xs font-mono">
-                            {{ __('Ready to stop losing time to platform instability?') }}
-                        </p>
-                        <x-ui.button as="a" href="https://cloud.laravel.com" target="_blank" variant="primary" size="md">
-                            {{ __('Deploy System') }}
-                        </x-ui.button>
-                    </div>
-                </div>
-            </x-ui.card>
-            
-            <footer class="text-center">
-                <p class="text-[10px] uppercase tracking-[0.3em] text-neutral-400 dark:text-neutral-600">
-                    &copy; {{ date('Y') }} {{ config('app.name') }}. {{ __('Built for Stability') }}.
-                </p>
             </footer>
         </main>
     </body>
