@@ -11,12 +11,11 @@ import { TableHeader } from '@tiptap/extension-table-header';
 
 window.setupTiptap = function (
   elementId,
-  contentInputId,
+  htmlInputId,
+  jsonInputId,
   initialContent = '',
   onUpdateCallback = null,
 ) {
-  const contentInput = document.getElementById(contentInputId);
-
   let content = initialContent;
   try {
     if (
@@ -76,8 +75,13 @@ window.setupTiptap = function (
     },
     shouldRerenderOnTransaction: true,
     onUpdate: ({ editor }) => {
-      contentInput.value = JSON.stringify(editor.getJSON());
-      if (onUpdateCallback) onUpdateCallback();
+      const htmlEl = htmlInputId ? document.getElementById(htmlInputId) : null;
+      const jsonEl = jsonInputId ? document.getElementById(jsonInputId) : null;
+
+      if (htmlEl) htmlEl.value = editor.getHTML();
+      if (jsonEl) jsonEl.value = JSON.stringify(editor.getJSON());
+
+      if (onUpdateCallback) onUpdateCallback(editor.getHTML(), editor.getJSON());
     },
     onSelectionUpdate: () => {
       if (onUpdateCallback) onUpdateCallback();

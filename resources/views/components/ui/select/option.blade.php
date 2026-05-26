@@ -44,6 +44,7 @@
     data-search="{{ $searchLabel }}"
     data-label="{{ $label }}"
     value="{{ $value }}"
+    data-value="{{ $value }}"
     data-slot="option"
     x-rover:option
     

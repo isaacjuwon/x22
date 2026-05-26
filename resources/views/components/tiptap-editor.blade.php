@@ -1,14 +1,17 @@
 @props([
-    'id'    => 'tiptap-' . uniqid(),
-    'name'  => 'content',
-    'value' => null,
+    'id'         => 'tiptap-' . uniqid(),
+    'name'       => 'content',
+    'value'      => null,
+    'htmlModel'  => null,
+    'jsonModel'  => null,
 ])
 
 <div
     class="tiptap-editor-wrapper flex flex-col overflow-hidden border border-neutral-200 bg-neutral-50 transition-all focus-within:border-primary dark:border-neutral-800 dark:bg-neutral-950"
     x-data="tiptapEditor({
         id: @js($id),
-        wireModel: @js($attributes->get('wire:model')),
+        jsonModel: @js($jsonModel ?? $attributes->get('wire:model')),
+        htmlModel: @js($htmlModel),
         initialContent: @js($value)
     })"
     @submit.window="clearDraft()"
@@ -172,12 +175,17 @@
         class="tiptap-content min-h-64 bg-white px-5 py-4 text-neutral-900 focus:outline-none dark:bg-neutral-900 dark:text-neutral-100"
     ></div>
 
-    {{-- Hidden form input --}}
+    {{-- Hidden form inputs --}}
+    <input
+        type="hidden"
+        name="{{ $name }}_json"
+        id="tiptap-json-input-{{ $id }}"
+        value="{{ is_string($value) ? $value : json_encode($value) }}"
+    />
     <input
         type="hidden"
         name="{{ $name }}"
-        id="tiptap-input-{{ $id }}"
-        value="{{ is_string($value) ? $value : json_encode($value) }}"
+        id="tiptap-html-input-{{ $id }}"
     />
 
     {{-- ── Link modal ── --}}
@@ -284,8 +292,8 @@ if (typeof window.tiptapEditor !== 'function') {
 
             init() {
                 const id      = config.id;
-                const inputEl = document.getElementById('tiptap-input-' + id);
-                const initial = inputEl?.value ?? '';
+                const jsonInput = document.getElementById('tiptap-json-input-' + id);
+                const initial = jsonInput?.value ?? '';
                 const draft   = localStorage.getItem('draft-' + id);
 
                 let content = initial;
@@ -293,19 +301,21 @@ if (typeof window.tiptapEditor !== 'function') {
                     content = draft;
                 }
 
-                const onUpdate = () => {
+                const onUpdate = (html, json) => {
                     this.updated++;
-                    const val = document.getElementById('tiptap-input-' + id).value;
-                    localStorage.setItem('draft-' + id, val);
-                    if (window.Livewire && config.wireModel) {
-                        this.$wire.set(config.wireModel, val);
+                    localStorage.setItem('draft-' + id, JSON.stringify(json));
+                    
+                    if (window.Livewire) {
+                        if (config.jsonModel) this.$wire.set(config.jsonModel, json);
+                        if (config.htmlModel) this.$wire.set(config.htmlModel, html);
                     }
                 };
 
                 const boot = (c) => {
                     this.editor = window.setupTiptap(
                         'tiptap-el-' + id,
-                        'tiptap-input-' + id,
+                        'tiptap-html-input-' + id,
+                        'tiptap-json-input-' + id,
                         c,
                         onUpdate,
                     );
@@ -313,8 +323,8 @@ if (typeof window.tiptapEditor !== 'function') {
 
                 try {
                     boot(content);
-                    if (content === draft && window.Livewire && config.wireModel) {
-                        this.$wire.set(config.wireModel, draft);
+                    if (content === draft && window.Livewire) {
+                        if (config.jsonModel) this.$wire.set(config.jsonModel, JSON.parse(draft));
                     }
                 } catch (e) {
                     console.error('Tiptap draft corrupt — resetting.', e);

@@ -26,6 +26,9 @@ new #[Title('New Post'), Layout('layouts::app')] class extends Component {
     #[Validate('required|string')]
     public string $content = '';
 
+    #[Validate('nullable|array')]
+    public array $content_json = [];
+
     #[Validate('required|in:draft,published,archived')]
     public string $status = 'draft';
 
@@ -94,6 +97,7 @@ new #[Title('New Post'), Layout('layouts::app')] class extends Component {
             'slug'         => Str::slug($this->title),
             'excerpt'      => $this->excerpt ?: null,
             'content'      => $this->content,
+            'content_json' => $this->content_json,
             'status'       => $this->status,
             'published_at' => $publishedAt,
         ]);
@@ -226,7 +230,7 @@ new #[Title('New Post'), Layout('layouts::app')] class extends Component {
                             {{ __('Improve with AI') }}
                         </x-ui.button>
                     </div>
-                    <x-tiptap-editor id="content" name="content" wire:model="content" :value="$content" />
+                    <x-tiptap-editor id="content" name="content" wire:model="content_json" html-model="content" :value="$content_json" />
                     <x-ui.error name="content" />
                 </x-ui.field>
 

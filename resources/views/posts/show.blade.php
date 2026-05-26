@@ -69,8 +69,33 @@
         <link rel="canonical" href="{{ route('posts.show', $post->slug) }}" />
     </x-slot:head>
 
-    <div class="min-h-screen">
-        <div class="container mx-auto px-4 py-12">
+    <div class="min-h-screen" x-data="readingProgress" @scroll.window="update()" x-init="update()">
+        {{-- Reading Progress Bar --}}
+        <div class="fixed top-0 left-0 z-50 h-1 bg-primary transition-all duration-150" :style="`width: ${progress}%`" x-show="progress > 0"></div>
+
+        <div class="container mx-auto px-4 py-12" x-data="tableOfContents">
+            {{-- Floating Table of Contents --}}
+            <aside 
+                class="fixed left-8 top-1/2 -translate-y-1/2 z-40 hidden xl:block w-64"
+                x-show="visible"
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 -translate-x-4"
+                x-transition:enter-end="opacity-100 translate-x-0"
+            >
+                <div class="space-y-4 border-l-2 border-neutral-100 dark:border-neutral-900 pl-6">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-neutral-400 mb-4">{{ __('On this page') }}</p>
+                    <nav class="flex flex-col gap-3">
+                        <template x-for="item in items" :key="item.id">
+                            <a 
+                                :href="`#${item.id}`"
+                                class="text-xs font-bold uppercase tracking-widest transition-all hover:text-primary"
+                                :class="activeId === item.id ? 'text-primary translate-x-2' : 'text-neutral-500 dark:text-neutral-400'"
+                                x-text="item.text"
+                            ></a>
+                        </template>
+                    </nav>
+                </div>
+            </aside>
 
             <article class="mx-auto mb-12 max-w-3xl">
 
@@ -144,7 +169,7 @@
 
                 {{-- Content --}}
                 <div class="tiptap-content mb-12 max-w-none">
-                    {!! ContentRenderer::render($post->content) !!}
+                    {!! ContentRenderer::render($post->content_json ?: $post->content) !!}
                 </div>
 
                 {{-- Gallery --}}

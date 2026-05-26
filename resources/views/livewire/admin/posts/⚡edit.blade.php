@@ -26,6 +26,8 @@ new #[Title('Edit Post'), Layout('layouts::app')] class extends Component {
 
     public string $content = '';
 
+    public array $content_json = [];
+
     public string $status = '';
 
     public bool $featured = false;
@@ -65,6 +67,7 @@ new #[Title('Edit Post'), Layout('layouts::app')] class extends Component {
         $this->title = $post->title;
         $this->excerpt = $post->excerpt ?? '';
         $this->content = $post->content;
+        $this->content_json = $post->content_json ?? [];
         $this->status = $post->status->value;
         $this->featured = $post->featured;
         $this->publishedAt = $post->published_at?->format('Y-m-d') ?? '';
@@ -185,6 +188,7 @@ new #[Title('Edit Post'), Layout('layouts::app')] class extends Component {
             'slug' => Str::slug($this->title),
             'excerpt' => $this->excerpt ?: null,
             'content' => $this->content,
+            'content_json' => $this->content_json,
             'status' => $this->status,
             'featured' => $this->featured,
             'published_at' => $publishedAt,
@@ -326,7 +330,7 @@ new #[Title('Edit Post'), Layout('layouts::app')] class extends Component {
                             {{ __('Improve with AI') }}
                         </x-ui.button>
                     </div>
-                    <x-tiptap-editor id="content" name="content" wire:model="content" :value="$content" />
+                    <x-tiptap-editor id="content" name="content" wire:model="content_json" html-model="content" :value="$content_json" />
                     <x-ui.error name="content" />
                 </x-ui.field>
 

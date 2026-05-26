@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 
-#[Fillable(['user_id', 'title', 'slug', 'excerpt', 'content', 'status', 'featured', 'view_count', 'published_at', 'meta_description', 'meta_keywords', 'og_image'])]
+#[Fillable(['user_id', 'title', 'slug', 'excerpt', 'content', 'content_json', 'status', 'featured', 'view_count', 'published_at', 'meta_description', 'meta_keywords', 'og_image'])]
 class Post extends Model implements HasMedia
 {
     /** @use HasFactory */
@@ -36,6 +36,7 @@ class Post extends Model implements HasMedia
             'view_count' => 'integer',
             'published_at' => 'datetime',
             'deleted_at' => 'datetime',
+            'content_json' => 'array',
         ];
     }
 
