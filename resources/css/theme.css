@@ -34,31 +34,28 @@
     --color-error:   #ef4444;
     --color-warning: #f59e0b;
     --color-info:    #3b82f6;
-
-    /* Dark Mode Overrides */
-    @variant dark {
-        --color-neutral-50:  #0a0a0a; /* Main Background */
-        --color-neutral-100: #0a0a0a; /* Card/Surface (Identical to BG) */
-        --color-neutral-200: #1a1a1a; /* Borders (Carton-equivalent for dark) */
-        --color-neutral-300: #262626; 
-        --color-neutral-400: #404040; 
-        --color-neutral-500: #737373; 
-        --color-neutral-600: #a3a3a3; 
-        --color-neutral-700: #d4d4d4; 
-        --color-neutral-800: #e5e5e5;
-        --color-neutral-900: #f5f5f5;
-        --color-neutral-950: #ffffff;
-
-        --color-primary:         #b03040;   
-        --color-primary-content: #d04050;
-        --color-primary-fg:      #ffffff;
-    }
 }
 
-@layer theme {
-    .dark {
-        background-color: #0a0a0a;
-    }
+/* Base Palette — HIGH CONTRAST SKELETON DARK MODE */
+html.dark, .dark {
+    --color-neutral-50:  #0a0a0a !important; /* Main Background */
+    --color-neutral-100: #0a0a0a !important; /* Card/Surface (Identical to BG) */
+    --color-neutral-200: #1a1a1a !important; /* Borders (Carton-equivalent for dark) */
+    --color-neutral-300: #262626 !important; 
+    --color-neutral-400: #404040 !important; 
+    --color-neutral-500: #737373 !important; 
+    --color-neutral-600: #a3a3a3 !important; 
+    --color-neutral-700: #d4d4d4 !important; 
+    --color-neutral-800: #e5e5e5 !important;
+    --color-neutral-900: #f5f5f5 !important;
+    --color-neutral-950: #ffffff !important;
+
+    /* Primary: Contrast Maroon in Dark Mode */
+    --color-primary:         #b03040 !important;   
+    --color-primary-content: #d04050 !important;
+    --color-primary-fg:      #ffffff !important;
+
+    background-color: #0a0a0a;
 }
 
 /* ============================================================
