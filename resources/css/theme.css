@@ -1,70 +1,69 @@
 /* ============================================================
-   SHEAF UI — ULTRAMODERN HIGH CONTRAST
-   High-Definition, Laser-Focused, Zero-Latency Aesthetic
+   SHEAF UI — SLEEK MAROON (ZED-INSPIRED)
+   Professional, Refined, High-Performance Aesthetic
    ============================================================ */
 
-/* ── Google Fonts: JetBrains Mono ── */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+/* ── Google Fonts: Inter & JetBrains Mono ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 
 /* ============================================================
    THEME VARIABLES
    ============================================================ */
 @theme {
-    /* Primary: Electric Cyan */
-    --color-primary:         #00f3ff;   
-    --color-primary-content: #0891b2;   
-    --color-primary-fg:      #000000;   
+    /* Primary: Deep Maroon */
+    --color-primary:         #800020;   /* Oxblood/Maroon */
+    --color-primary-content: #a23b47;   /* Lighter Maroon for contrast */
+    --color-primary-fg:      #ffffff;   
 
     /* Accents */
-    --color-accent:          #ff00ff;   /* Neon Magenta */
-    --color-accent-fg:       #ffffff;
+    --color-accent:          #d4a373;   /* Muted gold/sand */
+    --color-accent-fg:       #1a1a1a;
 
-    /* Neutral palette — Pure Grayscale */
-    --color-neutral-50:  #ffffff;
-    --color-neutral-100: #f5f5f5;
-    --color-neutral-200: #e5e5e5;
-    --color-neutral-300: #d4d4d4;
-    --color-neutral-400: #a3a3a3;
-    --color-neutral-500: #737373;
-    --color-neutral-600: #525252;
-    --color-neutral-700: #404040;
-    --color-neutral-800: #262626;
-    --color-neutral-900: #171717;
-    --color-neutral-950: #000000;
+    /* Neutral palette — Zed-like Refined Grays */
+    --color-neutral-50:  #fdfcfb;
+    --color-neutral-100: #f5f3f1;
+    --color-neutral-200: #e9e5e1;
+    --color-neutral-300: #dcd7d1;
+    --color-neutral-400: #b6ad10;
+    --color-neutral-500: #8c8279;
+    --color-neutral-600: #645c55;
+    --color-neutral-700: #4a443f;
+    --color-neutral-800: #2d2a27;
+    --color-neutral-900: #1c1a19;
+    --color-neutral-950: #0f0e0d;
 
-    /* Sharp Edges */
-    --radius-field: 0rem;
-    --radius-box:   0rem;
+    /* Refined Radius */
+    --radius-field: 0.375rem;
+    --radius-box:   0.5rem;
 
     /* Semantic Status */
-    --color-success: #00ff66;   /* Hyper Green */
-    --color-error:   #ff0033;   /* High-Contrast Red */
-    --color-warning: #ffcc00;   /* Cyber Yellow */
-    --color-info:    #00f3ff;   /* Same as primary */
-    
-    /* Effects */
-    --shadow-glow: 0 0 15px rgba(0, 243, 255, 0.4);
-    --shadow-glow-strong: 0 0 25px rgba(0, 243, 255, 0.6);
+    --color-success: #4ade80;   
+    --color-error:   #f87171;   
+    --color-warning: #fbbf24;   
+    --color-info:    #60a5fa;   
 }
 
 /* ============================================================
-   DARK MODE — Void Interface
+   DARK MODE — Zed Dark (Atoms/One Dark hybrid)
    ============================================================ */
 @layer theme {
     .dark {
-        --color-neutral-50:  #000000 !important;
-        --color-neutral-100: #0a0a0a !important;
-        --color-neutral-200: #111111 !important;
-        --color-neutral-300: #1a1a1a !important;
-        --color-neutral-400: #404040 !important;
+        --color-neutral-50:  #181818 !important; /* Sidebar/Background */
+        --color-neutral-100: #1e1e1e !important; /* Subtle background */
+        --color-neutral-200: #2a2a2a !important; /* Border */
+        --color-neutral-300: #3a3a3a !important; /* Hover */
+        --color-neutral-400: #525252 !important;
         --color-neutral-500: #737373 !important;
         --color-neutral-600: #a3a3a3 !important;
         --color-neutral-700: #d4d4d4 !important;
         --color-neutral-800: #e5e5e5 !important;
         --color-neutral-900: #f5f5f5 !important;
         --color-neutral-950: #ffffff !important;
+
+        --color-primary:         #a23b47 !important;
+        --color-primary-content: #c15b67 !important;
         
-        --shadow-glow: 0 0 15px rgba(0, 243, 255, 0.2);
+        background-color: #121212;
     }
 }
 
@@ -72,21 +71,24 @@
    GLOBAL TYPOGRAPHY
    ============================================================ */
 *, *::before, *::after {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.01em;
+}
+
+code, pre, .mono {
     font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace !important;
-    letter-spacing: -0.02em;
 }
 
 body {
     background-color: var(--color-neutral-50);
-    color: var(--color-neutral-900);
-    line-height: 1.5;
+    color: var(--color-neutral-800);
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
-    cursor: crosshair;
 }
 
 .dark body {
-    background-color: #000000;
-    color: var(--color-neutral-300);
+    background-color: #121212;
+    color: var(--color-neutral-700);
 }
 
 /* Selection */
@@ -101,229 +103,113 @@ body {
 
 /* --- Buttons ------------------------------------------------ */
 [data-slot="button"] {
-    border-radius: 0 !important;
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    transition: all 0.1s ease-out;
-    border: 1px solid currentColor;
-    position: relative;
-    overflow: hidden;
+    border-radius: var(--radius-field) !important;
+    font-weight: 500;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
 }
 
-[data-slot="button"]::before {
-    content: '[';
-    margin-right: 0.35rem;
-    opacity: 0.5;
-}
-
+/* Remove terminal brackets */
+[data-slot="button"]::before,
 [data-slot="button"]::after {
-    content: ']';
-    margin-left: 0.35rem;
-    opacity: 0.5;
-}
-
-/* Hover Effect: Inversion + Glow */
-[data-slot="button"]:hover {
-    box-shadow: var(--shadow-glow);
-    transform: translate(-2px, -2px);
-}
-
-[data-slot="button"]:active {
-    transform: translate(0, 0);
+    display: none !important;
 }
 
 /* Primary button */
 [data-slot="button"][data-variant="primary"] {
     background: var(--color-primary);
     color: var(--color-primary-fg);
-    border-color: var(--color-primary);
 }
 
 [data-slot="button"][data-variant="primary"]:hover {
     background: var(--color-primary-content);
-    border-color: var(--color-primary-content);
+    box-shadow: 0 4px 12px rgba(128, 0, 32, 0.2);
 }
 
 /* Outline/Ghost */
-[data-slot="button"][data-variant="outline"],
-[data-slot="button"][data-variant="ghost"] {
+[data-slot="button"][data-variant="outline"] {
+    border-color: var(--color-neutral-200);
+    color: var(--color-neutral-700);
+    background: transparent;
+}
+
+.dark [data-slot="button"][data-variant="outline"] {
     border-color: var(--color-neutral-300);
-    color: var(--color-neutral-800);
+    color: var(--color-neutral-300);
 }
 
-.dark [data-slot="button"][data-variant="outline"],
-.dark [data-slot="button"][data-variant="ghost"] {
-    border-color: var(--color-neutral-400);
-    color: var(--color-neutral-200);
-}
-
-[data-slot="button"][data-variant="outline"]:hover,
-[data-slot="button"][data-variant="ghost"]:hover {
-    background: var(--color-primary);
-    color: var(--color-primary-fg);
-    border-color: var(--color-primary);
+[data-slot="button"][data-variant="outline"]:hover {
+    background: var(--color-neutral-100);
+    border-color: var(--color-neutral-300);
 }
 
 /* --- Cards ------------------------------------------------- */
 [data-slot="card"] {
-    border-radius: 0 !important;
-    background: var(--color-neutral-50) !important;
+    border-radius: var(--radius-box) !important;
+    background: #ffffff !important;
     border: 1px solid var(--color-neutral-200) !important;
-    box-shadow: none !important;
-    position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
 }
 
 .dark [data-slot="card"] {
-    background: #050505 !important;
-    border-color: var(--color-neutral-300) !important;
+    background: var(--color-neutral-100) !important;
+    border-color: var(--color-neutral-200) !important;
 }
 
-/* Window Chrome (Modern Terminal) */
+/* Remove terminal window chrome */
 [data-slot="card"]::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1.5rem;
-    background: var(--color-neutral-100);
-    border-bottom: 1px solid var(--color-neutral-200);
-    display: block !important;
-    z-index: 10;
+    display: none !important;
 }
 
-.dark [data-slot="card"]::before {
-    background: #111;
-    border-bottom-color: #222;
-}
-
-/* Decorative corner for cards */
+/* Remove decorative corner */
 [data-slot="card"]::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 10px;
-    height: 10px;
-    background: linear-gradient(135deg, transparent 50%, var(--color-primary) 50%);
-    z-index: 5;
+    display: none !important;
 }
 
 /* --- Badges ------------------------------------------------ */
 [data-slot="badge"] {
-    border-radius: 0 !important;
-    text-transform: uppercase;
-    font-size: 10px;
-    font-weight: 800;
-    padding: 0.125rem 0.5rem;
-    border: 1px solid currentColor;
+    border-radius: 9999px !important;
+    text-transform: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.125rem 0.625rem;
+    border: none;
+    background: var(--color-neutral-100);
+    color: var(--color-neutral-600);
+}
+
+.dark [data-slot="badge"] {
+    background: var(--color-neutral-200);
+    color: var(--color-neutral-700);
 }
 
 /* ============================================================
-   ULTRAMODERN UTILITIES
+   REFINED UTILITIES
    ============================================================ */
 
-.term-prompt::before {
-    content: 'admin@system:~# ';
-    color: var(--color-primary);
-    font-weight: 700;
-}
-
-.term-comment {
-    color: var(--color-neutral-500);
-    font-style: italic;
-}
-
-.term-comment::before {
-    content: '/* ';
-}
-
-.term-comment::after {
-    content: ' */';
-}
-
-/* Glass effect for overlays */
 .glass {
-    background: rgba(255, 255, 255, 0.7) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.6) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .dark .glass {
-    background: rgba(0, 0, 0, 0.7) !important;
+    background: rgba(20, 20, 20, 0.6) !important;
     border-color: rgba(255, 255, 255, 0.05);
 }
 
-/* Laser underline */
-.laser-link {
-    position: relative;
-    text-decoration: none;
-}
-
-.laser-link::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
+/* Subtle separator */
+.separator {
     height: 1px;
-    background: var(--color-primary);
-    transition: width 0.3s ease;
-    box-shadow: var(--shadow-glow);
+    background: var(--color-neutral-200);
+    margin: 1rem 0;
 }
 
-.laser-link:hover::after {
-    width: 100%;
+.dark .separator {
+    background: var(--color-neutral-300);
 }
 
-/* Scanning animation */
-@keyframes scan {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100%); }
-}
-
-.scanline-container {
-    position: relative;
-    overflow: hidden;
-}
-
-.scanline-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: rgba(0, 243, 255, 0.1);
-    z-index: 100;
-    pointer-events: none;
-    animation: scan 4s linear infinite;
-}
-
-
-.term-block {
-    background: #000;
-    color: #eee;
-    padding: 2rem;
-    border: 1px solid #222;
-    font-size: 13px;
-}
-
-.term-indicator {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.term-indicator::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    background: currentColor;
-    box-shadow: 0 0 8px currentColor;
-}
 
 /* ============================================================
    CONTENT STYLING (PS)

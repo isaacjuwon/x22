@@ -143,7 +143,7 @@
                                 <x-ui.icon name="ps:eye" class="size-4 text-neutral-400" />
                                 <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-neutral-400">{{ number_format($post->view_count) }}</p>
                             </div>
-                            <span class="term-indicator text-success text-[9px] uppercase font-bold tracking-widest">{{ __('Active Module') }}</span>
+                            <span class="text-success text-[9px] uppercase font-bold tracking-widest">{{ __('Active Module') }}</span>
                         </div>
                     </div>
                 </header>
@@ -165,7 +165,7 @@
                 @endif
 
                 {{-- AI Reading Assistant --}}
-                <div class="mb-20 term-block border-l-4 border-l-primary relative overflow-hidden group">
+                <div class="mb-20 border-l-4 border-l-primary relative overflow-hidden group">
                     <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-30 transition-opacity">
                         <x-ui.icon name="ps:brain" class="size-20" />
                     </div>
@@ -190,7 +190,7 @@
                 @if ($post->galleryMedia()->isNotEmpty())
                     <section class="mb-24 space-y-8 border-t border-neutral-100 dark:border-neutral-900 pt-16">
                         <div class="space-y-1">
-                            <p class="term-comment text-[10px] uppercase tracking-[0.2em] text-neutral-400">{{ __('Attached Media') }}</p>
+                            <p class="text-[10px] uppercase tracking-[0.2em] text-neutral-400">{{ __('Attached Media') }}</p>
                             <x-ui.heading level="h2" size="md" class="font-bold uppercase tracking-tight">{{ __('Gallery Assets') }}</x-ui.heading>
                         </div>
                         <div class="grid gap-8 sm:grid-cols-2">

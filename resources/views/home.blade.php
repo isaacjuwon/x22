@@ -29,7 +29,7 @@
                     <div class="space-y-4">
                         <div class="flex items-center gap-3">
                             <x-ui.icon name="ps:lightning" class="size-5 text-primary" />
-                            <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-neutral-400">{{ __('system_active: true') }}</span>
+                            <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-neutral-400">{{ __('system_online') }}</span>
                         </div>
                         <h1 class="text-5xl font-bold tracking-tighter text-neutral-900 dark:text-neutral-50 sm:text-7xl uppercase leading-[0.9]">
                             {{ $general->hero_title }}
@@ -37,7 +37,7 @@
                     </div>
 
                     <p class="text-xl leading-relaxed text-neutral-600 dark:text-neutral-500 font-medium">
-                        <span class="term-comment">{{ $general->hero_subtitle }}</span>
+                        {{ $general->hero_subtitle }}
                     </p>
 
                     <div class="flex flex-wrap items-center gap-6">
@@ -53,45 +53,6 @@
                                 {{ __('our_work') }}
                             </x-ui.button>
                         @endif
-                    </div>
-                </div>
-
-                <div class="term-block border-l-4 border-l-primary shadow-2xl scale-110 origin-right">
-                    <div class="flex items-center justify-between mb-6 border-b border-neutral-800 pb-4">
-                        <div class="flex gap-2">
-                            <div class="h-2 w-2 rounded-full bg-neutral-900"></div>
-                            <div class="h-2 w-2 rounded-full bg-neutral-900"></div>
-                            <div class="h-2 w-2 rounded-full bg-neutral-900"></div>
-                        </div>
-                        <span class="text-[9px] uppercase tracking-widest opacity-40">{{ __('system@monitor:~$ status') }}</span>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between text-xs">
-                            <span class="opacity-50 uppercase tracking-widest">{{ __('CPU Load') }}</span>
-                            <span class="text-primary font-bold">12%</span>
-                        </div>
-                        <div class="h-1 bg-neutral-900">
-                            <div class="h-full bg-primary w-[12%] shadow-[0_0_8px_var(--color-primary)]"></div>
-                        </div>
-                        
-                        <div class="flex items-center justify-between text-xs pt-2">
-                            <span class="opacity-50 uppercase tracking-widest">{{ __('Memory') }}</span>
-                            <span class="text-primary font-bold">4.2GB / 16GB</span>
-                        </div>
-                        <div class="h-1 bg-neutral-900">
-                            <div class="h-full bg-primary w-[26%] shadow-[0_0_8px_var(--color-primary)]"></div>
-                        </div>
-
-                        <div class="pt-6 border-t border-neutral-900 space-y-2">
-                            <p class="text-[9px] uppercase tracking-widest text-success flex items-center gap-2">
-                                <x-ui.icon name="ps:circle-dashed" class="size-3 animate-spin" />
-                                {{ __('Database connection optimized') }}
-                            </p>
-                            <p class="text-[9px] uppercase tracking-widest text-info flex items-center gap-2">
-                                <x-ui.icon name="ps:shield-check" class="size-3" />
-                                {{ __('Security protocols active') }}
-                            </p>
-                        </div>
                     </div>
                 </div>
             </div>
