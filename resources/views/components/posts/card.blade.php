@@ -1,70 +1,47 @@
 @props(['post'])
 
-<article data-slot="card" class="group overflow-hidden transition-all hover:border-primary hover:shadow-lg">
+<article data-slot="card" class="group border border-neutral-200 dark:border-neutral-800 transition-colors hover:border-primary">
     {{-- Featured image --}}
     @if ($post->featuredImageUrl('card'))
-        <div class="aspect-video overflow-hidden bg-neutral-100 dark:bg-neutral-950">
+        <div class="aspect-video overflow-hidden bg-neutral-100 dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800">
             <img
                 src="{{ $post->featuredImageUrl('card') }}"
                 alt="{{ $post->title }}"
-                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                 loading="lazy"
             />
-        </div>
-    @else
-        <div class="aspect-video flex items-center justify-center bg-neutral-100 dark:bg-neutral-950 border-b border-neutral-200 dark:border-neutral-800">
-            <x-ui.icon name="document" class="h-12 w-12 text-neutral-300 dark:text-neutral-700" />
         </div>
     @endif
 
     {{-- Content --}}
-    <div class="space-y-3 p-5">
-
+    <div class="p-6 space-y-4">
         {{-- Meta --}}
-        <div class="flex items-center justify-between text-xs font-medium uppercase tracking-wider">
-            <x-ui.text class="text-neutral-400 dark:text-neutral-500">
-                {{ $post->published_at->format('M d, Y') }}
-            </x-ui.text>
-            @if ($post->featured)
-                <x-ui.badge color="primary" variant="soft" size="sm">{{ __('Featured') }}</x-ui.badge>
-            @endif
+        <div class="flex items-center gap-4 text-[10px] uppercase tracking-[0.2em] text-neutral-400">
+            <time datetime="{{ $post->published_at->toIso8601String() }}">
+                {{ $post->published_at->format('Y.m.d') }}
+            </time>
+            <span class="opacity-30">|</span>
+            <span>{{ $post->reading_time }}m read</span>
         </div>
 
         {{-- Title --}}
-        <h3 class="line-clamp-2 text-xl font-bold text-neutral-900 dark:text-neutral-50 transition-colors group-hover:text-primary">
+        <h3 class="line-clamp-2 text-xl font-bold text-neutral-900 dark:text-neutral-100 group-hover:text-primary transition-colors leading-tight">
             <a href="{{ route('posts.show', $post->slug) }}" wire:navigate>{{ $post->title }}</a>
         </h3>
 
         {{-- Excerpt --}}
         @if ($post->excerpt)
-            <x-ui.text class="line-clamp-2 text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
+            <p class="line-clamp-2 text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
                 {{ $post->excerpt }}
-            </x-ui.text>
+            </p>
         @endif
 
-        {{-- Author & views --}}
-        <div class="flex items-center justify-between border-t border-neutral-100 dark:border-neutral-800 pt-4">
+        {{-- Footer --}}
+        <div class="pt-4 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <x-ui.avatar :name="$post->user->name" size="xs" color="auto" />
-                <x-ui.text class="text-xs font-semibold text-neutral-700 dark:text-neutral-300">
-                    {{ $post->user->name }}
-                </x-ui.text>
+                <span class="term-dot term-dot-success text-[10px] uppercase tracking-widest text-neutral-400">{{ __('Live') }}</span>
             </div>
-            <x-ui.text class="text-[10px] font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-600">
-                {{ number_format($post->view_count) }} {{ __('views') }}
-            </x-ui.text>
+            <x-ui.icon name="arrow-right" class="size-4 text-neutral-300 group-hover:text-primary transition-colors group-hover:translate-x-1" />
         </div>
-
-        {{-- Tags --}}
-        @if ($post->tags->isNotEmpty())
-            <div class="flex flex-wrap gap-1.5 pt-1">
-                @foreach ($post->tags->take(2) as $tag)
-                    <a href="{{ route('tags.show', $tag->slug) }}" wire:navigate>
-                        <x-ui.badge size="sm" color="neutral" variant="outline">{{ $tag->name }}</x-ui.badge>
-                    </a>
-                @endforeach
-            </div>
-        @endif
-
     </div>
 </article>
