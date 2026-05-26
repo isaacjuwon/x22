@@ -120,7 +120,7 @@ return [
 
         'openai' => [
             'driver' => 'openai',
-            'key' => env('OPENAI_API_KEY','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'),
+            'key' => env('OPENAI_API_KEY'),
             'url' => env('OPENAI_URL', 'https://api.openai.com/v1'),
         ],
 
