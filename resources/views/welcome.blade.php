@@ -7,7 +7,7 @@
         <main class="w-full max-w-4xl">
             <x-ui.card class="overflow-hidden">
                 <div class="p-8 lg:p-12">
-                    <div class="mb-8 flex items-center justify-between">
+                    <div class="mb-12 flex items-center justify-between">
                         <x-app-logo class="h-8" />
                         
                         @if (Route::has('login'))
@@ -31,19 +31,19 @@
                         @endif
                     </div>
 
-                    <div class="space-y-6">
-                        <div>
-                            <h1 class="term-prompt text-2xl font-bold text-neutral-900 dark:text-neutral-50 lg:text-3xl">
-                                {{ __('System Initialization') }}
+                    <div class="space-y-12">
+                        <div class="max-w-2xl">
+                            <h1 class="text-3xl font-extrabold tracking-tight text-neutral-900 dark:text-neutral-50 lg:text-5xl">
+                                {{ __('Experience the Future of Content') }}
                             </h1>
-                            <p class="term-comment mt-2 text-neutral-500 dark:text-neutral-400">
-                                {{ __('Laravel Framework') }} v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+                            <p class="mt-4 text-lg text-neutral-500 dark:text-neutral-400">
+                                {{ __('A modern publishing platform powered by Laravel, designed for clarity and speed.') }}
                             </p>
                         </div>
 
-                        <div class="grid gap-6 lg:grid-cols-2">
+                        <div class="grid gap-8 lg:grid-cols-2">
                             <div class="space-y-4">
-                                <x-ui.heading level="h2" size="sm" class="term-accent uppercase tracking-widest">
+                                <x-ui.heading level="h2" size="sm" class="term-accent font-bold uppercase tracking-wider">
                                     {{ __('Documentation') }}
                                 </x-ui.heading>
                                 <p class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
@@ -55,7 +55,7 @@
                             </div>
 
                             <div class="space-y-4">
-                                <x-ui.heading level="h2" size="sm" class="term-accent uppercase tracking-widest">
+                                <x-ui.heading level="h2" size="sm" class="term-accent font-bold uppercase tracking-wider">
                                     {{ __('Laracasts') }}
                                 </x-ui.heading>
                                 <p class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
@@ -67,11 +67,14 @@
                             </div>
                         </div>
 
-                        <div class="border-t border-neutral-200 pt-8 dark:border-neutral-800">
-                            <div class="flex flex-col items-center justify-between gap-4 lg:flex-row">
-                                <p class="term-comment text-xs text-neutral-500">
-                                    {{ __('ready to deploy') }} — {{ now()->format('Y-m-d H:i') }}
-                                </p>
+                        <div class="border-t border-neutral-100 pt-8 dark:border-neutral-800">
+                            <div class="flex flex-col items-center justify-between gap-6 lg:flex-row">
+                                <div class="flex items-center gap-2">
+                                    <div class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+                                    <p class="text-sm font-medium text-neutral-500">
+                                        {{ __('System operational') }}
+                                    </p>
+                                </div>
                                 <x-ui.button as="a" href="https://cloud.laravel.com" target="_blank" variant="primary" size="md">
                                     {{ __('Deploy to Laravel Cloud') }}
                                 </x-ui.button>

@@ -23,41 +23,31 @@
 
     {{-- ─── Hero ──────────────────────────────────────────────────────────── --}}
     <section class="relative overflow-hidden border-b border-neutral-200 dark:border-neutral-800 px-6 py-28 text-center">
-        {{-- subtle grid background --}}
-        <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#16a34a08_1px,transparent_1px),linear-gradient(to_bottom,#16a34a08_1px,transparent_1px)] bg-[size:32px_32px] dark:bg-[linear-gradient(to_right,#4ade8008_1px,transparent_1px),linear-gradient(to_bottom,#4ade8008_1px,transparent_1px)]"></div>
+        {{-- modern gradient glow background --}}
+        <div class="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-96 w-96 rounded-full bg-primary/20 blur-[120px]"></div>
 
-        <div class="relative mx-auto max-w-3xl space-y-6">
-            <x-ui.badge color="green" variant="outline" class="mx-auto">{{ __('System::Online') }}</x-ui.badge>
+        <div class="relative mx-auto max-w-3xl space-y-8">
+            <x-ui.badge color="primary" variant="soft" class="mx-auto">{{ __('System Operational') }}</x-ui.badge>
 
-            <h1 class="term-prompt text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 sm:text-5xl">
+            <h1 class="text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-neutral-50 sm:text-6xl">
                 {{ $general->hero_title }}
             </h1>
 
             <p class="mx-auto max-w-xl text-lg leading-relaxed text-neutral-500 dark:text-neutral-400">
-                <span class="term-comment">{{ $general->hero_subtitle }}</span>
+                {{ $general->hero_subtitle }}
             </p>
 
-            <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
                 @if ($general->show_posts_section)
                     <x-ui.button as="a" href="#posts" variant="primary" size="lg">
-                        {{ __('Run Blog.exe') }}
+                        {{ __('Explore Articles') }}
                     </x-ui.button>
                 @endif
                 @if ($general->show_projects_section)
                     <x-ui.button as="a" href="#projects" variant="outline" size="lg">
-                        {{ __('List Projects') }}
+                        {{ __('View Our Work') }}
                     </x-ui.button>
                 @endif
-            </div>
-
-            {{-- terminal status line --}}
-            <div class="mx-auto max-w-md">
-                <p class="term-block text-left text-xs text-neutral-400 dark:text-neutral-600">
-{{ __('Status: System Ready') }}
-{{ __('Version: 2.0.4-stable') }}
-{{ __('Uptime: 99.9%') }}
-{{ __('Time: ') }} {{ now()->format('Y-m-d H:i') }}
-                </p>
             </div>
         </div>
     </section>
@@ -68,10 +58,10 @@
             <div class="mx-auto max-w-6xl">
                 <div class="mb-12 flex items-end justify-between">
                     <div>
-                        <x-ui.heading level="h2" size="xl" class="text-3xl font-bold text-neutral-700 dark:text-neutral-200">{{ __('Latest Posts') }}</x-ui.heading>
-                        <x-ui.text class="term-comment mt-2 text-neutral-600 dark:text-neutral-400">
-                            {{ __('Thoughts, tutorials, and updates from the team.') }}
-                        </x-ui.text>
+                        <x-ui.heading level="h2" size="xl" class="text-3xl font-extrabold text-neutral-900 dark:text-neutral-50">{{ __('Latest Posts') }}</x-ui.heading>
+                        <p class="mt-2 text-neutral-500 dark:text-neutral-400">
+                            {{ __('Insights and updates from our creative team.') }}
+                        </p>
                     </div>
                     <x-ui.button as="a" href="{{ route('posts.index') }}" wire:navigate variant="ghost" size="sm">
                         {{ __('All posts') }} →
@@ -85,13 +75,13 @@
 
     {{-- ─── Projects ───────────────────────────────────────────────────────── --}}
     @if ($general->show_projects_section)
-        <section id="projects" class="border-b border-neutral-800 dark:border-neutral-800 px-6 py-20">
+        <section id="projects" class="border-b border-neutral-200 dark:border-neutral-800 px-6 py-20">
             <div class="mx-auto max-w-6xl">
                 <div class="mb-12 text-center">
-                    <x-ui.heading level="h2" size="xl" class="text-3xl font-bold text-neutral-700 dark:text-neutral-200">{{ __('Our Projects') }}</x-ui.heading>
-                    <x-ui.text class="term-comment mt-2 text-neutral-600 dark:text-neutral-400">
-                        {{ __("A selection of work we're proud of.") }}
-                    </x-ui.text>
+                    <x-ui.heading level="h2" size="xl" class="text-3xl font-extrabold text-neutral-900 dark:text-neutral-50">{{ __('Our Projects') }}</x-ui.heading>
+                    <p class="mt-2 text-neutral-500 dark:text-neutral-400">
+                        {{ __("A selection of work we're proud to showcase.") }}
+                    </p>
                 </div>
 
                 @if ($projects->isEmpty())

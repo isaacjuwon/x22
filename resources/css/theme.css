@@ -1,87 +1,91 @@
 /* ============================================================
-   SHEAF UI — TERMINAL THEME
+   SHEAF UI — MODERN AI AESTHETIC
    Drop this into your project and import after app.css
    ============================================================ */
 
-/* ── Google Fonts: JetBrains Mono ── */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap');
+/* ── Google Fonts: Inter ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 /* ============================================================
-   LIGHT (terminal on white / "paper terminal")
+   THEME VARIABLES
    ============================================================ */
 @theme {
-    /* Primary: phosphor green on near-black */
-    --color-primary:         #16a34a;   /* green-600  */
-    --color-primary-content: #15803d;   /* green-700  */
-    --color-primary-fg:      #f0fdf4;   /* green-50   */
+    /* Primary: Electric Violet / Indigo */
+    --color-primary:         #7c3aed;   /* violet-600 */
+    --color-primary-content: #6d28d9;   /* violet-700 */
+    --color-primary-fg:      #ffffff;
 
-    /* Neutral palette — dark mode values (light text on dark bg) */
-    --color-neutral-50:  #f5f5f0;
-    --color-neutral-100: #e8e8e0;
-    --color-neutral-200: #d4d4c8;
-    --color-neutral-300: #c0c0b4;
-    --color-neutral-400: #c8c8bc;  /* secondary headings, author names   */
-    --color-neutral-500: #b8b8ac;  /* body text, excerpts, descriptions   */
-    --color-neutral-600: #a8a89c;  /* meta text, dates, view counts       */
-    --color-neutral-700: #686860;  /* decorative icons, empty stars       */
-    --color-neutral-800: #484840;  /* borders, dividers                   */
-    --color-neutral-900: #242420;  /* card / surface backgrounds          */
-    --color-neutral-950: #0a0a08;  /* section backgrounds                 */
+    /* Neutral palette — Slate-based */
+    --color-neutral-50:  #f8fafc;
+    --color-neutral-100: #f1f5f9;
+    --color-neutral-200: #e2e8f0;
+    --color-neutral-300: #cbd5e1;
+    --color-neutral-400: #94a3b8;
+    --color-neutral-500: #64748b;
+    --color-neutral-600: #475569;
+    --color-neutral-700: #334155;
+    --color-neutral-800: #1e293b;
+    --color-neutral-900: #0f172a;
+    --color-neutral-950: #020617;
 
-    /* Sharp corners everywhere */
-    --radius-field: 0rem;
-    --radius-box:   0rem;
+    /* Modern rounded corners */
+    --radius-field: 0.5rem;
+    --radius-box:   0.75rem;
 
     /* Semantic accents */
-    --color-success: #16a34a;   /* same green  */
-    --color-error:   #dc2626;   /* red-600     */
-    --color-warning: #ca8a04;   /* yellow-600  */
-    --color-info:    #2563eb;   /* blue-600    */
+    --color-success: #10b981;   /* emerald-500 */
+    --color-error:   #ef4444;   /* red-500 */
+    --color-warning: #f59e0b;   /* amber-500 */
+    --color-info:    #3b82f6;   /* blue-500 */
 }
 
 /* ============================================================
-   LIGHT MODE — flip neutrals to dark-on-light scale
+   LIGHT MODE
    ============================================================ */
 @layer theme {
     :root:not(.dark) {
-        /* Flip mid-range: low numbers = light bg, high numbers = dark text */
-        --color-neutral-50:  #fafaf8;
-        --color-neutral-100: #f0f0ec;
-        --color-neutral-200: #e0e0d8;
-        --color-neutral-300: #c8c8be;
-        --color-neutral-400: #5a5a52;  /* secondary text — readable on light bg  */
-        --color-neutral-500: #3e3e38;  /* body text, excerpts                    */
-        --color-neutral-600: #2a2a24;  /* meta text, dates                       */
-        --color-neutral-700: #1a1a14;  /* strong text                            */
-        --color-neutral-800: #d4d4cc;  /* borders on light bg                    */
-        --color-neutral-900: #f0f0ea;  /* card / surface backgrounds             */
-        --color-neutral-950: #e8e8e0;  /* section backgrounds                    */
+        --color-neutral-50:  #ffffff;
+        --color-neutral-100: #f8fafc;
+        --color-neutral-200: #f1f5f9;
+        --color-neutral-300: #e2e8f0;
+        --color-neutral-400: #94a3b8;
+        --color-neutral-500: #64748b;
+        --color-neutral-600: #475569;
+        --color-neutral-700: #334155;
+        --color-neutral-800: #1e293b;
+        --color-neutral-900: #0f172a;
+        --color-neutral-950: #020617;
     }
 }
 
 /* ============================================================
-   DARK — true terminal black, phosphor green accents
+   DARK MODE — Deep space with violet glows
    ============================================================ */
 @layer theme {
     .dark {
-        --color-primary:         #4ade80 !important;  /* green-400  */
-        --color-primary-content: #86efac !important;  /* green-300  */
-        --color-primary-fg:      #052e16 !important;  /* green-950  */
+        --color-primary:         #a78bfa !important;  /* violet-400 */
+        --color-primary-content: #c4b5fd !important;  /* violet-300 */
+        --color-primary-fg:      #2e1065 !important;  /* violet-950 */
 
-        --color-success: #4ade80 !important;
-        --color-error:   #f87171 !important;
-        --color-warning: #fbbf24 !important;
-        --color-info:    #60a5fa !important;
+        --color-neutral-50:  #0f172a !important;
+        --color-neutral-100: #1e293b !important;
+        --color-neutral-200: #334155 !important;
+        --color-neutral-300: #475569 !important;
+        --color-neutral-400: #64748b !important;
+        --color-neutral-500: #94a3b8 !important;
+        --color-neutral-600: #cbd5e1 !important;
+        --color-neutral-700: #e2e8f0 !important;
+        --color-neutral-800: #f1f5f9 !important;
+        --color-neutral-900: #f8fafc !important;
+        --color-neutral-950: #ffffff !important;
     }
 }
 
 /* ============================================================
-   GLOBAL TYPOGRAPHIC OVERRIDE — monospace everywhere
+   GLOBAL TYPOGRAPHY — Inter sans-serif
    ============================================================ */
 *, *::before, *::after {
-    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code',
-                 'Consolas', 'SF Mono', ui-monospace, monospace !important;
-    letter-spacing: -0.01em;
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif !important;
 }
 
 /* Smooth scrolling */
@@ -89,697 +93,210 @@ html {
     scroll-behavior: smooth;
 }
 
-/* ============================================================
-   BODY — scanline texture + dark terminal bg
-   ============================================================ */
 body {
-    background-color: #f5f5f0;
-    color: #323228;
+    background-color: var(--color-neutral-50);
+    color: var(--color-neutral-800);
     transition: background-color 0.2s, color 0.2s;
+    line-height: 1.6;
 }
 
 .dark body {
-    background-color: #0d0d0b;
-    color: #c8c8b8;
-
-    /* subtle scanline effect */
-    background-image: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0, 0, 0, 0.08) 2px,
-        rgba(0, 0, 0, 0.08) 4px
-    );
+    background-color: #020617;
+    color: var(--color-neutral-300);
 }
 
 /* ============================================================
-   COMPONENT-SPECIFIC TWEAKS (data-slot targeting)
+   COMPONENT STYLING
    ============================================================ */
 
 /* --- Buttons ------------------------------------------------ */
 [data-slot="button"] {
-    border-radius: 0 !important;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.75rem;
+    border-radius: var(--radius-field) !important;
     font-weight: 500;
-    border-width: 1px;
-    transition: background 0.15s, color 0.15s, box-shadow 0.15s, border-color 0.15s;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
 }
 
-[data-slot="button"]:focus-visible {
-    outline: 1px solid #4ade80;
-    outline-offset: 2px;
-    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.15);
-}
-
 [data-slot="button"]:active {
-    transform: translateY(1px);
+    transform: scale(0.98);
 }
 
-/* Primary button */
+/* Primary button with subtle gradient */
 [data-slot="button"][data-variant="primary"],
 [data-slot="button"].btn-primary {
-    background: #16a34a;
-    color: #f0fdf4;
-    border-color: #15803d;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-content));
+    color: var(--color-primary-fg);
+    border: none;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
 }
+
 [data-slot="button"][data-variant="primary"]:hover,
 [data-slot="button"].btn-primary:hover {
-    background: #15803d;
-    color: #f0fdf4;
-}
-.dark [data-slot="button"][data-variant="primary"]:hover,
-.dark [data-slot="button"].btn-primary:hover {
-    background: #4ade80;
-    color: #052e16;
+    box-shadow: 0 6px 16px rgba(124, 58, 237, 0.3);
+    filter: brightness(1.1);
 }
 
 /* Outline / ghost button */
 [data-slot="button"][data-variant="outline"],
 [data-slot="button"][data-variant="ghost"] {
-    border-color: #16a34a;
-    color: #16a34a;
+    border-color: var(--color-neutral-200);
+    color: var(--color-neutral-700);
     background: transparent;
 }
-[data-slot="button"][data-variant="outline"]:hover,
-[data-slot="button"][data-variant="ghost"]:hover {
-    background: rgba(22, 163, 74, 0.08);
-}
+
 .dark [data-slot="button"][data-variant="outline"],
 .dark [data-slot="button"][data-variant="ghost"] {
-    border-color: #4ade80;
-    color: #4ade80;
-}
-.dark [data-slot="button"][data-variant="outline"]:hover,
-.dark [data-slot="button"][data-variant="ghost"]:hover {
-    background: rgba(74, 222, 128, 0.08);
+    border-color: var(--color-neutral-800);
+    color: var(--color-neutral-300);
 }
 
-/* --- Inputs / Fields --------------------------------------- */
+[data-slot="button"][data-variant="outline"]:hover,
+[data-slot="button"][data-variant="ghost"]:hover {
+    background: var(--color-neutral-100);
+    border-color: var(--color-neutral-300);
+}
+
+/* --- Inputs ------------------------------------------------ */
 [data-slot="input"],
 [data-slot="textarea"],
 [data-slot="select"] {
-    border-radius: 0 !important;
-    background: #ffffff !important;
-    border: 1px solid #d4d4cc !important;
-    color: #1a1a14 !important;
-    caret-color: #16a34a;
-    transition: border-color 0.15s, box-shadow 0.15s;
-}
-.dark [data-slot="input"],
-.dark [data-slot="textarea"],
-.dark [data-slot="select"] {
-    background: #111110 !important;
-    border: 1px solid #2d2d28 !important;
-    color: #c8c8b8 !important;
-    caret-color: #4ade80;
+    border-radius: var(--radius-field) !important;
+    background: var(--color-neutral-50) !important;
+    border: 1px solid var(--color-neutral-200) !important;
+    transition: all 0.2s;
 }
 
 [data-slot="input"]:focus,
 [data-slot="textarea"]:focus,
 [data-slot="select"]:focus {
-    border-color: #16a34a !important;
-    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.12) !important;
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1) !important;
     outline: none !important;
 }
-.dark [data-slot="input"]:focus,
-.dark [data-slot="textarea"]:focus,
-.dark [data-slot="select"]:focus {
-    border-color: #4ade80 !important;
-    box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.12) !important;
+
+.dark [data-slot="input"],
+.dark [data-slot="textarea"],
+.dark [data-slot="select"] {
+    background: var(--color-neutral-900) !important;
+    border-color: var(--color-neutral-800) !important;
 }
 
-[data-slot="input"]::placeholder,
-[data-slot="textarea"]::placeholder {
-    color: #a8a89c;
-}
-.dark [data-slot="input"]::placeholder,
-.dark [data-slot="textarea"]::placeholder {
-    color: #525248;
-}
-
-/* --- Cards -------------------------------------------------- */
+/* --- Cards ------------------------------------------------- */
 [data-slot="card"] {
-    border-radius: 0 !important;
-    background: #ffffff !important;
-    border: 1px solid #e0e0d8 !important;
-    box-shadow: none !important;
-    position: relative;
-}
-.dark [data-slot="card"] {
-    background: #111110 !important;
-    border: 1px solid #2d2d28 !important;
-}
-
-/* "window chrome" top bar on cards */
-[data-slot="card"]::before {
-    content: '● ● ●';
-    display: block;
-    font-size: 8px;
-    letter-spacing: 3px;
-    color: #c8c8be;
-    padding: 6px 12px;
-    border-bottom: 1px solid #e0e0d8;
-    background: #f5f5f0;
-}
-.dark [data-slot="card"]::before {
-    color: #333330;
-    border-bottom-color: #2d2d28;
-    background: #0d0d0b;
-}
-
-/* --- Labels & headings ------------------------------------- */
-[data-slot="label"] {
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 0.7rem;
-    color: #5a5a52;
-}
-.dark [data-slot="label"] {
-    color: #808075;
-}
-
-/* Add a ">" prompt prefix to all labels */
-[data-slot="label"]::before {
-    content: '> ';
-    color: #16a34a;
-    font-weight: 700;
-}
-.dark [data-slot="label"]::before {
-    color: #4ade80;
-}
-
-/* --- Badges ------------------------------------------------- */
-[data-slot="badge"] {
-    border-radius: 0 !important;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.65rem;
-    font-weight: 500;
-}
-
-/* --- Modals / Dialogs -------------------------------------- */
-[data-slot="modal"],
-[data-slot="dialog"] {
-    border-radius: 0 !important;
-    background: #ffffff !important;
-    border: 1px solid #16a34a !important;
-    box-shadow: 0 0 24px rgba(22, 163, 74, 0.08) !important;
-}
-.dark [data-slot="modal"],
-.dark [data-slot="dialog"] {
-    background: #111110 !important;
-    border: 1px solid #4ade80 !important;
-    box-shadow: 0 0 24px rgba(74, 222, 128, 0.08) !important;
-}
-
-/* --- Tooltips ---------------------------------------------- */
-[data-slot="tooltip"] {
-    border-radius: 0 !important;
-    background: #f0f0ea !important;
-    border: 1px solid #d4d4cc !important;
-    color: #16a34a !important;
-    font-size: 0.7rem;
-}
-.dark [data-slot="tooltip"] {
-    background: #1a1a16 !important;
-    border: 1px solid #3d3d35 !important;
-    color: #4ade80 !important;
-}
-
-/* --- Separators -------------------------------------------- */
-[data-slot="separator"] {
-    border-color: #e0e0d8 !important;
-}
-.dark [data-slot="separator"] {
-    border-color: #2d2d28 !important;
-}
-
-/* --- Icons -------------------------------------------------- */
-[data-slot="icon"] {
-    color: #16a34a;
-}
-.dark [data-slot="icon"] {
-    color: #4ade80;
-}
-
-/* --- Tabs --------------------------------------------------- */
-[data-slot="tab"] {
-    border-radius: 0 !important;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 0.7rem;
-    border-bottom: 2px solid transparent;
-}
-[data-slot="tab"][aria-selected="true"],
-[data-slot="tab"][data-state="active"] {
-    border-bottom-color: #16a34a;
-    color: #16a34a !important;
-    background: transparent !important;
-}
-.dark [data-slot="tab"][aria-selected="true"],
-.dark [data-slot="tab"][data-state="active"] {
-    border-bottom-color: #4ade80;
-    color: #4ade80 !important;
-}
-
-/* --- Alerts ------------------------------------------------- */
-[data-slot="alert"] {
-    border-radius: 0 !important;
-    border-left: 3px solid #16a34a !important;
-    background: #f0fdf4 !important;
-}
-.dark [data-slot="alert"] {
-    border-left-color: #4ade80 !important;
-    background: #0d0d0b !important;
-}
-
-/* --- Checkboxes & Radios ----------------------------------- */
-[data-slot="checkbox"],
-[data-slot="radio"] {
-    border-radius: 0 !important;
-    border-color: #16a34a !important;
-    accent-color: #16a34a;
-}
-.dark [data-slot="checkbox"],
-.dark [data-slot="radio"] {
-    border-color: #4ade80 !important;
-    accent-color: #4ade80;
-}
-
-/* --- Progress ---------------------------------------------- */
-[data-slot="progress"] {
-    border-radius: 0 !important;
-    background: #e0e0d8 !important;
-    border: 1px solid #d4d4cc;
+    border-radius: var(--radius-box) !important;
+    background: var(--color-neutral-50) !important;
+    border: 1px solid var(--color-neutral-200) !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
     overflow: hidden;
 }
-.dark [data-slot="progress"] {
-    background: #1e1e18 !important;
-    border-color: #2d2d28;
-}
-[data-slot="progress-bar"],
-[data-slot="progress"] > * {
-    border-radius: 0 !important;
-    background: #16a34a !important;
-}
-.dark [data-slot="progress-bar"],
-.dark [data-slot="progress"] > * {
-    background: #4ade80 !important;
-    background-image: repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 8px,
-        rgba(255,255,255,0.06) 8px,
-        rgba(255,255,255,0.06) 10px
-    ) !important;
+
+.dark [data-slot="card"] {
+    background: var(--color-neutral-900) !important;
+    border-color: var(--color-neutral-800) !important;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2) !important;
 }
 
-/* --- Skeleton loader --------------------------------------- */
-[data-slot="skeleton"] {
-    border-radius: 0 !important;
-    background: #e8e8e0 !important;
-    animation: terminal-scan 1.5s linear infinite !important;
-}
-.dark [data-slot="skeleton"] {
-    background: #1a1a16 !important;
-    background-image: linear-gradient(
-        90deg,
-        transparent 25%,
-        rgba(74, 222, 128, 0.04) 50%,
-        transparent 75%
-    ) !important;
-    background-size: 200% 100% !important;
+/* Remove terminal window chrome */
+[data-slot="card"]::before {
+    display: none !important;
 }
 
-@keyframes terminal-scan {
-    0%   { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+/* --- Badges ------------------------------------------------ */
+[data-slot="badge"] {
+    border-radius: 9999px !important;
+    font-weight: 600;
+    padding: 0.125rem 0.625rem;
 }
 
-/* --- Toast notifications ----------------------------------- */
-[data-slot="toast"] {
-    border-radius: 0 !important;
-    background: #ffffff !important;
-    border: 1px solid #e0e0d8 !important;
-    border-left: 3px solid #16a34a !important;
-    color: #1a1a14 !important;
-    box-shadow: none !important;
-}
-.dark [data-slot="toast"] {
-    background: #111110 !important;
-    border: 1px solid #2d2d28 !important;
-    border-left: 3px solid #4ade80 !important;
-    color: #c8c8b8 !important;
-}
-
-/* --- Kbd (keyboard shortcut) ------------------------------- */
-[data-slot="kbd"],
-kbd {
-    border-radius: 0 !important;
-    background: #f0f0ea !important;
-    border: 1px solid #d4d4cc !important;
-    border-bottom-width: 2px !important;
-    color: #16a34a !important;
-    font-size: 0.7rem;
-    padding: 1px 5px;
-}
-.dark [data-slot="kbd"],
-.dark kbd {
-    background: #1a1a16 !important;
-    border: 1px solid #3d3d35 !important;
-    border-bottom-width: 2px !important;
-    color: #4ade80 !important;
-}
-
-/* --- Sidebar ----------------------------------------------- */
-[data-slot="sidebar"] {
-    background: #f5f5f0 !important;
-    border-right: 1px solid #e0e0d8 !important;
-    border-radius: 0 !important;
-}
-.dark [data-slot="sidebar"] {
-    background: #0a0a08 !important;
-    border-right: 1px solid #2d2d28 !important;
-}
-
-/* --- Header ----------------------------------------------- */
-[data-slot="header"] {
-    background: #ffffff !important;
-    border-bottom: 1px solid #e0e0d8 !important;
-    border-radius: 0 !important;
-}
-.dark [data-slot="header"] {
-    background: #0d0d0b !important;
-    border-bottom: 1px solid #2d2d28 !important;
+/* --- Icons ------------------------------------------------- */
+[data-slot="icon"] {
+    color: var(--color-primary);
 }
 
 /* ============================================================
-   UTILITY CLASSES
+   UTILITY CLASSES (Revamped)
    ============================================================ */
 
-/* Prompt prefix on any element */
-.term-prompt::before {
-    content: '$ ';
-    color: #16a34a;
-    font-weight: 700;
-}
-.dark .term-prompt::before {
-    color: #4ade80;
-}
-
-/* Muted comment text */
-.term-comment {
-    color: #5a5a52;
-    font-style: normal;
-}
-.dark .term-comment {
-    color: #525248;
-}
-.term-comment::before {
-    content: '# ';
+/* Remove terminal prefixes */
+.term-prompt::before,
+.term-comment::before,
+.tiptap-content h1::before,
+.tiptap-content h2::before,
+.tiptap-content h3::before {
+    display: none !important;
 }
 
-/* Phosphor green highlight */
 .term-accent {
-    color: #16a34a;
-}
-.dark .term-accent {
-    color: #4ade80;
+    color: var(--color-primary);
+    font-weight: 600;
 }
 
-/* Error / warning inline */
-.term-error  { color: #dc2626; }
-.term-warn   { color: #ca8a04; }
-.term-info   { color: #2563eb; }
-.dark .term-error  { color: #f87171; }
-.dark .term-warn   { color: #fbbf24; }
-.dark .term-info   { color: #60a5fa; }
+.term-comment {
+    color: var(--color-neutral-500);
+}
 
-/* Full-width terminal block */
 .term-block {
-    background: #f5f5f0;
-    border: 1px solid #e0e0d8;
-    padding: 1rem 1.25rem;
-    color: #323228;
-    white-space: pre-wrap;
-    word-break: break-word;
-}
-.dark .term-block {
-    background: #0a0a08;
-    border-color: #2d2d28;
-    color: #c8c8b8;
+    background: var(--color-neutral-100);
+    border-radius: var(--radius-box);
+    padding: 1.5rem;
+    font-family: ui-monospace, monospace !important;
 }
 
 /* ============================================================
-   TIPTAP / PROSE BLOCKQUOTES
+   CONTENT STYLING
    ============================================================ */
-
-.prose blockquote,
-.tiptap-content blockquote {
-    position: relative;
-    margin: 1.5rem 0;
-    padding: 1rem 1.25rem 1rem 1.5rem;
-
-    border-left: 3px solid #16a34a;
-    border-radius: 0 !important;
-
-    background: #f0fdf4;
-    color: #323228;
-
-    font-style: italic;
-
-    box-shadow: none !important;
-}
-
-/* terminal prompt prefix */
-.prose blockquote::before,
-.tiptap-content blockquote::before {
-    content: '>_';
-    position: absolute;
-    left: 0.5rem;
-    top: 0.9rem;
-
-    color: #16a34a;
-    font-weight: 700;
-    font-style: normal;
-}
-
-/* paragraph styling */
-.prose blockquote p,
-.tiptap-content blockquote p {
-    margin: 0;
-    padding-left: 1rem;
-
-    color: inherit;
-    font-size: 1rem;
-    line-height: 1.8;
-    font-weight: 500;
-}
-
-/* remove typography plugin quote marks */
-.prose blockquote p::before,
-.prose blockquote p::after,
-.tiptap-content blockquote p::before,
-.tiptap-content blockquote p::after {
-    content: none !important;
-}
-
-/* dark mode */
-.dark .prose blockquote,
-.dark .tiptap-content blockquote {
-    background: #0f130f;
-    border-left-color: #4ade80;
-    color: #c8c8b8;
-
-    background-image: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(255,255,255,0.02) 2px,
-        rgba(255,255,255,0.02) 4px
-    );
-}
-
-.dark .prose blockquote::before,
-.dark .tiptap-content blockquote::before {
-    color: #4ade80;
-}
-
 
 .tiptap-content {
-  min-height: 500px;
-}
-
-.tiptap-content ul,
-.tiptap-content ol {
-    padding-left: 1.5rem !important;
-    margin: 1rem 0 !important;
-    list-style-position: outside !important;
-    display: block !important;
-}
-
-.tiptap-content ul {
-    list-style-type: disc !important;
-}
-
-.tiptap-content ol {
-    list-style-type: decimal !important;
-}
-
-.tiptap-content li {
-    margin: 0.25rem 0 !important;
-    display: list-item !important;
-}
-
-.tiptap-content li > p {
-    margin: 0 !important;
-    display: inline !important;
+    line-height: 1.8;
 }
 
 .tiptap-content h1,
 .tiptap-content h2,
 .tiptap-content h3 {
-    font-family: 'JetBrains Mono', monospace !important;
-    font-weight: 700 !important;
-    margin-top: 2rem !important;
-    margin-bottom: 1rem !important;
-    line-height: 1.2 !important;
+    font-weight: 800;
+    color: var(--color-neutral-900);
+    margin-top: 2.5rem;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.025em;
 }
 
-.tiptap-content h1 {
-    font-size: 2rem !important;
-    color: var(--color-primary) !important;
+.tiptap-content h1 { font-size: 2.25rem; }
+.tiptap-content h2 { font-size: 1.875rem; }
+.tiptap-content h3 { font-size: 1.5rem; }
+
+.tiptap-content blockquote {
+    border-left: 4px solid var(--color-primary);
+    background: rgba(124, 58, 237, 0.05);
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    border-radius: 0 var(--radius-box) var(--radius-box) 0;
+    font-style: italic;
+    color: var(--color-neutral-700);
 }
 
-.tiptap-content h2 {
-    font-size: 1.5rem !important;
-    color: var(--color-neutral-700) !important;
-    border-bottom: 1px solid var(--color-neutral-200) !important;
-    padding-bottom: 0.25rem !important;
+.tiptap-content blockquote::before {
+    display: none !important;
 }
 
-.dark .tiptap-content h2 {
-    color: var(--color-neutral-300) !important;
-    border-bottom-color: var(--color-neutral-800) !important;
+.tiptap-content pre {
+    background: var(--color-neutral-900);
+    color: #f8fafc;
+    padding: 1.5rem;
+    border-radius: var(--radius-box);
+    overflow-x: auto;
+    font-family: ui-monospace, monospace !important;
+    margin: 2rem 0;
 }
 
-.tiptap-content h3 {
-    font-size: 1.25rem !important;
-    color: var(--color-neutral-600) !important;
+.tiptap-content code {
+    background: var(--color-neutral-100);
+    color: var(--color-primary);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-family: ui-monospace, monospace !important;
 }
 
-.dark .tiptap-content h3 {
-    color: var(--color-neutral-400) !important;
-}
-
-.tiptap-content h1::before,
-.tiptap-content h2::before,
-.tiptap-content h3::before {
-    content: '# ';
-    opacity: 0.5;
-}
-
-.tiptap-content > .tiptap {
-  height: 100%;
-  min-height: 500px;
-}
-
-.ProseMirror {
-  min-height: 500px;
-  outline: none;
-}
-/* ============================================================
-   TIPTAP TOOLBAR — active / hover button states
-   Scoped so these don't bleed into other ghost buttons
-   ============================================================ */
-
-/* Light mode */
-.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"] {
-    border-color: transparent !important;
-    color: #3e3e38 !important;
-}
-.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"]:hover {
-    background: rgba(22, 163, 74, 0.10) !important;
-    color: #16a34a !important;
-    border-color: transparent !important;
-}
-
-/* Active state — all known TipTap active signals */
-.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"].is-active,
-.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"][data-active="true"],
-.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"][aria-pressed="true"],
-.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"].\!\text-primary,
-.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"][class*="text-primary"] {
-    background: var(--color-primary) !important;
-    color: var(--color-primary-fg) !important;
-    border-color: var(--color-primary-content) !important;
-}
-
-/* Dark mode */
-.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"] {
-    border-color: transparent !important;
-    color: #a8a89c !important;
-}
-.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"]:hover {
-    background: rgba(74, 222, 128, 0.10) !important;
-    color: #4ade80 !important;
-    border-color: transparent !important;
-}
-
-/* Dark mode active state */
-.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"].is-active,
-.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"][data-active="true"],
-.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"][aria-pressed="true"],
-.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"].\!\text-primary,
-.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"][class*="text-primary"] {
-    background: var(--color-primary) !important;
-    color: var(--color-primary-fg) !important;
-    border-color: var(--color-primary-content) !important;
-}
-
-/* ============================================================
-   TIPTAP TOOLBAR — active / hover button states
-   ============================================================ */
-
-/* Light mode — default */
-.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"] {
-    border-color: transparent !important;
-    color: #3e3e38 !important;
-}
-
-/* Light mode — hover */
-.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"]:hover {
-    background: rgba(22, 163, 74, 0.10) !important;
-    color: #16a34a !important;
-    border-color: transparent !important;
-}
-
-/* Light mode — active */
-.tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"][data-active="true"] {
-    background: var(--color-primary) !important;
-    color: var(--color-primary-fg) !important;
-    border-color: var(--color-primary-content) !important;
-}
-
-/* Dark mode — default */
-.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"] {
-    border-color: transparent !important;
-    color: #a8a89c !important;
-}
-
-/* Dark mode — hover */
-.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"]:hover {
-    background: rgba(74, 222, 128, 0.10) !important;
-    color: #4ade80 !important;
-    border-color: transparent !important;
-}
-
-/* Dark mode — active */
-.dark .tiptap-editor-wrapper [data-slot="button"][data-variant="ghost"][data-active="true"] {
-    background: var(--color-primary) !important;
-    color: var(--color-primary-fg) !important;
-    border-color: var(--color-primary-content) !important;
+.dark .tiptap-content code {
+    background: var(--color-neutral-800);
 }

@@ -82,48 +82,61 @@
                 </div>
 
                 {{-- Header --}}
-                <header class="mb-8 space-y-4">
-                    @if ($post->featured)
-                        <x-ui.badge color="neutral">{{ __('Featured') }}</x-ui.badge>
-                    @endif
+                <header class="mb-10 space-y-6">
+                    <div class="flex items-center gap-3">
+                        @if ($post->featured)
+                            <x-ui.badge color="primary" variant="soft">{{ __('Featured') }}</x-ui.badge>
+                        @endif
+                        @foreach ($post->tags as $tag)
+                            <x-ui.badge color="neutral" variant="outline" size="sm">{{ $tag->name }}</x-ui.badge>
+                        @endforeach
+                    </div>
 
-                    <h1 class="text-4xl font-bold text-neutral-500">{{ $post->title }}</h1>
+                    <h1 class="text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-neutral-50 lg:text-6xl">{{ $post->title }}</h1>
 
-                    <div class="flex items-center justify-between border-b border-neutral-800 pb-4 text-sm text-neutral-400">
+                    <div class="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-800 pb-6 text-sm">
                         <div class="flex items-center gap-3">
-                            <x-ui.avatar :name="$post->user->name" size="sm" color="auto" />
+                            <x-ui.avatar :name="$post->user->name" size="md" color="auto" />
                             <div>
-                                <p class="font-medium text-neutral-400">{{ $post->user->name }}</p>
-                                <time datetime="{{ $post->published_at->toIso8601String() }}">
-                                    {{ $post->published_at->format('M d, Y') }}
-                                </time>
-                                <span class="mx-1">&middot;</span>
-                                <span>{{ $post->reading_time }} {{ trans_choice('min read|mins read', $post->reading_time) }}</span>
+                                <p class="font-bold text-neutral-900 dark:text-neutral-100">{{ $post->user->name }}</p>
+                                <div class="flex items-center gap-2 text-neutral-500 dark:text-neutral-400">
+                                    <time datetime="{{ $post->published_at->toIso8601String() }}">
+                                        {{ $post->published_at->format('M d, Y') }}
+                                    </time>
+                                    <span>&middot;</span>
+                                    <span>{{ $post->reading_time }} {{ trans_choice('min read|mins read', $post->reading_time) }}</span>
+                                </div>
                             </div>
                         </div>
-                        <x-ui.text class="text-sm">{{ number_format($post->view_count) }} {{ __('views') }}</x-ui.text>
+                        <div class="text-right">
+                            <x-ui.text class="text-xs font-bold uppercase tracking-widest text-neutral-400">{{ number_format($post->view_count) }} {{ __('views') }}</x-ui.text>
+                        </div>
                     </div>
                 </header>
 
                 {{-- Featured image --}}
                 @if ($post->featuredImageUrl('hero'))
-                    <figure class="mb-8 overflow-hidden rounded-xl">
+                    <figure class="mb-12 overflow-hidden rounded-3xl shadow-2xl">
                         <img
                             src="{{ $post->featuredImageUrl('hero') }}"
                             alt="{{ $post->title }}"
-                            class="h-96 w-full object-cover"
+                            class="h-[32rem] w-full object-cover"
                         />
                     </figure>
                 @endif
 
                 {{-- AI Reading Assistant --}}
-                <livewire:posts.summarizer :post="$post" />
+                <div class="mb-12">
+                    <livewire:posts.summarizer :post="$post" />
+                </div>
 
                 {{-- Excerpt --}}
                 @if ($post->excerpt)
-                    <p class="mb-8 border-l-4 border-blue-500 pl-6 text-xl italic text-neutral-400">
-                        {{ $post->excerpt }}
-                    </p>
+                    <div class="mb-12 border-l-4 border-primary bg-primary/5 p-8 rounded-r-3xl">
+                        <p class="text-2xl font-medium leading-relaxed text-neutral-700 dark:text-neutral-200">
+                            {{ $post->excerpt }}
+                        </p>
+                    </div>
                 @endif
 
                 {{-- Content --}}
@@ -133,15 +146,15 @@
 
                 {{-- Gallery --}}
                 @if ($post->galleryMedia()->isNotEmpty())
-                    <section class="mb-12 space-y-4 border-t border-neutral-800 pt-6">
-                        <x-ui.heading level="h2" size="md">{{ __('Gallery') }}</x-ui.heading>
-                        <div class="grid gap-4 sm:grid-cols-2">
+                    <section class="mb-16 space-y-6 border-t border-neutral-100 dark:border-neutral-800 pt-10">
+                        <x-ui.heading level="h2" size="md" class="font-bold">{{ __('Gallery') }}</x-ui.heading>
+                        <div class="grid gap-6 sm:grid-cols-2">
                             @foreach ($post->galleryMedia() as $galleryImage)
-                                <div class="overflow-hidden rounded-xl border border-neutral-800">
+                                <div class="overflow-hidden rounded-2xl shadow-md transition-transform hover:scale-[1.02]">
                                     <img
                                         src="{{ $galleryImage->getUrl('card') }}"
                                         alt="{{ $galleryImage->name }}"
-                                        class="h-56 w-full object-cover"
+                                        class="h-64 w-full object-cover"
                                         loading="lazy"
                                     />
                                 </div>
@@ -150,50 +163,28 @@
                     </section>
                 @endif
 
-                {{-- Tags --}}
-                @if ($post->tags->isNotEmpty())
-                    <div class="mb-12 space-y-3 border-t border-neutral-800 pt-6">
-                        <x-ui.text class="font-semibold">{{ __('Tags') }}</x-ui.text>
-                        <div class="flex flex-wrap gap-2">
-                            @foreach ($post->tags as $tag)
-                                <x-ui.badge color="neutral" variant="outline">{{ $tag->name }}</x-ui.badge>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
-
                 {{-- Prev / Next navigation --}}
-                <nav class="border-t border-neutral-800 pt-8">
-                    <div class="grid grid-cols-2 gap-4">
+                <nav class="border-t border-neutral-100 dark:border-neutral-800 pt-12">
+                    <div class="grid grid-cols-2 gap-8">
                         <div>
                             @if ($previousPost)
-                                <a href="{{ route('posts.show', $previousPost->slug) }}" wire:navigate class="flex flex-col gap-1">
-                                    <x-ui.text class="text-sm text-neutral-500">← {{ __('Previous') }}</x-ui.text>
-                                    <x-ui.text class="font-semibold hover:text-blue-600 dark:hover:text-blue-400">
+                                <a href="{{ route('posts.show', $previousPost->slug) }}" wire:navigate class="group flex flex-col gap-2">
+                                    <x-ui.text class="text-xs font-bold uppercase tracking-widest text-neutral-400 group-hover:text-primary transition-colors">← {{ __('Previous') }}</x-ui.text>
+                                    <x-ui.text class="text-lg font-bold text-neutral-900 dark:text-neutral-100 group-hover:text-primary transition-colors">
                                         {{ Str::limit($previousPost->title, 40) }}
                                     </x-ui.text>
                                 </a>
-                            @else
-                                <div class="opacity-40">
-                                    <x-ui.text class="text-sm text-neutral-500">← {{ __('Previous') }}</x-ui.text>
-                                    <x-ui.text>{{ __('No previous post') }}</x-ui.text>
-                                </div>
                             @endif
                         </div>
 
                         <div class="text-right">
                             @if ($nextPost)
-                                <a href="{{ route('posts.show', $nextPost->slug) }}" wire:navigate class="flex flex-col items-end gap-1">
-                                    <x-ui.text class="text-sm text-neutral-500">{{ __('Next') }} →</x-ui.text>
-                                    <x-ui.text class="font-semibold hover:text-blue-600 dark:hover:text-blue-400">
+                                <a href="{{ route('posts.show', $nextPost->slug) }}" wire:navigate class="group flex flex-col items-end gap-2">
+                                    <x-ui.text class="text-xs font-bold uppercase tracking-widest text-neutral-400 group-hover:text-primary transition-colors">{{ __('Next') }} →</x-ui.text>
+                                    <x-ui.text class="text-lg font-bold text-neutral-900 dark:text-neutral-100 group-hover:text-primary transition-colors">
                                         {{ Str::limit($nextPost->title, 40) }}
                                     </x-ui.text>
                                 </a>
-                            @else
-                                <div class="text-right opacity-40">
-                                    <x-ui.text class="text-sm text-neutral-500">{{ __('Next') }} →</x-ui.text>
-                                    <x-ui.text>{{ __('No next post') }}</x-ui.text>
-                                </div>
                             @endif
                         </div>
                     </div>
