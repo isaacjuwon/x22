@@ -47,214 +47,133 @@
 @endphp
 
 <x-layouts::main :title="$post->title">
-    <x-slot:head>
-        @if ($post->excerpt)
-            <meta name="description" content="{{ Str::limit(strip_tags($post->excerpt), 160) }}" />
-            <meta property="og:description" content="{{ Str::limit(strip_tags($post->excerpt), 160) }}" />
-            <meta name="twitter:description" content="{{ Str::limit(strip_tags($post->excerpt), 160) }}" />
-        @endif
-
-        {{-- Use featured image for OG (SEO OG image upload removed) --}}
-        @if ($post->featuredImageUrl())
-            <meta property="og:image" content="{{ $post->featuredImageUrl() }}" />
-            <meta name="twitter:image" content="{{ $post->featuredImageUrl() }}" />
-        @endif
-
-        <meta property="og:type" content="article" />
-        <meta property="article:published_time" content="{{ $post->published_at->toIso8601String() }}" />
-        @foreach ($post->tags as $tag)
-            <meta property="article:tag" content="{{ $tag->name }}" />
-        @endforeach
-
-        <link rel="canonical" href="{{ route('posts.show', $post->slug) }}" />
-    </x-slot:head>
-
-    <div class="min-h-screen" x-data="readingProgress" @scroll.window="update()" x-init="update()">
+    <div class="min-h-screen bg-neutral-50" 
+         x-data="{ ...readingProgress(), ...tableOfContents() }" 
+         @scroll.window="update()" 
+         x-init="update(); $nextTick(() => init())">
+        
         {{-- Reading Progress Bar --}}
         <div class="fixed top-0 left-0 z-50 h-1 bg-primary transition-all duration-150" :style="`width: ${progress}%`" x-show="progress > 0"></div>
 
-        <div class="container mx-auto px-4 py-12" x-data="tableOfContents">
-            {{-- Floating Table of Contents --}}
-            <aside 
-                class="fixed left-8 top-1/2 -translate-y-1/2 z-40 hidden xl:block w-64"
-                x-show="visible"
-                x-transition:enter="transition ease-out duration-300"
-                x-transition:enter-start="opacity-0 -translate-x-4"
-                x-transition:enter-end="opacity-100 translate-x-0"
-            >
-                <div class="space-y-4 border-l-2 border-neutral-100 dark:border-neutral-900 pl-6">
-                    <p class="text-[10px] uppercase tracking-[0.3em] text-neutral-400 mb-4">{{ __('On this page') }}</p>
-                    <nav class="flex flex-col gap-3">
-                        <template x-for="item in items" :key="item.id">
-                            <a 
-                                :href="`#${item.id}`"
-                                class="text-xs font-bold uppercase tracking-widest transition-all hover:text-primary"
-                                :class="activeId === item.id ? 'text-primary translate-x-2' : 'text-neutral-500 dark:text-neutral-400'"
-                                x-text="item.text"
-                            ></a>
-                        </template>
-                    </nav>
-                </div>
-            </aside>
-
-            <article class="mx-auto mb-12 max-w-3xl">
-
-                {{-- Back link --}}
-                <div class="mb-6">
-                    <x-ui.button as="a" href="{{ route('posts.index') }}" wire:navigate variant="ghost" size="sm" icon="arrow-left">
-                        {{ __('Back to Posts') }}
-                    </x-ui.button>
-                </div>
-
-                {{-- Header --}}
-                <header class="mb-16 space-y-10">
-                    <div class="flex items-center gap-6 text-[10px] uppercase tracking-[0.4em] text-neutral-400 font-bold">
-                        <div class="flex items-center gap-2">
-                            <x-ui.icon name="ps:calendar-blank" class="size-3 text-primary" />
-                            <time datetime="{{ $post->published_at->toIso8601String() }}">
-                                {{ $post->published_at->format('Y.m.d') }}
-                            </time>
-                        </div>
-                        <span class="opacity-20">|</span>
-                        <div class="flex items-center gap-2">
-                            <x-ui.icon name="ps:clock" class="size-3 text-primary" />
-                            <span>{{ $post->reading_time }}m read</span>
-                        </div>
-                        @if ($post->featured)
-                            <span class="opacity-20">|</span>
-                            <span class="text-primary">{{ __('Pinned Asset') }}</span>
-                        @endif
+        <div class="container mx-auto px-6 py-20">
+            <article class="mx-auto max-w-3xl space-y-16">
+                
+                {{-- Modernized Meta Section --}}
+                <header class="space-y-8 text-center">
+                    <div class="flex flex-col items-center gap-6">
+                        <x-ui.badge variant="outline" class="rounded-full px-4 py-1 text-[10px] font-bold tracking-widest uppercase border-neutral-200 text-neutral-500">
+                            {{ $post->tags->first()?->name ?? __('Article') }}
+                        </x-ui.badge>
                     </div>
 
-                    <h1 class="text-5xl font-bold tracking-tighter text-neutral-900 dark:text-neutral-50 lg:text-8xl leading-[0.85] uppercase">
+                    <h1 class="text-4xl font-bold tracking-tight text-neutral-950 sm:text-6xl leading-[1.05]">
                         {{ $post->title }}
                     </h1>
 
-                    <div class="flex items-center justify-between border-y border-neutral-100 dark:border-neutral-900 py-10">
-                        <div class="flex items-center gap-6">
-                            <x-ui.avatar :name="$post->user->name" size="xl" color="auto" class="rounded-none border-2 border-primary p-1" />
-                            <div class="space-y-1">
-                                <p class="text-sm font-bold text-neutral-900 dark:text-neutral-100 uppercase tracking-[0.2em]">{{ $post->user->name }}</p>
-                                <p class="text-[10px] text-neutral-500 uppercase tracking-widest">{{ __('System Administrator') }}</p>
-                            </div>
+                    <div class="flex flex-col items-center gap-6 pt-4">
+                        <div class="flex items-center gap-3">
+                            <x-ui.avatar :name="$post->user->name" size="sm" class="rounded-full" />
+                            <span class="font-bold text-neutral-900">{{ $post->user->name }}</span>
                         </div>
-                        <div class="text-right space-y-2">
-                            <div class="flex items-center justify-end gap-3">
-                                <x-ui.icon name="ps:eye" class="size-4 text-neutral-400" />
-                                <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-neutral-400">{{ number_format($post->view_count) }}</p>
-                            </div>
-                            <span class="text-success text-[9px] uppercase font-bold tracking-widest">{{ __('Active Module') }}</span>
+                        
+                        <div class="flex items-center gap-3 text-skeleton-meta">
+                            <time datetime="{{ $post->published_at->toIso8601String() }}">
+                                {{ $post->published_at->format('F d, Y') }}
+                            </time>
+                            <span class="text-neutral-300">/</span>
+                            <span>{{ $post->reading_time }} min read</span>
                         </div>
                     </div>
                 </header>
 
-                {{-- Featured image --}}
+                {{-- Table of Contents (Subtle Floating) --}}
+                <template x-if="visible">
+                    <div class="fixed left-8 top-1/2 -translate-y-1/2 hidden xl:block w-64 space-y-4">
+                        <p class="text-[10px] font-bold tracking-widest uppercase text-neutral-400">{{ __('On this page') }}</p>
+                        <nav class="space-y-2 border-l border-neutral-200">
+                            <template x-for="item in items" :key="item.id">
+                                <a :href="'#' + item.id" 
+                                   class="block pl-4 py-1 text-sm transition-all border-l -ml-px"
+                                   :class="activeId === item.id ? 'text-primary border-primary font-medium' : 'text-neutral-500 border-transparent hover:text-neutral-800 hover:border-neutral-300'"
+                                   x-text="item.text"></a>
+                            </template>
+                        </nav>
+                    </div>
+                </template>
+
+                {{-- Featured Image --}}
                 @if ($post->featuredImageUrl('hero'))
-                    <figure class="mb-20 border border-neutral-200 dark:border-neutral-800 p-3 bg-neutral-50 dark:bg-[#080808]">
+                    <figure class="rounded-[2.5rem] overflow-hidden bg-neutral-100 shadow-sm">
                         <img
                             src="{{ $post->featuredImageUrl('hero') }}"
                             alt="{{ $post->title }}"
-                            class="h-[40rem] w-full object-cover grayscale opacity-90 transition-all hover:grayscale-0 hover:opacity-100 duration-700"
+                            class="aspect-[16/9] w-full object-cover"
                         />
-                        <figcaption class="mt-6 flex items-center justify-center gap-4 text-[9px] uppercase tracking-[0.4em] text-neutral-400 font-bold">
-                            <span class="opacity-20">---</span>
-                            {{ __('Fig 1.0 — Primary Media Asset') }}
-                            <span class="opacity-20">---</span>
-                        </figcaption>
                     </figure>
                 @endif
 
-                {{-- AI Reading Assistant --}}
-                <div class="mb-20 border-l-4 border-l-primary relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-30 transition-opacity">
-                        <x-ui.icon name="ps:brain" class="size-20" />
+                {{-- Thread Content --}}
+                <div class="space-y-12">
+                    @if ($post->excerpt)
+                        <div class="text-2xl font-medium text-neutral-600 leading-relaxed tracking-tight border-l-2 border-primary/20 pl-8 py-2 italic">
+                            {{ $post->excerpt }}
+                        </div>
+                    @endif
+
+                    <div class="tiptap-content text-xl leading-relaxed text-neutral-800">
+                        {!! ContentRenderer::render($post->content_json ?: $post->content) !!}
                     </div>
-                    <livewire:posts.summarizer :post="$post" />
                 </div>
 
-                {{-- Excerpt --}}
-                @if ($post->excerpt)
-                    <div class="mb-20 border-l-2 border-neutral-200 dark:border-neutral-800 pl-12">
-                        <p class="text-3xl font-medium leading-tight text-neutral-700 dark:text-neutral-300 italic tracking-tight">
-                            <span class="text-primary mr-2">//</span> {{ $post->excerpt }}
-                        </p>
-                    </div>
-                @endif
-
-                {{-- Content --}}
-                <div class="tiptap-content mb-12 max-w-none">
-                    {!! ContentRenderer::render($post->content_json ?: $post->content) !!}
-                </div>
-
-                {{-- Gallery --}}
-                @if ($post->galleryMedia()->isNotEmpty())
-                    <section class="mb-24 space-y-8 border-t border-neutral-100 dark:border-neutral-900 pt-16">
-                        <div class="space-y-1">
-                            <p class="text-[10px] uppercase tracking-[0.2em] text-neutral-400">{{ __('Attached Media') }}</p>
-                            <x-ui.heading level="h2" size="md" class="font-bold uppercase tracking-tight">{{ __('Gallery Assets') }}</x-ui.heading>
-                        </div>
-                        <div class="grid gap-8 sm:grid-cols-2">
-                            @foreach ($post->galleryMedia() as $galleryImage)
-                                <div class="border border-neutral-200 dark:border-neutral-800 p-2 transition-colors hover:border-primary">
-                                    <img
-                                        src="{{ $galleryImage->getUrl('card') }}"
-                                        alt="{{ $galleryImage->name }}"
-                                        class="h-72 w-full object-cover grayscale transition-[filter] hover:grayscale-0"
-                                        loading="lazy"
-                                    />
-                                </div>
-                            @endforeach
-                        </div>
-                    </section>
-                @endif
-
-                {{-- Prev / Next navigation --}}
-                <nav class="border-t border-neutral-100 dark:border-neutral-900 pt-16">
-                    <div class="grid grid-cols-2 gap-12">
-                        <div>
-                            @if ($previousPost)
-                                <a href="{{ route('posts.show', $previousPost->slug) }}" wire:navigate class="group space-y-4 block">
-                                    <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-neutral-400 group-hover:text-primary transition-colors">{{ __('← Previous Module') }}</p>
-                                    <p class="text-xl font-bold text-neutral-900 dark:text-neutral-100 leading-tight">
-                                        {{ $previousPost->title }}
-                                    </p>
-                                </a>
-                            @endif
-                        </div>
-
-                        <div class="text-right">
-                            @if ($nextPost)
-                                <a href="{{ route('posts.show', $nextPost->slug) }}" wire:navigate class="group space-y-4 block">
-                                    <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-neutral-400 group-hover:text-primary transition-colors">{{ __('Next Module →') }}</p>
-                                    <p class="text-xl font-bold text-neutral-900 dark:text-neutral-100 leading-tight">
-                                        {{ $nextPost->title }}
-                                    </p>
-                                </a>
-                            @endif
-                        </div>
-                    </div>
-                </nav>
-
-            </article>
-
-            {{-- Comments --}}
-            <section class="mx-auto max-w-3xl border-t border-neutral-800 pt-12">
-                <x-ui.heading level="h2" size="lg" class="mb-6">{{ __('Comments') }}</x-ui.heading>
-                <livewire:posts.comments :post="$post" defer />
-            </section>
-
-            {{-- Related posts --}}
-            @if ($relatedPosts->isNotEmpty())
-                <section class="mx-auto mt-16 max-w-3xl border-t border-neutral-800 pt-12">
-                    <x-ui.heading level="h2" size="lg" class="mb-6">{{ __('Related Posts') }}</x-ui.heading>
-                    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-                        @foreach ($relatedPosts as $relatedPost)
-                            <x-posts.card :post="$relatedPost" />
+                {{-- Tags --}}
+                @if($post->tags->isNotEmpty())
+                    <div class="flex flex-wrap gap-2 pt-12 border-t border-neutral-200/50">
+                        @foreach($post->tags as $tag)
+                            <x-ui.badge variant="outline" class="rounded-full px-5 py-1.5 text-xs font-medium border-neutral-200 text-neutral-500 hover:border-neutral-400 transition-colors">
+                                #{{ $tag->name }}
+                            </x-ui.badge>
                         @endforeach
                     </div>
-                </section>
-            @endif
+                @endif
 
+                {{-- Post Navigation --}}
+                <div class="grid grid-cols-2 gap-8 pt-16 border-t border-neutral-200">
+                    <div>
+                        @if ($previousPost)
+                            <a href="{{ route('posts.show', $previousPost->slug) }}" wire:navigate class="group space-y-3 block">
+                                <span class="text-skeleton-meta group-hover:text-primary transition-colors flex items-center gap-2">
+                                    <x-ui.icon name="ps:arrow-left" class="size-3" />
+                                    {{ __('Previous') }}
+                                </span>
+                                <span class="block text-lg font-bold text-neutral-900 line-clamp-2 group-hover:underline">{{ $previousPost->title }}</span>
+                            </a>
+                        @endif
+                    </div>
+                    <div class="text-right">
+                        @if ($nextPost)
+                            <a href="{{ route('posts.show', $nextPost->slug) }}" wire:navigate class="group space-y-3 block">
+                                <span class="text-skeleton-meta group-hover:text-primary transition-colors flex items-center justify-end gap-2">
+                                    {{ __('Next') }}
+                                    <x-ui.icon name="ps:arrow-right" class="size-3" />
+                                </span>
+                                <span class="block text-lg font-bold text-neutral-900 line-clamp-2 group-hover:underline">{{ $nextPost->title }}</span>
+                            </a>
+                        @endif
+                    </div>
+                </div>
+
+                {{-- Discussion --}}
+                <section class="pt-24 space-y-12">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-3xl font-bold tracking-tight text-neutral-950">{{ __('Comments') }}</h2>
+                        <div class="h-px flex-1 mx-8 bg-neutral-200/50"></div>
+                        <span class="text-skeleton-meta">{{ __('Join the conversation') }}</span>
+                    </div>
+                    
+                    <livewire:posts.comments :post="$post" defer />
+                </section>
+
+            </article>
         </div>
     </div>
 </x-layouts::main>

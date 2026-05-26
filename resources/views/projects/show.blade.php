@@ -39,8 +39,8 @@
         </div>
 
         @if ($relatedProjects->isNotEmpty())
-            <section class="mt-16 border-t border-neutral-800 pt-12">
-                <x-ui.heading level="h2" size="lg" class="mb-6">{{ __('Related Projects') }}</x-ui.heading>
+            <section class="mt-16 pt-12">
+                <x-ui.heading level="h2" size="lg" class="mb-8 font-bold text-neutral-950">{{ __('Related Projects') }}</x-ui.heading>
                 <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                     @foreach ($relatedProjects as $relatedProject)
                         <x-landing.project :project="$relatedProject" />

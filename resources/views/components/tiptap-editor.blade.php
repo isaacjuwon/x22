@@ -124,6 +124,23 @@
                 title="Code Block">
                 <x-ui.icon name="ps:terminal-window" class="size-4" />
             </x-ui.button>
+
+            <template x-if="isActive('codeBlock')">
+                <select
+                    class="ml-2 rounded border border-neutral-200 bg-white px-2 py-0.5 text-xs focus:border-primary focus:outline-none dark:border-neutral-800 dark:bg-neutral-900"
+                    @change="setCodeBlockLanguage($event.target.value)"
+                    :value="getEditor()?.getAttributes('codeBlock').language || 'javascript'"
+                >
+                    <option value="javascript">JavaScript</option>
+                    <option value="typescript">TypeScript</option>
+                    <option value="php">PHP</option>
+                    <option value="html">HTML</option>
+                    <option value="css">CSS</option>
+                    <option value="sql">SQL</option>
+                    <option value="bash">Bash</option>
+                    <option value="json">JSON</option>
+                </select>
+            </template>
         </div>
 
         <x-ui.separator vertical class="mx-1 h-5 self-center" />
@@ -349,6 +366,10 @@ if (typeof window.tiptapEditor !== 'function') {
             toggleOrderedList() { this.getEditor()?.chain().focus().toggleOrderedList().run(); },
             toggleBlockquote()  { this.getEditor()?.chain().focus().toggleBlockquote().run(); },
             toggleCodeBlock()   { this.getEditor()?.chain().focus().toggleCodeBlock().run(); },
+            setCodeBlockLanguage(lang) {
+                this.getEditor()?.chain().focus().updateAttributes('codeBlock', { language: lang }).run();
+                this.updated++;
+            },
             undo()              { this.getEditor()?.chain().focus().undo().run(); },
             redo()              { this.getEditor()?.chain().focus().redo().run(); },
 

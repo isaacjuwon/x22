@@ -1,441 +1,336 @@
 /* ============================================================
-   SHEAF UI — SLEEK MAROON (ZED-INSPIRED)
-   Professional, Refined, High-Performance Aesthetic
+   SHEAF UI — ULTRA-MODERN SKELETON PORTFOLIO & BLOG
+   Premium Monochrome Aesthetic • High Contrast Skeleton
    ============================================================ */
 
-/* ── Google Fonts: Inter & JetBrains Mono ── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+/* ── Google Fonts: Inter ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* ============================================================
-   THEME VARIABLES
-   ============================================================ */
 @theme {
-    /* Primary: Deep Maroon */
-    --color-primary:         #800020;   /* Oxblood/Maroon */
-    --color-primary-content: #a23b47;   /* Lighter Maroon for contrast */
-    --color-primary-fg:      #ffffff;   
+    /* Primary: Brand Maroon (Used for accents, active states, and buttons) */
+    --color-primary:         #800020;   
+    --color-primary-content: #a23b47;   
+    --color-primary-fg:      #ffffff;
 
-    /* Accents */
-    --color-accent:          #d4a373;   /* Muted gold/sand */
-    --color-accent-fg:       #1a1a1a;
+    /* Base Palette — Off-White Background + Carton Borders */
+    --color-neutral-50:  #fdfcf8; /* Background (Off-White) */
+    --color-neutral-100: #fdfcf8; /* Card/Surface (Identical to BG for skeleton look) */
+    --color-neutral-200: #e8e2d2; /* Borders (Carton Color - High Visibility) */
+    --color-neutral-300: #d1c8b3; /* Hover borders */
+    --color-neutral-400: #a39985; /* Muted text */
+    --color-neutral-500: #7d7463; /* Secondary text */
+    --color-neutral-600: #5c5548; /* Primary text */
+    --color-neutral-700: #3d382e;
+    --color-neutral-800: #24211b;
+    --color-neutral-900: #0f0e0b;
+    --color-neutral-950: #000000;
 
-    /* Neutral palette — Zed-like Refined Grays */
-    --color-neutral-50:  #fdfcfb;
-    --color-neutral-100: #f5f3f1;
-    --color-neutral-200: #e9e5e1;
-    --color-neutral-300: #dcd7d1;
-    --color-neutral-400: #b6ad10;
-    --color-neutral-500: #8c8279;
-    --color-neutral-600: #645c55;
-    --color-neutral-700: #4a443f;
-    --color-neutral-800: #2d2a27;
-    --color-neutral-900: #1c1a19;
-    --color-neutral-950: #0f0e0d;
+    /* Large Premium Radius */
+    --radius-field: 0.75rem;
+    --radius-box:   1.5rem; /* 24px */
 
-    /* Refined Radius */
-    --radius-field: 0.375rem;
-    --radius-box:   0.5rem;
-
-    /* Semantic Status */
-    --color-success: #4ade80;   
-    --color-error:   #f87171;   
-    --color-warning: #fbbf24;   
-    --color-info:    #60a5fa;   
+    /* Semantic Status (Muted) */
+    --color-success: #10b981;
+    --color-error:   #ef4444;
+    --color-warning: #f59e0b;
+    --color-info:    #3b82f6;
 }
 
-/* ============================================================
-   DARK MODE — macOS / Zed Inspired
-   ============================================================ */
 @layer theme {
     .dark {
-        /* macOS Dark / Obsidian Palette - Standard Order */
-        --color-neutral-50:  #ffffff !important;
-        --color-neutral-100: #f5f5f5 !important;
-        --color-neutral-200: #eeeeee !important;
-        --color-neutral-300: #dddddd !important; /* High contrast text */
-        --color-neutral-400: #bbbbbb !important; /* Primary text */
-        --color-neutral-500: #888888 !important; /* Secondary text */
-        --color-neutral-600: #4a4a4a !important; /* Muted text / UI elements */
-        --color-neutral-700: #333333 !important; /* Hover */
-        --color-neutral-800: #2a2a2a !important; /* Card BG / Border */
-        --color-neutral-900: #181818 !important; /* Sidebar Background */
-        --color-neutral-950: #1e1e1e !important; /* Main Background */
+        /* Base Palette — HIGH CONTRAST SKELETON DARK MODE */
+        --color-neutral-50:  #0a0a0a !important; /* Main Background */
+        --color-neutral-100: #0a0a0a !important; /* Card/Surface (Identical to BG) */
+        --color-neutral-200: #1a1a1a !important; /* Borders (Carton-equivalent for dark) */
+        --color-neutral-300: #262626 !important; 
+        --color-neutral-400: #404040 !important; 
+        --color-neutral-500: #737373 !important; 
+        --color-neutral-600: #a3a3a3 !important; 
+        --color-neutral-700: #d4d4d4 !important; 
+        --color-neutral-800: #e5e5e5 !important;
+        --color-neutral-900: #f5f5f5 !important;
+        --color-neutral-950: #ffffff !important;
 
-        /* Maroon: Sophisticated & Rich */
-        --color-primary:         #b03040;   
-        --color-primary-content: #d04050;   
-        
-        background-color: #1e1e1e;
+        /* Primary: Contrast Maroon in Dark Mode */
+        --color-primary:         #b03040 !important;   
+        --color-primary-content: #d04050 !important;
+        --color-primary-fg:      #ffffff !important;
+
+        background-color: #0a0a0a;
     }
 }
 
-/* Selection */
-.dark ::selection {
-    background: rgba(176, 48, 64, 0.4);
-    color: #ffffff;
-}
-
-/* macOS Scrollbars */
-.dark ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-}
-
-.dark ::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    border: 2px solid transparent;
-    background-clip: content-box;
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border: 2px solid transparent;
-    background-clip: content-box;
-}
-
 /* ============================================================
-   COMPONENT OVERRIDES (via data-slot)
+   GLOBAL TYPOGRAPHY & SKELETON RULES
    ============================================================ */
-
-/* --- Sidebar (macOS Style) --------------------------------- */
-.dark [data-slot="sidebar"] {
-    background-color: var(--color-neutral-900) !important;
-    border-right: 1px solid rgba(0, 0, 0, 0.2) !important;
-    box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.02) !important;
-    position: relative;
-    padding-top: 38px !important; /* Space for traffic lights */
+html {
+    scroll-behavior: smooth;
 }
 
-/* Simulated macOS Traffic Lights */
-.dark [data-slot="sidebar"]::before {
-    content: '';
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #ff5f56;
-    box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27c93f;
-    z-index: 50;
-}
-
-/* --- Header ------------------------------------------------ */
-.dark [data-slot="header"] {
-    background-color: rgba(30, 30, 30, 0.7) !important;
-    backdrop-filter: blur(25px) saturate(200%);
-    -webkit-backdrop-filter: blur(25px) saturate(200%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-}
-
-/* --- Footer ------------------------------------------------ */
-[data-slot="footer"] {
-    border-top: 1px solid var(--color-neutral-200);
-    background-color: var(--color-neutral-100);
-}
-
-.dark [data-slot="footer"] {
-    border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
-    background-color: var(--color-neutral-900) !important; /* #181818 in dark */
-}
-
-/* --- Cards ------------------------------------------------- */
-.dark [data-slot="card"] {
-    background-color: var(--color-neutral-800) !important; /* #2a2a2a in dark */
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
-    border-radius: 12px !important;
-}
-
-/* --- Navigation Items (Zed Style) -------------------------- */
-.dark [data-slot="navlist-item"] {
-    transition: all 0.15s ease;
-    border-radius: 6px !important;
-    margin: 1px 10px !important;
-    padding: 6px 12px !important;
-    font-size: 13px !important;
-    font-weight: 400 !important;
-    position: relative;
-    color: var(--color-neutral-400) !important;
-}
-
-.dark [data-slot="navlist-item"]:hover {
-    background-color: var(--color-neutral-700) !important; /* #333333 in dark */
-    color: var(--color-neutral-50) !important;
-}
-
-.dark [data-slot="navlist-item"][data-active-link] {
-    background-color: var(--color-neutral-800) !important; /* #2a2a2a in dark */
-    color: var(--color-neutral-50) !important;
-}
-
-/* Active indicator line */
-.dark [data-slot="navlist-item"][data-active-link]::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 20%;
-    bottom: 20%;
-    width: 2px;
-    background-color: var(--color-primary);
-    border-radius: 0 2px 2px 0;
-}
-
-.dark [data-slot="navlist-item"][data-active-link] [data-slot="icon"] {
-    color: var(--color-primary) !important;
-}
-
-/* --- Buttons ----------------------------------------------- */
-.dark [data-slot="button"] {
-    border-radius: 6px !important;
-}
-
-.dark [data-slot="button"][data-variant="primary"] {
-    background-color: var(--color-primary) !important;
-    color: #ffffff !important;
-    border: none !important;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
-}
-
-.dark [data-slot="button"][data-variant="primary"]:hover {
-    background-color: var(--color-primary-content) !important;
-}
-
-.dark [data-slot="button"][data-variant="outline"] {
-    border-color: rgba(255, 255, 255, 0.1) !important;
-    background-color: rgba(255, 255, 255, 0.03) !important;
-    color: #d1d1d1 !important;
-}
-
-.dark [data-slot="button"][data-variant="outline"]:hover {
-    background-color: rgba(255, 255, 255, 0.07) !important;
-    border-color: rgba(255, 255, 255, 0.2) !important;
-    color: #ffffff !important;
-}
-
-/* --- Badges ------------------------------------------------ */
-.dark [data-slot="badge"] {
-    background-color: rgba(255, 255, 255, 0.06) !important;
-    color: #a1a1a1 !important;
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
-}
-
-/* ============================================================
-   GLOBAL TYPOGRAPHY
-   ============================================================ */
 *, *::before, *::after {
     font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     letter-spacing: -0.015em;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-code, pre, .mono {
-    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace !important;
 }
 
 body {
     background-color: var(--color-neutral-50);
     color: var(--color-neutral-800);
     line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
 }
 
-.dark body {
-    background-color: var(--color-neutral-950);
-    color: var(--color-neutral-300);
-}
-
-/* Selection */
-::selection {
-    background: var(--color-primary);
-    color: var(--color-primary-fg);
-}
-
-/* ============================================================
-   COMPONENT STYLING
-   ============================================================ */
-
-/* --- Buttons ------------------------------------------------ */
-[data-slot="button"] {
-    border-radius: var(--radius-field) !important;
-    font-weight: 500;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid transparent;
-}
-
-/* Remove terminal brackets */
-[data-slot="button"]::before,
-[data-slot="button"]::after {
-    display: none !important;
-}
-
-/* Primary button */
-[data-slot="button"][data-variant="primary"] {
-    background: var(--color-primary);
-    color: var(--color-primary-fg);
-}
-
-[data-slot="button"][data-variant="primary"]:hover {
-    background: var(--color-primary-content);
-    box-shadow: 0 4px 12px rgba(128, 0, 32, 0.2);
-}
-
-/* Outline/Ghost */
-[data-slot="button"][data-variant="outline"] {
-    border-color: var(--color-neutral-200);
-    color: var(--color-neutral-700);
-    background: transparent;
-}
-
-.dark [data-slot="button"][data-variant="outline"] {
-    border-color: var(--color-neutral-300);
-    color: var(--color-neutral-300);
-}
-
-[data-slot="button"][data-variant="outline"]:hover {
-    background: var(--color-neutral-100);
-    border-color: var(--color-neutral-300);
-}
-
-/* --- Cards ------------------------------------------------- */
-[data-slot="card"] {
-    border-radius: var(--radius-box) !important;
-    background: #ffffff !important;
+/* Strategic Borders for Skeleton Look */
+.skeleton-border {
     border: 1px solid var(--color-neutral-200) !important;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
 }
 
-.dark [data-slot="card"] {
-    background: var(--color-neutral-100) !important;
+.dark .skeleton-border {
     border-color: var(--color-neutral-200) !important;
 }
 
-/* Remove terminal window chrome */
-[data-slot="card"]::before {
-    display: none !important;
+/* ============================================================
+   COMPONENT OVERRIDES (via data-slot)
+   ============================================================ */
+
+/* --- Layout ------------------------------------------------ */
+[data-slot="sidebar"] {
+    background-color: var(--color-neutral-50) !important;
+    border-width: 0 1px 0 0 !important;
 }
 
-/* Remove decorative corner */
-[data-slot="card"]::after {
-    display: none !important;
+[data-slot="header"] {
+    background-color: var(--color-neutral-50) !important;
+    border-width: 0 0 1px 0 !important;
+    padding: 1.5rem 2rem !important;
+}
+
+[data-slot="footer"] {
+    background-color: var(--color-neutral-50) !important;
+    border-width: 1px 0 0 0 !important;
+}
+
+/* --- Cards (Portfolio/Blog Cards) -------------------------- */
+[data-slot="card"] {
+    background-color: var(--color-neutral-100) !important;
+    border: 1px solid var(--color-neutral-200) !important;
+    border-radius: var(--radius-box) !important;
+    box-shadow: none !important;
+    padding: 1.5rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-slot="card"]:hover {
+    border-color: var(--color-neutral-300) !important;
+}
+
+/* --- Navigation -------------------------------------------- */
+/* We rely on the component's internal logic for navlist items to ensure states (active/hover) and icons work correctly. */
+[data-slot="navlist-item"] {
+    border-radius: var(--radius-field) !important;
+}
+
+/* Sidebar Specific Spacing */
+[data-slot="sidebar"] [data-slot="navlist-group"] h4 {
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    color: var(--color-neutral-500) !important;
+    margin-top: 1.25rem !important;
+    margin-bottom: 0.5rem !important;
+    padding-left: 0.75rem !important;
+}
+
+/* --- Buttons ----------------------------------------------- */
+[data-slot="button"] {
+    border-radius: 14px !important;
+    font-weight: 600 !important;
+    font-size: 0.875rem !important;
+    padding: 0.625rem 1.5rem !important;
+    box-shadow: none !important;
+    border-width: 1px !important;
+    transition: all 0.2s ease;
+}
+
+[data-slot="button"][data-variant="primary"] {
+    background-color: var(--color-primary) !important;
+    color: var(--color-primary-fg) !important;
+    border-color: var(--color-primary) !important;
+}
+
+[data-slot="button"][data-variant="outline"] {
+    background-color: transparent !important;
+    border-color: var(--color-neutral-200) !important;
+    color: var(--color-neutral-700) !important;
+}
+
+[data-slot="button"][data-variant="outline"]:hover {
+    border-color: var(--color-neutral-300) !important;
 }
 
 /* --- Badges ------------------------------------------------ */
 [data-slot="badge"] {
+    background-color: var(--color-neutral-50) !important;
+    color: var(--color-neutral-600) !important;
     border-radius: 9999px !important;
-    text-transform: none;
+    font-size: 0.75rem !important;
+    padding: 0.25rem 0.75rem !important;
+    font-weight: 600 !important;
+    border-width: 1px !important;
+}
+
+/* --- Tables (Skeleton High Contrast) ----------------------- */
+/* Target the wrapper div that contains the table to ensure horizontal scroll */
+div:has(> table) {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border: 1px solid var(--color-neutral-200) !important;
+    border-radius: var(--radius-box) !important;
+    background-color: var(--color-neutral-50) !important;
+}
+
+table {
+    width: 100% !important;
+    min-width: max-content !important;
+    table-layout: auto !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    background-color: transparent !important;
+}
+
+/* Remove direct table borders as they are now on the wrapper */
+div:has(> table) table {
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+/* --- Tabs Overflow Fix ------------------------------------- */
+[data-slot="tabs-group"] {
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important; /* Changed from overflow-x: auto to wrap on mobile */
+    gap: 0.5rem !important;
+}
+
+[data-slot="tab"] {
+    flex-shrink: 0 !important;
+}
+
+/* On larger screens, we can keep them in one line if preferred, but wrapping is safer for mobile */
+@media (min-width: 768px) {
+    [data-slot="tabs-group"] {
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        scrollbar-width: none !important;
+    }
+    
+    [data-slot="tabs-group"]::-webkit-scrollbar {
+        display: none !important;
+    }
+}
+
+/* Ensure non-contained variant wrapper also behaves well */
+[data-slot="tabs-group"] > div.flex.gap-1 {
+    flex-wrap: wrap !important;
+    min-width: 0 !important;
+}
+
+thead {
+    background-color: var(--color-neutral-50) !important;
+    border-bottom-width: 1px !important;
+}
+
+th {
+    padding: 1.25rem 1.5rem !important;
+    text-align: left !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    color: var(--color-neutral-900) !important;
+    border-width: 0 0 1px 0 !important;
+}
+
+td {
+    padding: 1.25rem 1.5rem !important;
+    font-size: 0.875rem !important;
+    color: var(--color-neutral-700) !important;
+    border-width: 0 0 1px 0 !important;
+    background-color: transparent !important;
+}
+
+tr:last-child td {
+    border-bottom-width: 0 !important;
+}
+
+tr:hover td {
+    background-color: var(--color-neutral-50) !important;
+}
+
+/* --- Typography Utilities ---------------------------------- */
+.text-skeleton-title {
+    font-weight: 700;
+    font-size: 1.375rem;
+    line-height: 1.2;
+    color: var(--color-neutral-950);
+}
+
+.text-skeleton-body {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-neutral-500);
+}
+
+.text-skeleton-meta {
     font-size: 0.75rem;
     font-weight: 600;
-    padding: 0.125rem 0.625rem;
-    border: none;
-    background: var(--color-neutral-100);
-    color: var(--color-neutral-600);
+    color: var(--color-neutral-400);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
-.dark [data-slot="badge"] {
-    background: var(--color-neutral-200);
-    color: var(--color-neutral-700);
-}
-
-/* ============================================================
-   REFINED UTILITIES
-   ============================================================ */
-
-.glass {
-    background: rgba(255, 255, 255, 0.6) !important;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.dark .glass {
-    background: rgba(20, 20, 20, 0.6) !important;
-    border-color: rgba(255, 255, 255, 0.05);
-}
-
-/* Subtle separator */
-.separator {
-    height: 1px;
-    background: var(--color-neutral-200);
-    margin: 1rem 0;
-}
-
-.dark .separator {
-    background: rgba(255, 255, 255, 0.08);
-}
-
-/* macOS Vibrancy */
-.vibrant {
-    background: rgba(255, 255, 255, 0.7) !important;
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-}
-
-.dark .vibrant {
-    background: rgba(22, 22, 22, 0.7) !important;
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-}
-
-/* Sidebar Specific */
-.dark [data-slot="sidebar"] {
-    background-color: var(--color-neutral-100) !important;
-    border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
-}
-
-/* Header Specific */
-.dark [data-slot="header"] {
-    background-color: rgba(30, 30, 30, 0.8) !important;
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-}
-
-
-/* ============================================================
-   CONTENT STYLING (PS)
-   ============================================================ */
-
-.tiptap-content h1,
-.tiptap-content h2,
-.tiptap-content h3 {
-    color: var(--color-neutral-900);
+/* --- Tiptap Editor Overrides ------------------------------- */
+.tiptap-content h1, .tiptap-content h2, .tiptap-content h3 {
+    color: var(--color-neutral-950);
     font-weight: 700;
+    letter-spacing: -0.02em;
     margin-top: 2.5rem;
     margin-bottom: 1.25rem;
 }
 
-.dark .tiptap-content h1,
-.dark .tiptap-content h2,
-.dark .tiptap-content h3 {
-    color: var(--color-neutral-100);
+.tiptap-content p {
+    margin-bottom: 1.5rem;
 }
-
-.tiptap-content h1::before { content: '01. '; color: var(--color-primary); }
-.tiptap-content h2::before { content: '02. '; color: var(--color-primary); }
-.tiptap-content h3::before { content: '03. '; color: var(--color-primary); }
 
 .tiptap-content blockquote {
-    background: var(--color-neutral-100);
-    border-left: 4px solid var(--color-primary);
-    padding: 1.5rem 2rem;
-    margin: 2rem 0;
+    border-width: 0 0 0 4px !important;
+    border-left-color: var(--color-primary) !important;
+    padding-left: 1.5rem;
+    font-style: italic;
+    color: var(--color-neutral-600);
 }
 
-.dark .tiptap-content blockquote {
-    background: var(--color-neutral-100);
+/* --- Tiptap Shiki Code Block ------------------------------- */
+.tiptap pre {
+    background: #0f172a !important; /* Slate 900 */
+    border-radius: 0.75rem !important;
+    padding: 1.25rem !important;
+    margin: 1.5rem 0 !important;
+    overflow-x: auto !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-.tiptap-content pre {
-    background: #000;
-    color: var(--color-primary);
-    padding: 1.5rem;
-    border: 1px solid #222;
-    margin: 2rem 0;
-    overflow-x: auto;
+.tiptap pre code {
+    background: none !important;
+    color: inherit !important;
+    font-size: 0.875rem !important;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+    line-height: 1.7 !important;
+    padding: 0 !important;
+}
+
+.dark .tiptap pre {
+    background: #020617 !important; /* Slate 950 */
+    border-color: rgba(255, 255, 255, 0.05) !important;
 }

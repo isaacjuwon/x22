@@ -66,11 +66,21 @@
     "internalDependencies": {
         "icon": [
             "input",
-            "date-picker"
+            "date-picker",
+            "button",
+            "badge",
+            "navlist"
         ],
         "input": [
             "date-picker",
             "calendar"
+        ],
+        "button": [
+            "badge",
+            "navlist"
+        ],
+        "badge": [
+            "navlist"
         ]
     }
 }

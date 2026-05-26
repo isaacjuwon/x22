@@ -22,12 +22,12 @@
 <x-layouts::main :title="__('Projects')">
 
     {{-- Header --}}
-    <section class="border-b border-neutral-800 px-6 py-16 text-center">
+    <section class="px-6 py-16 text-center">
         <div class="mx-auto max-w-2xl space-y-4">
-            <x-ui.heading level="h1" size="xl" class="text-4xl font-bold text-neutral-700 dark:text-neutral-200">
+            <x-ui.heading level="h1" size="xl" class="text-4xl font-bold text-neutral-950">
                 {{ __('Projects') }}
             </x-ui.heading>
-            <x-ui.text class="text-lg text-neutral-600 dark:text-neutral-400">
+            <x-ui.text class="text-lg text-neutral-500 font-medium">
                 {{ __('A collection of work we\'re proud of.') }}
             </x-ui.text>
         </div>

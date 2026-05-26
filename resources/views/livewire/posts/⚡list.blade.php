@@ -8,19 +8,12 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new #[Title('Posts')] class extends Component {
+new class extends Component {
     use WithPagination;
 
     public int $perPage = 12;
 
-    #[Url(as: 'tag')]
     public ?string $activeTag = null;
-
-    #[Computed]
-    public function tags(): \Illuminate\Database\Eloquent\Collection
-    {
-        return Tag::orderBy('name')->get();
-    }
 
     #[Computed]
     public function posts(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
@@ -35,48 +28,10 @@ new #[Title('Posts')] class extends Component {
             ->latest('published_at')
             ->paginate($this->perPage);
     }
-
-    public function filterByTag(string $slug): void
-    {
-        $this->activeTag = $slug;
-        $this->resetPage();
-    }
-
-    public function clearFilter(): void
-    {
-        $this->activeTag = null;
-        $this->resetPage();
-    }
 };
 ?>
 
 <div class="w-full">
-    {{-- Tag filters --}}
-    @if ($this->tags->isNotEmpty())
-        <div class="mb-8 flex flex-wrap gap-2">
-            <x-ui.button
-                wire:click="clearFilter"
-                size="sm"
-                :variant="$activeTag === null ? 'primary' : 'ghost'"
-                class="{{ $activeTag === null ? 'term-prompt' : '' }}"
-            >
-                {{ __('All') }}
-            </x-ui.button>
-
-            @foreach ($this->tags as $tag)
-                <x-ui.button
-                    wire:click="filterByTag('{{ $tag->slug }}')"
-                    wire:key="tag-{{ $tag->id }}"
-                    size="sm"
-                    :variant="$activeTag === $tag->slug ? 'primary' : 'ghost'"
-                    class="{{ $activeTag === $tag->slug ? 'term-prompt' : '' }}"
-                >
-                    {{ $tag->name }}
-                </x-ui.button>
-            @endforeach
-        </div>
-    @endif
-
     {{-- Posts grid --}}
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         @forelse ($this->posts as $post)

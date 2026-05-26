@@ -20,8 +20,8 @@
         <div class="grid grid-cols-1 gap-10 sm:grid-cols-4">
 
             {{-- Brand --}}
-            <div class="space-y-3">
-                <span class="text-sm font-bold tracking-widest text-primary uppercase">
+            <div class="space-y-4">
+                <span class="text-sm font-bold tracking-[0.2em] text-neutral-950 uppercase">
                     {{ $general->site_name }}
                 </span>
                 @if ($general->site_description)

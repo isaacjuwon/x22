@@ -92,36 +92,36 @@ class ContentRenderer
 
         switch ($type) {
             case 'paragraph':
-                return "<p class=\"mb-4 text-muted-foreground leading-relaxed\">{$content}</p>";
+                return "<p class=\"mb-6 text-neutral-600 leading-relaxed text-lg\">{$content}</p>";
             case 'heading':
                 $level = $node['attrs']['level'] ?? 1;
                 $id = Str::slug(strip_tags($content));
                 $headingClass = match ($level) {
-                    1 => 'text-3xl md:text-4xl font-black text-foreground mb-6 mt-10',
-                    2 => 'text-2xl md:text-3xl font-bold text-foreground mb-4 mt-8',
-                    default => 'text-xl md:text-2xl font-bold text-foreground mb-3 mt-6',
+                    1 => 'text-3xl md:text-5xl font-bold text-neutral-950 mb-8 mt-16 tracking-tight leading-[1.1]',
+                    2 => 'text-2xl md:text-3xl font-bold text-neutral-950 mb-6 mt-12 tracking-tight leading-tight',
+                    default => 'text-xl md:text-2xl font-bold text-neutral-900 mb-4 mt-10 tracking-tight',
                 };
 
                 return "<h{$level} id=\"{$id}\" class=\"{$headingClass}\">{$content}</h{$level}>";
             case 'bulletList':
-                return "<ul class=\"list-disc list-inside mb-4 space-y-2 text-muted-foreground pl-4\">{$content}</ul>";
+                return "<ul class=\"list-disc list-outside mb-8 space-y-3 text-neutral-600 pl-6 text-lg\">{$content}</ul>";
             case 'orderedList':
-                return "<ol class=\"list-decimal list-inside mb-4 space-y-2 text-muted-foreground pl-4\">{$content}</ol>";
+                return "<ol class=\"list-decimal list-outside mb-8 space-y-3 text-neutral-600 pl-6 text-lg\">{$content}</ol>";
             case 'listItem':
-                return "<li class=\"text-muted-foreground\">{$content}</li>";
+                return "<li class=\"pl-2\">{$content}</li>";
             case 'blockquote':
-                return "<blockquote class=\"border-l-4 border-primary pl-6 py-3 my-6 italic text-lg text-muted-foreground bg-muted/30 rounded-r-lg\">{$content}</blockquote>";
+                return "<blockquote class=\"border-l-2 border-primary/30 pl-8 py-4 my-10 italic text-xl text-neutral-500 bg-neutral-100/50 rounded-r-2xl\">{$content}</blockquote>";
             case 'codeBlock':
                 $escapedContent = htmlspecialchars($content);
 
-                return '<pre class="bg-muted/50 text-foreground border border-border/50 rounded-xl p-4 md:p-5 my-6 text-[13px] sm:text-sm font-mono leading-relaxed whitespace-pre-wrap wrap-break-word"><code>'.
+                return '<pre class="bg-neutral-900 text-neutral-100 rounded-2xl p-6 my-10 text-sm font-mono overflow-x-auto leading-relaxed shadow-sm"><code>'.
                   $escapedContent.
                   '</code></pre>';
             case 'image':
                 $src = htmlspecialchars($node['attrs']['src'] ?? '', ENT_QUOTES, 'UTF-8');
                 $alt = htmlspecialchars($node['attrs']['alt'] ?? '', ENT_QUOTES, 'UTF-8');
 
-                return "<img src=\"{$src}\" alt=\"{$alt}\" class=\"rounded-3xl shadow-xl border border-border mx-auto my-8 max-w-full\">";
+                return "<figure class=\"my-12\"><img src=\"{$src}\" alt=\"{$alt}\" class=\"rounded-3xl border border-neutral-200 bg-neutral-100 mx-auto max-w-full\"></figure>";
 
             case 'horizontalRule':
                 return '<hr>';
@@ -136,15 +136,15 @@ class ContentRenderer
     {
         switch ($mark['type']) {
             case 'bold':
-                return "<strong class=\"font-bold text-foreground\">{$text}</strong>";
+                return "<strong class=\"font-bold text-neutral-950\">{$text}</strong>";
             case 'italic':
-                return "<em class=\"italic text-foreground\">{$text}</em>";
+                return "<em class=\"italic text-neutral-700\">{$text}</em>";
             case 'underline':
-                return "<u class=\"underline decoration-primary decoration-2 underline-offset-2 text-foreground\">{$text}</u>";
+                return "<u class=\"underline decoration-primary/30 decoration-1 underline-offset-2 text-neutral-900\">{$text}</u>";
             case 'strike':
-                return "<s class=\"line-through text-muted-foreground\">{$text}</s>";
+                return "<s class=\"line-through text-neutral-400\">{$text}</s>";
             case 'code':
-                return '<code class="bg-muted text-foreground border border-border/50 rounded-md px-1.5 py-[2px] text-[0.825em] font-mono font-semibold inline-block align-middle max-w-full wrap-break-word leading-normal my-0.5">'.
+                return '<code class="bg-neutral-100 text-primary border border-neutral-200 rounded-md px-1.5 py-[2px] text-[0.85em] font-mono font-medium inline-block align-middle">'.
                   $text.
                   '</code>';
             case 'link':
@@ -152,7 +152,7 @@ class ContentRenderer
                 $target = $mark['attrs']['target'] ?? '_blank';
                 $rel = $target === '_blank' ? 'noopener noreferrer' : '';
 
-                return "<a href=\"{$href}\" class=\"text-primary underline underline-offset-4 decoration-2 hover:decoration-primary transition-colors\" target=\"{$target}\" rel=\"{$rel}\">{$text}</a>";
+                return "<a href=\"{$href}\" class=\"text-neutral-950 underline decoration-primary/50 underline-offset-4 decoration-1 hover:decoration-primary transition-all\" target=\"{$target}\" rel=\"{$rel}\">{$text}</a>";
             default:
                 return $text;
         }

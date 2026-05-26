@@ -4,19 +4,22 @@
         @include('partials.head')
         {{ $head ?? '' }}
     </head>
-    <body class="min-h-screen">
+    <body class="min-h-screen zicify-frontend">
         @php
             use App\Settings\GeneralSettings;
             $general = app(GeneralSettings::class);
         @endphp
         <x-ui.layout.header>
             {{-- Brand --}}
-            <a href="{{ route('home') }}" wire:navigate class="flex items-center gap-2">
-                <x-ui.icon name="command-line" class="h-5 w-5 text-primary" />
-                <x-ui.text class="font-semibold tracking-tight">{{ $general->site_name }}</x-ui.text>
+            <a href="{{ route('home') }}" wire:navigate class="flex items-center gap-4">
+                <span class="text-xl font-bold tracking-tighter text-neutral-950 uppercase">{{ $general->site_name }}</span>
             </a>
 
-            <div class="ml-auto flex items-center gap-x-2">
+            <div class="ml-auto flex items-center gap-x-4">
+                <x-ui.button variant="ghost" size="sm" class="h-9 w-9 p-0 rounded-full">
+                    <x-ui.icon name="ps:magnifying-glass" class="size-4" />
+                </x-ui.button>
+
                 <x-ui.theme-switcher variant="dropdown" />
 
                 {{-- Nav dropdown --}}

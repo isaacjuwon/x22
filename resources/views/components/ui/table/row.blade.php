@@ -7,7 +7,7 @@
 ])
 
 <tr 
-    @if ($key) 
+@if ($key) 
         wire:key="table-{{ $key }}" 
     @endif
 

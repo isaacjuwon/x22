@@ -51,7 +51,7 @@
         'grid',         
         'items-start',                               
         'h-screen overflow-hidden',                     
-        'min-h-screen text-slate-950 dark:text-slate-50', 
+        'min-h-screen text-neutral-900 dark:text-neutral-300', 
 
         // ═══════════════════════════════════════════════════════════════════════
         // 📱 MOBILE LAYOUT (< 768px)

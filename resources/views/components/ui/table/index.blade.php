@@ -47,12 +47,12 @@
     );
 
     $classes = [
-        '[:where(&)]:min-w-full flex -mx-(--table-padding) overflow-x-auto',
+        'table-wrapper -mx-(--table-padding)',
         'data-[loading]:opacity-50 transition-opacity',
     ];
 
     $tableClasses = [
-        '[:where(&)]:min-w-full isolate table-fixed whitespace-nowrap text-neutral-800 dark:text-neutral-100 text-nowrap',
+        'min-w-full isolate whitespace-nowrap text-neutral-800 dark:text-neutral-100',
         'divide-y divide-neutral-800/5 dark:divide-white/5',
         $attributes->get('table:class'),
     ];

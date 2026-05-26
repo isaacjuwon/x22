@@ -19,8 +19,8 @@
                     {{-- Platform --}}
                     <x-ui.navlist.group label="{{ __('Platform') }}">
                         <x-ui.navlist.item
-                            label="{{ __('Dashboard') }}"
-                            icon="home"
+                            label="{{ __('Overview') }}"
+                            icon="chart-bar"
                             :href="route('dashboard')"
                             :active="request()->routeIs('dashboard')"
                             wire:navigate
@@ -30,7 +30,7 @@
                     {{-- Content --}}
                     <x-ui.navlist.group label="{{ __('Content') }}">
                         <x-ui.navlist.item
-                            label="{{ __('Posts') }}"
+                            label="{{ __('Blog Articles') }}"
                             icon="document-text"
                             :href="route('admin.posts.index')"
                             :active="request()->routeIs('admin.posts.*')"
@@ -49,7 +49,7 @@
                     <x-ui.navlist.group label="{{ __('Portfolio') }}">
                         <x-ui.navlist.item
                             label="{{ __('Projects') }}"
-                            icon="folder-open"
+                            icon="folder"
                             :href="route('admin.projects.index')"
                             :active="request()->routeIs('admin.projects.*')"
                             wire:navigate
@@ -81,21 +81,21 @@
                         />
                         <x-ui.navlist.item
                             label="{{ __('Profile') }}"
-                            icon="user"
+                            icon="user-circle"
                             :href="route('profile.edit')"
                             :active="request()->routeIs('profile.edit')"
                             wire:navigate
                         />
                         <x-ui.navlist.item
                             label="{{ __('Security') }}"
-                            icon="lock-closed"
+                            icon="shield-check"
                             :href="route('security.edit')"
                             :active="request()->routeIs('security.edit')"
                             wire:navigate
                         />
                         <x-ui.navlist.item
                             label="{{ __('Appearance') }}"
-                            icon="paint-brush"
+                            icon="swatch"
                             :href="route('appearance.edit')"
                             :active="request()->routeIs('appearance.edit')"
                             wire:navigate
@@ -124,10 +124,10 @@
                         <x-ui.dropdown.item :href="route('profile.edit')" icon="user" wire:navigate>
                             {{ __('Profile') }}
                         </x-ui.dropdown.item>
-                        <x-ui.dropdown.item :href="route('security.edit')" icon="lock-closed" wire:navigate>
+                        <x-ui.dropdown.item :href="route('security.edit')" icon="shield-check" wire:navigate>
                             {{ __('Security') }}
                         </x-ui.dropdown.item>
-                        <x-ui.dropdown.item :href="route('appearance.edit')" icon="paint-brush" wire:navigate>
+                        <x-ui.dropdown.item :href="route('appearance.edit')" icon="swatch" wire:navigate>
                             {{ __('Appearance') }}
                         </x-ui.dropdown.item>
 
@@ -135,7 +135,7 @@
 
                         <form method="POST" action="{{ route('logout') }}" class="contents">
                             @csrf
-                            <x-ui.dropdown.item as="button" type="submit" icon="arrow-right-start-on-rectangle">
+                            <x-ui.dropdown.item as="button" type="submit" icon="arrow-right-on-rectangle">
                                 {{ __('Sign Out') }}
                             </x-ui.dropdown.item>
                         </form>
@@ -169,7 +169,7 @@
                         <x-ui.dropdown.separator />
 
                         <x-ui.dropdown.group label="{{ __('Portfolio') }}">
-                            <x-ui.dropdown.item :href="route('admin.projects.index')" icon="folder-open" wire:navigate>
+                            <x-ui.dropdown.item :href="route('admin.projects.index')" icon="folder" wire:navigate>
                                 {{ __('Projects') }}
                             </x-ui.dropdown.item>
                             <x-ui.dropdown.item :href="route('admin.team.index')" icon="users" wire:navigate>
@@ -211,7 +211,7 @@
                             <x-ui.dropdown.item :href="route('profile.edit')" icon="user" wire:navigate>
                                 {{ __('Profile') }}
                             </x-ui.dropdown.item>
-                            <x-ui.dropdown.item :href="route('security.edit')" icon="lock-closed" wire:navigate>
+                            <x-ui.dropdown.item :href="route('security.edit')" icon="shield-check" wire:navigate>
                                 {{ __('Security') }}
                             </x-ui.dropdown.item>
                             <x-ui.dropdown.item :href="route('admin.settings.general')" icon="cog-6-tooth" wire:navigate>
@@ -222,7 +222,7 @@
 
                             <form method="POST" action="{{ route('logout') }}" class="contents">
                                 @csrf
-                                <x-ui.dropdown.item as="button" type="submit" icon="arrow-right-start-on-rectangle">
+                                <x-ui.dropdown.item as="button" type="submit" icon="arrow-right-on-rectangle">
                                     {{ __('Sign Out') }}
                                 </x-ui.dropdown.item>
                             </form>

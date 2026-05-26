@@ -8,6 +8,7 @@ import { Table } from '@tiptap/extension-table';
 import { TableRow } from '@tiptap/extension-table-row';
 import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
+import CodeBlockShiki from 'tiptap-extension-code-block-shiki';
 
 window.setupTiptap = function (
   elementId,
@@ -32,6 +33,7 @@ window.setupTiptap = function (
     element: document.getElementById(elementId),
     extensions: [
       StarterKit.configure({
+        codeBlock: false,
         bulletList: {
           keepMarks: true,
           keepAttributes: false,
@@ -39,6 +41,16 @@ window.setupTiptap = function (
         orderedList: {
           keepMarks: true,
           keepAttributes: false,
+        },
+      }),
+      CodeBlockShiki.configure({
+        defaultLanguage: 'javascript',
+        themes: {
+          light: 'github-light',
+          dark: 'github-dark',
+        },
+        HTMLAttributes: {
+          class: 'rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 p-4 font-mono text-sm leading-relaxed my-6',
         },
       }),
       Link.configure({

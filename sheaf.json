@@ -18,6 +18,15 @@
         },
         "modal": {
             "installationTime": 1779701594
+        },
+        "navlist": {
+            "installationTime": 1779802549
+        },
+        "badge": {
+            "installationTime": 1779802552
+        },
+        "button": {
+            "installationTime": 1779802557
         }
     }
 }

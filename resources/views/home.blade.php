@@ -22,82 +22,62 @@
 <x-layouts::main :title="$general->site_name">
 
     {{-- ─── Hero ──────────────────────────────────────────────────────────── --}}
-    <section class="relative border-b border-neutral-200 dark:border-white/5 px-6 py-28 overflow-hidden bg-neutral-50 dark:bg-neutral-950">
-        <div class="mx-auto max-w-5xl">
-            <div class="grid gap-16 lg:grid-cols-2 items-center">
-                <div class="space-y-10">
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-3">
-                            <x-ui.icon name="ps:lightning" class="size-5 text-primary" />
-                            <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-neutral-400">{{ __('system_online') }}</span>
-                        </div>
-                        <h1 class="text-5xl font-bold tracking-tighter text-neutral-900 dark:text-neutral-50 sm:text-7xl uppercase leading-[0.9]">
-                            {{ $general->hero_title }}
-                        </h1>
-                    </div>
-
-                    <p class="text-xl leading-relaxed text-neutral-600 dark:text-neutral-500 font-medium">
-                        {{ $general->hero_subtitle }}
-                    </p>
-
-                    <div class="flex flex-wrap items-center gap-6">
-                        @if ($general->show_posts_section)
-                            <x-ui.button as="a" href="#posts" variant="primary" size="lg" class="px-8">
-                                <x-ui.icon name="ps:article-medium" class="size-4 mr-2" />
-                                {{ __('read_articles') }}
-                            </x-ui.button>
-                        @endif
-                        @if ($general->show_projects_section)
-                            <x-ui.button as="a" href="#projects" variant="outline" size="lg" class="px-8">
-                                <x-ui.icon name="ps:code-block" class="size-4 mr-2" />
-                                {{ __('our_work') }}
-                            </x-ui.button>
-                        @endif
-                    </div>
+    {{-- <section class="px-6 py-40 border-b border-neutral-200 dark:border-neutral-200 bg-neutral-50">
+        <div class="mx-auto max-w-5xl text-center space-y-12">
+            <div class="space-y-8">
+                <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-neutral-200 bg-neutral-100 text-skeleton-meta">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                    </span>
+                    {{ __('Available for new projects') }}
                 </div>
+                
+                <h1 class="text-7xl font-bold tracking-tight text-neutral-950 sm:text-9xl leading-[1.05]">
+                    {{ $general->hero_title }}
+                </h1>
+            </div>
+
+            <p class="mx-auto max-w-2xl text-2xl text-neutral-500 font-medium leading-relaxed tracking-tight">
+                {{ $general->hero_subtitle }}
+            </p>
+
+            <div class="flex flex-wrap items-center justify-center gap-6 pt-4">
+                @if ($general->show_projects_section)
+                    <x-ui.button as="a" href="#projects" variant="primary" size="lg" class="px-10 py-4 text-base">
+                        {{ __('View Portfolio') }}
+                    </x-ui.button>
+                @endif
+                @if ($general->show_posts_section)
+                    <x-ui.button as="a" href="#blog" variant="outline" size="lg" class="px-10 py-4 text-base">
+                        {{ __('Read Blog') }}
+                    </x-ui.button>
+                @endif
             </div>
         </div>
-    </section>
+    </section> --}}
 
-    {{-- ─── Latest Posts ───────────────────────────────────────────────────── --}}
-    @if ($general->show_posts_section)
-        <section id="posts" class="border-b border-neutral-200 dark:border-white/5 px-6 py-20">
+    {{-- ─── Selected Projects ────────────────────────────────────────────── --}}
+    @if ($general->show_projects_section)
+        <section id="projects" class="px-6 py-32 bg-neutral-50">
             <div class="mx-auto max-w-6xl">
-                <div class="mb-12 flex items-end justify-between">
-                    <div class="space-y-1">
-                        <p class="term-comment text-xs uppercase tracking-widest">{{ __('Recent Activity') }}</p>
-                        <x-ui.heading level="h2" size="xl" class="text-3xl font-bold text-neutral-900 dark:text-neutral-50">{{ __('Latest Posts') }}</x-ui.heading>
+                <div class="mb-20 flex items-end justify-between pb-10">
+                    <div class="space-y-3">
+                        <p class="text-skeleton-meta">{{ __('Selected Work') }}</p>
+                        <x-ui.heading level="h2" size="xl" class="text-3xl font-bold tracking-tight text-neutral-950">{{ __('Portfolio') }}</x-ui.heading>
                     </div>
-                    <x-ui.button as="a" href="{{ route('posts.index') }}" wire:navigate variant="ghost" size="sm">
-                        {{ __('all posts') }}
+                    <x-ui.button as="a" href="{{ route('projects.index') }}" wire:navigate variant="outline" size="sm" class="rounded-full">
+                        {{ __('View All Projects') }}
                     </x-ui.button>
                 </div>
 
-                <livewire:landing.posts />
-            </div>
-        </section>
-    @endif
-
-    {{-- ─── Projects ───────────────────────────────────────────────────────── --}}
-    @if ($general->show_projects_section)
-        <section id="projects" class="border-b border-neutral-200 dark:border-white/5 px-6 py-20">
-            <div class="mx-auto max-w-6xl">
-                <div class="mb-12 text-center space-y-2">
-                    <p class="term-comment text-xs uppercase tracking-widest">{{ __('Case Studies') }}</p>
-                    <x-ui.heading level="h2" size="xl" class="text-3xl font-bold text-neutral-900 dark:text-neutral-50">{{ __('Our Projects') }}</x-ui.heading>
-                </div>
-
                 @if ($projects->isEmpty())
-                    <x-ui.empty class="term-block border-dashed py-16">
-                        <x-ui.empty.media>
-                            <x-ui.icon name="folder-open" class="h-10 w-10 text-neutral-400 dark:text-neutral-600" />
-                        </x-ui.empty.media>
-                        <x-ui.empty.contents>
-                            <x-ui.text class="text-neutral-500 dark:text-neutral-500">{{ __('No projects yet.') }}</x-ui.text>
-                        </x-ui.empty.contents>
-                    </x-ui.empty>
+                    <div class="py-32 border border-dashed border-neutral-200 rounded-[3rem] text-center space-y-4">
+                        <x-ui.icon name="ps:folder-open" class="h-12 w-12 mx-auto text-neutral-200" />
+                        <p class="text-neutral-400 font-medium text-lg">{{ __('No projects shared yet.') }}</p>
+                    </div>
                 @else
-                    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
                         @foreach ($projects as $project)
                             <x-landing.project :$project />
                         @endforeach
@@ -107,33 +87,23 @@
         </section>
     @endif
 
-    {{-- ─── Testimonials ───────────────────────────────────────────────────── --}}
-    @if ($general->show_testimonials_section)
-        <section id="testimonials" class="px-6 py-20">
+    {{-- ─── Latest Insights ──────────────────────────────────────────────── --}}
+    @if ($general->show_posts_section)
+        <section id="blog" class="px-6 py-32 bg-neutral-50">
             <div class="mx-auto max-w-6xl">
-                <div class="mb-12 text-center">
-                    <x-ui.heading level="h2" size="xl" class="text-3xl font-bold text-neutral-700 dark:text-neutral-200">{{ __('What Clients Say') }}</x-ui.heading>
-                    <x-ui.text class="term-comment mt-2 text-neutral-600 dark:text-neutral-400">
-                        {{ __("Honest feedback from the people we've worked with.") }}
-                    </x-ui.text>
+                <div class="mb-20 flex items-end justify-between pb-10">
+                    <div class="space-y-3">
+                        <p class="text-skeleton-meta">{{ __('Latest Insights') }}</p>
+                        <x-ui.heading level="h2" size="xl" class="text-3xl font-bold tracking-tight text-neutral-950">{{ __('Blog & Articles') }}</x-ui.heading>
+                    </div>
+                    <x-ui.button as="a" href="{{ route('posts.index') }}" wire:navigate variant="outline" size="sm" class="rounded-full">
+                        {{ __('Read All Articles') }}
+                    </x-ui.button>
                 </div>
 
-                @if ($testimonials->isEmpty())
-                    <x-ui.empty class="term-block border-dashed py-16">
-                        <x-ui.empty.media>
-                            <x-ui.icon name="chat-bubble-left-ellipsis" class="h-10 w-10 text-neutral-400 dark:text-neutral-600" />
-                        </x-ui.empty.media>
-                        <x-ui.empty.contents>
-                            <x-ui.text class="text-neutral-500 dark:text-neutral-500">{{ __('No testimonials yet.') }}</x-ui.text>
-                        </x-ui.empty.contents>
-                    </x-ui.empty>
-                @else
-                    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                        @foreach ($testimonials as $testimonial)
-                            <x-landing.testimonial :$testimonial />
-                        @endforeach
-                    </div>
-                @endif
+                <div class="grid gap-12">
+                    <livewire:landing.posts />
+                </div>
             </div>
         </section>
     @endif
