@@ -4,10 +4,10 @@
     class="flex items-center transition-all duration-200 size-10 overflow-hidden"
  >
     <x-ui.button 
-        :icon="$lightIcon" 
+        icon="heroicon-o-sun" 
         :$iconVariant
         variant="none"
-        class="hover:opacity-80 transition"
+        class="hover:opacity-80 transition text-white"
         x-show="$theme.isResolvedToLight"
         x-on:click="$theme.toggle()"
         style="display: none;"
@@ -18,10 +18,10 @@
         aria-label="Activate light theme"
     />
     <x-ui.button 
-        :icon="$darkIcon" 
+        icon="heroicon-o-moon" 
         :$iconVariant
         variant="none"
-        class="hover:opacity-80 transition"
+        class="hover:opacity-80 transition text-white"
         x-show="$theme.isResolvedToDark"
         x-on:click="$theme.toggle()"
         style="display: none;"
