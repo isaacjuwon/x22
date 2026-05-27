@@ -153,3 +153,4 @@
             </footer>
         </main>
     </div>
+</x-layouts::main>
