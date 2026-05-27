@@ -69,7 +69,8 @@
             "date-picker",
             "button",
             "badge",
-            "navlist"
+            "navlist",
+            "dropdown"
         ],
         "input": [
             "date-picker",
@@ -77,10 +78,14 @@
         ],
         "button": [
             "badge",
-            "navlist"
+            "navlist",
+            "theme-switcher"
         ],
         "badge": [
             "navlist"
+        ],
+        "dropdown": [
+            "theme-switcher"
         ]
     }
 }

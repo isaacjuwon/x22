@@ -27,6 +27,12 @@
         },
         "button": {
             "installationTime": 1779802557
+        },
+        "theme-switcher": {
+            "installationTime": 1779886981
+        },
+        "dropdown": {
+            "installationTime": 1779886984
         }
     }
 }

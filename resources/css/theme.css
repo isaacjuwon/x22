@@ -13,10 +13,10 @@
     --color-primary-fg:      #ffffff;
 
     /* Base Palette — Deep Dark Mode (Requested: same background dark mode) */
-    --color-neutral-50:  #000000; /* Main Background */
-    --color-neutral-100: #050505; /* Card/Surface */
-    --color-neutral-200: #1a1a1a; /* Borders */
-    --color-neutral-300: #262626; /* Hover borders */
+    --color-neutral-50:  #080808; /* Main Background - slightly lighter than pure black */
+    --color-neutral-100: #121212; /* Card/Surface - distinct from background */
+    --color-neutral-200: #1e1e1e; /* Borders */
+    --color-neutral-300: #2a2a2a; /* Hover borders */
     --color-neutral-400: #525252; /* Muted text */
     --color-neutral-500: #737373; /* Secondary text */
     --color-neutral-600: #a3a3a3; /* Primary text */
@@ -43,10 +43,10 @@
 
 /* Base Palette — HIGH CONTRAST SKELETON DARK MODE */
 html.dark, .dark, html {
-    --color-neutral-50:  #000000 !important; 
-    --color-neutral-100: #050505 !important; 
-    --color-neutral-200: #1a1a1a !important; 
-    --color-neutral-300: #262626 !important; 
+    --color-neutral-50:  #080808 !important; 
+    --color-neutral-100: #121212 !important; 
+    --color-neutral-200: #1e1e1e !important; 
+    --color-neutral-300: #2a2a2a !important; 
     --color-neutral-400: #404040 !important; 
     --color-neutral-500: #737373 !important; 
     --color-neutral-600: #a3a3a3 !important; 
@@ -60,7 +60,7 @@ html.dark, .dark, html {
     --color-primary-content: #a78bfa !important;
     --color-primary-fg:      #ffffff !important;
 
-    background-color: #000000;
+    background-color: #080808;
 }
 
 /* ============================================================

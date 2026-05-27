@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data x-bind:class="$theme.currentTheme === 'dark' ? 'dark' : ''">
     <head>
         @include('partials.head')
         {{ $head ?? '' }}
@@ -24,9 +24,13 @@
 
                 <div class="h-4 w-px bg-neutral-800 hidden md:block"></div>
 
-                <x-ui.button variant="ghost" size="sm" class="h-9 w-9 p-0 rounded-full hover:bg-neutral-900">
-                    <x-ui.icon name="magnifying-glass" class="size-4" />
-                </x-ui.button>
+                <div class="flex items-center gap-x-2">
+                    <x-ui.button variant="ghost" size="sm" class="h-9 w-9 p-0 rounded-full hover:bg-neutral-900">
+                        <x-ui.icon name="heroicon-o-magnifying-glass" class="size-4" />
+                    </x-ui.button>
+
+                    <x-ui.theme-switcher variant="inline" />
+                </div>
 
                 {{-- Nav dropdown --}}
                 <x-ui.dropdown position="bottom-end">

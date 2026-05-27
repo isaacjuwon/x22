@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data x-bind:class="$theme.currentTheme === 'dark' ? 'dark' : ''">
     <head>
         @include('partials.head', ['title' => __('Welcome')])
     </head>
     <body class="flex min-h-screen flex-col items-center justify-center bg-black p-6 text-white lg:p-8">
+        <div class="fixed right-8 top-8">
+            <x-ui.theme-switcher variant="inline" />
+        </div>
         <main class="relative flex w-full max-w-5xl items-center justify-between gap-12">
             
             {{-- ── Left Content ── --}}
