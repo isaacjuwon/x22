@@ -25,7 +25,7 @@
         
         {{-- IDE Sidebar Simulation --}}
         <aside class="hidden lg:flex w-12 flex-col items-center py-4 border-r border-neutral-200 dark:border-neutral-800 gap-6 text-neutral-400">
-            <x-ui.icon name="files" class="size-6 hover:text-primary cursor-pointer" />
+            <x-ui.icon name="document-duplicate" class="size-6 hover:text-primary cursor-pointer" />
             <x-ui.icon name="magnifying-glass" class="size-6 hover:text-primary cursor-pointer" />
             <x-ui.icon name="git-branch" class="size-6 hover:text-primary cursor-pointer" />
             <x-ui.icon name="play" class="size-6 hover:text-primary cursor-pointer" />
