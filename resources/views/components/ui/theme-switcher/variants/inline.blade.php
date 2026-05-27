@@ -4,7 +4,7 @@
     class="flex items-center transition-all duration-200 size-10 overflow-hidden"
  >
     <x-ui.button 
-        icon="heroicon-o-sun" 
+        icon="sun" 
         :$iconVariant
         variant="none"
         class="hover:opacity-80 transition text-white"
@@ -18,7 +18,7 @@
         aria-label="Activate light theme"
     />
     <x-ui.button 
-        icon="heroicon-o-moon" 
+        icon="moon" 
         :$iconVariant
         variant="none"
         class="hover:opacity-80 transition text-white"
