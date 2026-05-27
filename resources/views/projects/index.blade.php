@@ -22,21 +22,21 @@
 <x-layouts::main :title="__('Projects')">
 
     {{-- Header --}}
-    <section class="px-6 py-16 text-center">
-        <div class="mx-auto max-w-2xl space-y-4">
-            <x-ui.heading level="h1" size="xl" class="text-4xl font-bold text-neutral-950">
-                {{ __('Projects') }}
-            </x-ui.heading>
-            <x-ui.text class="text-lg text-neutral-500 font-medium">
-                {{ __('A collection of work we\'re proud of.') }}
-            </x-ui.text>
+    <section class="px-6 py-24 text-center bg-black">
+        <div class="mx-auto max-w-4xl space-y-6">
+            <h1 class="text-6xl font-bold tracking-tighter text-white uppercase lg:text-8xl">
+                {{ __('Portfolio') }}
+            </h1>
+            <p class="text-xl text-neutral-400 font-medium leading-relaxed max-w-2xl mx-auto">
+                {{ __('A curated collection of digital experiences, crafted with precision and engineered for performance.') }}
+            </p>
         </div>
     </section>
 
-    <div class="mx-auto max-w-6xl px-6 py-12 space-y-8">
+    <div class="mx-auto max-w-6xl px-6 py-12 space-y-12 bg-black min-h-screen">
 
         {{-- Filters --}}
-        <form method="GET" action="{{ route('projects.index') }}" class="flex flex-wrap items-center gap-3">
+        <form method="GET" action="{{ route('projects.index') }}" class="flex flex-wrap items-center gap-4 p-4 rounded-3xl bg-neutral-900/50 border border-neutral-800">
 
             {{-- Search --}}
             <div class="flex-1 min-w-[200px]">
@@ -44,13 +44,14 @@
                     name="search"
                     :value="request('search')"
                     placeholder="{{ __('Search projects...') }}"
+                    class="bg-black border-neutral-800 rounded-full px-6 text-white"
                 />
             </div>
 
             {{-- Category filter --}}
             @if ($categories->isNotEmpty())
-                <x-ui.select name="category" class="w-48">
-                    <x-ui.select.option value="">{{ __('All categories') }}</x-ui.select.option>
+                <x-ui.select name="category" class="w-48 bg-black border-neutral-800 rounded-full text-white">
+                    <x-ui.select.option value="">{{ __('All Categories') }}</x-ui.select.option>
                     @foreach ($categories as $cat)
                         <x-ui.select.option :value="$cat" :selected="request('category') === $cat">
                             {{ $cat }}
@@ -59,12 +60,12 @@
                 </x-ui.select>
             @endif
 
-            <x-ui.button type="submit" variant="primary">
+            <x-ui.button type="submit" variant="primary" class="rounded-full px-8">
                 {{ __('Filter') }}
             </x-ui.button>
 
             @if (request('search') || request('category'))
-                <x-ui.button as="a" :href="route('projects.index')" variant="ghost">
+                <x-ui.button as="a" :href="route('projects.index')" variant="ghost" class="text-neutral-500 hover:text-white">
                     {{ __('Clear') }}
                 </x-ui.button>
             @endif
@@ -73,16 +74,12 @@
 
         {{-- Results --}}
         @if ($projects->isEmpty())
-            <x-ui.empty class="py-16">
-                <x-ui.empty.media>
-                    <x-ui.icon name="folder-open" class="h-10 w-10 text-neutral-400 dark:text-neutral-600" />
-                </x-ui.empty.media>
-                <x-ui.empty.contents>
-                    <x-ui.text class="text-neutral-500">{{ __('No projects found.') }}</x-ui.text>
-                </x-ui.empty.contents>
-            </x-ui.empty>
+            <div class="py-32 border border-dashed border-neutral-800 rounded-[3rem] text-center space-y-4">
+                <x-ui.icon name="heroicon-o-folder-open" class="h-12 w-12 mx-auto text-neutral-800" />
+                <p class="text-neutral-600 font-bold uppercase tracking-widest text-sm">{{ __('No projects found.') }}</p>
+            </div>
         @else
-            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
                 @foreach ($projects as $project)
                     <x-landing.project :$project />
                 @endforeach
@@ -90,12 +87,13 @@
 
             {{-- Pagination --}}
             @if ($projects->hasPages())
-                <div class="flex justify-center pt-4">
+                <div class="flex justify-center pt-12">
                     {{ $projects->withQueryString()->links() }}
                 </div>
             @endif
         @endif
 
     </div>
+
 
 </x-layouts::main>

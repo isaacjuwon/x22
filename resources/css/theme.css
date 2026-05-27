@@ -3,44 +3,49 @@
    Premium Monochrome Aesthetic • High Contrast Skeleton
    ============================================================ */
 
-/* ── Google Fonts: Inter ── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* ── Google Fonts: Inter & JetBrains Mono ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 @theme {
-    /* Primary: Brand Maroon (Used for accents, active states, and buttons) */
-    --color-primary:         #800020;   
-    --color-primary-content: #a23b47;   
+    /* Primary: Vibrant Purple (Matched to the image) */
+    --color-primary:         #8b5cf6;   
+    --color-primary-content: #a78bfa;   
     --color-primary-fg:      #ffffff;
 
-    /* Base Palette — Off-White Background + Carton Borders */
-    --color-neutral-50:  #fdfcf8; /* Background (Off-White) */
-    --color-neutral-100: #fdfcf8; /* Card/Surface (Identical to BG for skeleton look) */
-    --color-neutral-200: #e8e2d2; /* Borders (Carton Color - High Visibility) */
-    --color-neutral-300: #d1c8b3; /* Hover borders */
-    --color-neutral-400: #a39985; /* Muted text */
-    --color-neutral-500: #7d7463; /* Secondary text */
-    --color-neutral-600: #5c5548; /* Primary text */
-    --color-neutral-700: #3d382e;
-    --color-neutral-800: #24211b;
-    --color-neutral-900: #0f0e0b;
-    --color-neutral-950: #000000;
+    /* Base Palette — Deep Dark Mode (Requested: same background dark mode) */
+    --color-neutral-50:  #000000; /* Main Background */
+    --color-neutral-100: #050505; /* Card/Surface */
+    --color-neutral-200: #1a1a1a; /* Borders */
+    --color-neutral-300: #262626; /* Hover borders */
+    --color-neutral-400: #525252; /* Muted text */
+    --color-neutral-500: #737373; /* Secondary text */
+    --color-neutral-600: #a3a3a3; /* Primary text */
+    --color-neutral-700: #d4d4d4;
+    --color-neutral-800: #e5e5e5;
+    --color-neutral-900: #f5f5f5;
+    --color-neutral-950: #ffffff;
 
     /* Large Premium Radius */
     --radius-field: 0.75rem;
     --radius-box:   1.5rem; /* 24px */
+    --radius-pill:  9999px;
 
-    /* Semantic Status (Muted) */
+    /* Semantic Status (Vibrant) */
     --color-success: #10b981;
     --color-error:   #ef4444;
     --color-warning: #f59e0b;
     --color-info:    #3b82f6;
+
+    /* Custom Accent Colors from Image */
+    --color-accent-purple: #7c3aed;
+    --color-accent-purple-light: #c084fc;
 }
 
 /* Base Palette — HIGH CONTRAST SKELETON DARK MODE */
-html.dark, .dark {
-    --color-neutral-50:  #0a0a0a !important; /* Main Background */
-    --color-neutral-100: #0a0a0a !important; /* Card/Surface (Identical to BG) */
-    --color-neutral-200: #1a1a1a !important; /* Borders (Carton-equivalent for dark) */
+html.dark, .dark, html {
+    --color-neutral-50:  #000000 !important; 
+    --color-neutral-100: #050505 !important; 
+    --color-neutral-200: #1a1a1a !important; 
     --color-neutral-300: #262626 !important; 
     --color-neutral-400: #404040 !important; 
     --color-neutral-500: #737373 !important; 
@@ -50,12 +55,12 @@ html.dark, .dark {
     --color-neutral-900: #f5f5f5 !important;
     --color-neutral-950: #ffffff !important;
 
-    /* Primary: Contrast Maroon in Dark Mode */
-    --color-primary:         #b03040 !important;   
-    --color-primary-content: #d04050 !important;
+    /* Primary: Vibrant Purple in Dark Mode */
+    --color-primary:         #8b5cf6 !important;   
+    --color-primary-content: #a78bfa !important;
     --color-primary-fg:      #ffffff !important;
 
-    background-color: #0a0a0a;
+    background-color: #000000;
 }
 
 /* ============================================================
@@ -63,6 +68,7 @@ html.dark, .dark {
    ============================================================ */
 html {
     scroll-behavior: smooth;
+    color-scheme: dark;
 }
 
 *, *::before, *::after {
@@ -71,9 +77,13 @@ html {
     -webkit-font-smoothing: antialiased;
 }
 
+.font-mono {
+    font-family: 'JetBrains Mono', monospace !important;
+}
+
 body {
     background-color: var(--color-neutral-50);
-    color: var(--color-neutral-800);
+    color: var(--color-neutral-950);
     line-height: 1.6;
 }
 
@@ -122,7 +132,6 @@ body {
 }
 
 /* --- Navigation -------------------------------------------- */
-/* We rely on the component's internal logic for navlist items to ensure states (active/hover) and icons work correctly. */
 [data-slot="navlist-item"] {
     border-radius: var(--radius-field) !important;
 }
@@ -141,44 +150,43 @@ body {
 
 /* --- Buttons ----------------------------------------------- */
 [data-slot="button"] {
-    border-radius: 14px !important;
+    border-radius: 9999px !important; /* Pill shape matched to image */
     font-weight: 600 !important;
     font-size: 0.875rem !important;
-    padding: 0.625rem 1.5rem !important;
+    padding: 0.75rem 1.5rem !important;
     box-shadow: none !important;
     border-width: 1px !important;
     transition: all 0.2s ease;
 }
 
 [data-slot="button"][data-variant="primary"] {
-    background-color: var(--color-primary) !important;
+    background-color: var(--color-accent-purple) !important;
     color: var(--color-primary-fg) !important;
-    border-color: var(--color-primary) !important;
+    border-color: var(--color-accent-purple) !important;
 }
 
 [data-slot="button"][data-variant="outline"] {
     background-color: transparent !important;
     border-color: var(--color-neutral-200) !important;
-    color: var(--color-neutral-700) !important;
+    color: var(--color-neutral-950) !important;
 }
 
 [data-slot="button"][data-variant="outline"]:hover {
-    border-color: var(--color-neutral-300) !important;
+    border-color: var(--color-primary) !important;
 }
 
 /* --- Badges ------------------------------------------------ */
 [data-slot="badge"] {
-    background-color: var(--color-neutral-50) !important;
-    color: var(--color-neutral-600) !important;
+    background-color: transparent !important;
+    color: var(--color-primary) !important;
     border-radius: 9999px !important;
     font-size: 0.75rem !important;
     padding: 0.25rem 0.75rem !important;
     font-weight: 600 !important;
-    border-width: 1px !important;
+    border: 1px solid var(--color-primary) !important;
 }
 
 /* --- Tables (Skeleton High Contrast) ----------------------- */
-/* Target the wrapper div that contains the table to ensure horizontal scroll */
 div:has(> table) {
     width: 100% !important;
     overflow-x: auto !important;
@@ -196,6 +204,7 @@ table {
     border-spacing: 0 !important;
     background-color: transparent !important;
 }
+
 
 /* Remove direct table borders as they are now on the wrapper */
 div:has(> table) table {

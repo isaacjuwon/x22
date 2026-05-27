@@ -1,13 +1,13 @@
 @props(['project'])
 
-<article data-slot="card" class="group flex flex-col gap-6">
+<article data-slot="card" class="group flex flex-col gap-6 border-none bg-transparent">
     {{-- Project Image --}}
     @if ($project->featuredImageUrl('card'))
-        <div class="aspect-[16/10] overflow-hidden rounded-[1.2rem] bg-neutral-100 p-1 transition-all">
+        <div class="aspect-[16/10] overflow-hidden rounded-[2rem] bg-neutral-900 p-1 transition-all">
             <img
                 src="{{ $project->featuredImageUrl('card') }}"
                 alt="{{ $project->title }}"
-                class="h-full w-full object-cover rounded-[0.9rem] grayscale group-hover:grayscale-0 transition-all duration-500"
+                class="h-full w-full object-cover rounded-[1.8rem] transition-all duration-500 group-hover:scale-105"
                 loading="lazy"
             />
         </div>
@@ -15,32 +15,35 @@
 
     <div class="flex flex-col gap-4 px-1">
         <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2 text-skeleton-meta">
-                <x-ui.icon name="ps:folder" class="size-4" />
-                <span>{{ $project->category ?? __('Production') }}</span>
+            <div class="flex items-center gap-2 text-neutral-400">
+                <x-ui.icon name="heroicon-o-folder" class="size-4" />
+                <span class="text-xs uppercase tracking-widest font-bold">{{ $project->category ?? __('Production') }}</span>
             </div>
-            <x-ui.badge variant="outline" class="text-[9px] font-bold border-neutral-200 rounded-full h-5 px-2">
+            <x-ui.badge variant="outline" class="text-[10px] font-bold border-primary/30 text-primary rounded-full h-6 px-3 bg-primary/5">
                 {{ __('ACTIVE') }}
             </x-ui.badge>
         </div>
 
-        <h3 class="text-skeleton-title group-hover:text-primary transition-colors leading-tight">
-            <a href="{{ route('projects.show', $project) }}" wire:navigate class="hover:underline decoration-1 underline-offset-4">
+        <h3 class="text-2xl font-bold tracking-tight text-white group-hover:text-primary transition-colors leading-tight">
+            <a href="{{ route('projects.show', $project) }}" wire:navigate>
                 {{ $project->title }}
             </a>
         </h3>
 
         @isset($project->description)
-            <p class="text-skeleton-body line-clamp-3">
+            <p class="text-neutral-400 line-clamp-2 text-sm leading-relaxed">
                 {{ $project->description }}
             </p>
         @endisset
 
-        <div class="pt-4 flex items-center justify-between">
-            <span class="text-skeleton-meta group-hover:text-primary transition-colors">
+        <div class="pt-2 flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-[0.2em] text-neutral-500 group-hover:text-primary transition-colors">
                 {{ __('Explore Case Study') }}
             </span>
-            <x-ui.icon name="ps:arrow-right" class="size-4 text-neutral-300 transition-transform group-hover:translate-x-1" />
+            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-900 text-neutral-500 transition-all group-hover:bg-primary group-hover:text-white">
+                <x-ui.icon name="heroicon-o-arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5" />
+            </div>
         </div>
     </div>
 </article>
+
