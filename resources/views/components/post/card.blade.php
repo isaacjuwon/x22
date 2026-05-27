@@ -58,7 +58,7 @@
 
             {{-- Action Icon --}}
             <div class="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-200 text-neutral-400 transition-all group-hover:bg-primary group-hover:text-white">
-                <x-ui.icon name="heroicon-o-arrow-right" class="size-5 transition-transform group-hover:translate-x-0.5" />
+                <x-ui.icon name="arrow-right" class="size-5 transition-transform group-hover:translate-x-0.5" />
             </div>
         </div>
     </div>
