@@ -4,10 +4,10 @@
     {{-- Project Header (IDE Style) --}}
     <div class="flex items-center justify-between px-4 py-2 border-b border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-[#0a0a0a]">
         <div class="flex items-center gap-2">
-            <x-ui.icon name="heroicon-o-document" class="size-3 text-neutral-400" />
+            <x-ui.icon name="document" class="size-3 text-neutral-400" />
             <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-500">{{ $project->category ?? __('project') }}.md</span>
         </div>
-        <x-ui.icon name="heroicon-o-ellipsis-horizontal" class="size-3 text-neutral-400" />
+        <x-ui.icon name="ellipsis-horizontal" class="size-3 text-neutral-400" />
     </div>
 
     {{-- Project Image (Terminal Style) --}}

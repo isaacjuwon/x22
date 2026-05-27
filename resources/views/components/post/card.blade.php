@@ -4,7 +4,7 @@
     {{-- Editor Tab Header --}}
     <div class="flex items-center justify-between px-4 py-2 border-b border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-[#0a0a0a]">
         <div class="flex items-center gap-2">
-            <x-ui.icon name="heroicon-o-document-text" class="size-3 text-neutral-400" />
+            <x-ui.icon name="document-text" class="size-3 text-neutral-400" />
             <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-500">{{ $post->slug }}.json</span>
         </div>
         <div class="flex gap-1">
@@ -60,13 +60,13 @@
 
         <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-100 dark:border-neutral-800/50">
             <div class="flex items-center gap-3">
-                <x-ui.icon name="heroicon-o-clock" class="size-3 text-neutral-400" />
+                <x-ui.icon name="clock" class="size-3 text-neutral-400" />
                 <span class="text-[9px] font-bold uppercase tracking-widest text-neutral-500">
                     {{ $post->published_at?->diffForHumans() ?? __('Draft') }}
                 </span>
             </div>
             <div class="flex items-center gap-1.5 text-neutral-500 text-[10px]">
-                <x-ui.icon name="heroicon-o-eye" class="size-3" />
+                <x-ui.icon name="eye" class="size-3" />
                 <span>{{ number_format($post->view_count) }}</span>
             </div>
         </div>

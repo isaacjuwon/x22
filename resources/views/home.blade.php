@@ -25,12 +25,12 @@
         
         {{-- IDE Sidebar Simulation --}}
         <aside class="hidden lg:flex w-12 flex-col items-center py-4 border-r border-neutral-200 dark:border-neutral-800 gap-6 text-neutral-400">
-            <x-ui.icon name="heroicon-o-files" class="size-6 hover:text-primary cursor-pointer" />
-            <x-ui.icon name="heroicon-o-magnifying-glass" class="size-6 hover:text-primary cursor-pointer" />
-            <x-ui.icon name="heroicon-o-git-branch" class="size-6 hover:text-primary cursor-pointer" />
-            <x-ui.icon name="heroicon-o-play" class="size-6 hover:text-primary cursor-pointer" />
+            <x-ui.icon name="files" class="size-6 hover:text-primary cursor-pointer" />
+            <x-ui.icon name="magnifying-glass" class="size-6 hover:text-primary cursor-pointer" />
+            <x-ui.icon name="git-branch" class="size-6 hover:text-primary cursor-pointer" />
+            <x-ui.icon name="play" class="size-6 hover:text-primary cursor-pointer" />
             <div class="mt-auto pb-4">
-                <x-ui.icon name="heroicon-o-cog-6-tooth" class="size-6 hover:text-primary cursor-pointer" />
+                <x-ui.icon name="cog-6-tooth" class="size-6 hover:text-primary cursor-pointer" />
             </div>
         </aside>
 
@@ -38,16 +38,16 @@
             {{-- Editor Tabs --}}
             <nav class="flex border-b border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141414] overflow-x-auto">
                 <div class="flex items-center px-4 py-2 border-r border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-[#0a0a0a] text-xs font-bold text-primary border-t-2 border-t-primary">
-                    <x-ui.icon name="heroicon-o-home" class="size-3 mr-2" />
+                    <x-ui.icon name="home" class="size-3 mr-2" />
                     <span>index.blade.php</span>
-                    <x-ui.icon name="heroicon-o-x-mark" class="size-3 ml-4 opacity-50 hover:opacity-100 cursor-pointer" />
+                    <x-ui.icon name="x-mark" class="size-3 ml-4 opacity-50 hover:opacity-100 cursor-pointer" />
                 </div>
                 <a href="{{ route('posts.index') }}" class="flex items-center px-4 py-2 border-r border-neutral-200 dark:border-neutral-800 text-xs font-medium text-neutral-500 hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors">
-                    <x-ui.icon name="heroicon-o-document-text" class="size-3 mr-2" />
+                    <x-ui.icon name="document-text" class="size-3 mr-2" />
                     <span>blog.json</span>
                 </a>
                 <a href="{{ route('projects.index') }}" class="flex items-center px-4 py-2 border-r border-neutral-200 dark:border-neutral-800 text-xs font-medium text-neutral-500 hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors">
-                    <x-ui.icon name="heroicon-o-folder" class="size-3 mr-2" />
+                    <x-ui.icon name="folder" class="size-3 mr-2" />
                     <span>portfolio.lock</span>
                 </a>
             </nav>
@@ -137,11 +137,11 @@
             <footer class="flex items-center justify-between px-4 py-1 bg-primary text-black text-[10px] font-bold uppercase tracking-widest">
                 <div class="flex items-center gap-4">
                     <div class="flex items-center gap-1">
-                        <x-ui.icon name="heroicon-o-bolt" class="size-3" />
+                        <x-ui.icon name="bolt" class="size-3" />
                         <span>Connected</span>
                     </div>
                     <div class="flex items-center gap-1">
-                        <x-ui.icon name="heroicon-o-git-branch" class="size-3" />
+                        <x-ui.icon name="git-branch" class="size-3" />
                         <span>Main*</span>
                     </div>
                 </div>
