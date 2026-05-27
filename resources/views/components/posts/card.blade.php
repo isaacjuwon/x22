@@ -43,7 +43,7 @@
     <div class="flex items-center justify-between pt-2 px-1">
         <div class="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-neutral-600">
             <div class="flex items-center gap-1.5">
-                <x-ui.icon name="heroicon-o-eye" class="size-3.5" />
+                <x-ui.icon name="eye" class="size-3.5" />
                 <span>{{ number_format($post->view_count) }}</span>
             </div>
             <span class="text-neutral-800">/</span>
@@ -51,7 +51,7 @@
         </div>
         
         <div class="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-900 text-neutral-500 transition-all group-hover:bg-primary group-hover:text-white">
-            <x-ui.icon name="heroicon-o-arrow-up-right" class="size-4 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <x-ui.icon name="arrow-up-right" class="size-4 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </div>
     </div>
 </article>

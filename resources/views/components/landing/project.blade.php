@@ -16,7 +16,7 @@
     <div class="flex flex-col gap-4 px-1">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-2 text-neutral-400">
-                <x-ui.icon name="heroicon-o-folder" class="size-4" />
+                <x-ui.icon name="folder" class="size-4" />
                 <span class="text-xs uppercase tracking-widest font-bold">{{ $project->category ?? __('Production') }}</span>
             </div>
             <x-ui.badge variant="outline" class="text-[10px] font-bold border-primary/30 text-primary rounded-full h-6 px-3 bg-primary/5">
@@ -41,7 +41,7 @@
                 {{ __('Explore Case Study') }}
             </span>
             <div class="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-900 text-neutral-500 transition-all group-hover:bg-primary group-hover:text-white">
-                <x-ui.icon name="heroicon-o-arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5" />
+                <x-ui.icon name="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5" />
             </div>
         </div>
     </div>

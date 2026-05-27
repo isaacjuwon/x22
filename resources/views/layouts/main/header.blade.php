@@ -25,7 +25,7 @@
                 <div class="h-4 w-px bg-neutral-800 hidden md:block"></div>
 
                 <x-ui.button variant="ghost" size="sm" class="h-9 w-9 p-0 rounded-full hover:bg-neutral-900">
-                    <x-ui.icon name="heroicon-o-magnifying-glass" class="size-4" />
+                    <x-ui.icon name="magnifying-glass" class="size-4" />
                 </x-ui.button>
 
                 {{-- Nav dropdown --}}
@@ -37,22 +37,22 @@
                     </x-slot:button>
 
                     <x-slot:menu class="w-52 bg-neutral-900 border-neutral-800 text-white">
-                        <x-ui.dropdown.item :href="route('home')" icon="heroicon-o-home" wire:navigate>
+                        <x-ui.dropdown.item :href="route('home')" icon="home" wire:navigate>
                             {{ __('Home') }}
                         </x-ui.dropdown.item>
-                        <x-ui.dropdown.item :href="route('posts.index')" icon="heroicon-o-document-text" wire:navigate>
+                        <x-ui.dropdown.item :href="route('posts.index')" icon="document-text" wire:navigate>
                             {{ __('Blog') }}
                         </x-ui.dropdown.item>
-                        <x-ui.dropdown.item :href="route('projects.index')" icon="heroicon-o-folder" wire:navigate>
+                        <x-ui.dropdown.item :href="route('projects.index')" icon="folder" wire:navigate>
                             {{ __('Projects') }}
                         </x-ui.dropdown.item>
                         <x-ui.dropdown.separator class="bg-neutral-800" />
                         @auth
-                            <x-ui.dropdown.item :href="route('dashboard')" icon="heroicon-o-squares-2x2" wire:navigate>
+                            <x-ui.dropdown.item :href="route('dashboard')" icon="squares-2x2" wire:navigate>
                                 {{ __('Dashboard') }}
                             </x-ui.dropdown.item>
                         @else
-                            <x-ui.dropdown.item :href="route('login')" icon="heroicon-o-arrow-right-on-rectangle">
+                            <x-ui.dropdown.item :href="route('login')" icon="arrow-right-on-rectangle">
                                 {{ __('Sign In') }}
                             </x-ui.dropdown.item>
                         @endauth

@@ -42,14 +42,14 @@
 
             {{-- ── Right Icon Sidebar ── --}}
             <div class="flex flex-col gap-8 text-neutral-500">
-                <x-ui.icon name="heroicon-o-squares-2x2" class="size-8 transition-colors hover:text-white" />
+                <x-ui.icon name="squares-2x2" class="size-8 transition-colors hover:text-white" />
                 <div class="relative">
-                    <x-ui.icon name="heroicon-o-magnifying-glass" class="size-8 transition-colors hover:text-white" />
+                    <x-ui.icon name="magnifying-glass" class="size-8 transition-colors hover:text-white" />
                     <span class="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-white text-[10px] font-bold text-black">8</span>
                 </div>
-                <x-ui.icon name="heroicon-o-circle-stack" class="size-8 transition-colors hover:text-white" />
-                <x-ui.icon name="heroicon-o-command-line" class="size-8 transition-colors hover:text-white" />
-                <x-ui.icon name="heroicon-o-arrow-path" class="size-8 transition-colors hover:text-white" />
+                <x-ui.icon name="circle-stack" class="size-8 transition-colors hover:text-white" />
+                <x-ui.icon name="command-line" class="size-8 transition-colors hover:text-white" />
+                <x-ui.icon name="arrow-path" class="size-8 transition-colors hover:text-white" />
             </div>
 
             {{-- ── Floating Bottom Controls (Simulated from image) ── --}}
@@ -57,13 +57,13 @@
                 <div class="flex items-center gap-3">
                     <x-app-logo-icon class="size-6" />
                     <span class="text-sm font-bold tracking-tight">Command Code</span>
-                    <x-ui.icon name="heroicon-o-globe-alt" class="size-4 opacity-50" />
+                    <x-ui.icon name="globe-alt" class="size-4 opacity-50" />
                 </div>
                 <div class="h-4 w-px bg-neutral-800"></div>
                 <p class="text-sm text-neutral-500">$1 gets you $40 of DeepSeek V4 Pr... <span class="text-white cursor-pointer">more</span></p>
                 <div class="flex gap-4">
-                    <x-ui.icon name="heroicon-o-heart" class="size-6 opacity-50" />
-                    <x-ui.icon name="heroicon-o-share" class="size-6 opacity-50" />
+                    <x-ui.icon name="heart" class="size-6 opacity-50" />
+                    <x-ui.icon name="share" class="size-6 opacity-50" />
                 </div>
             </div>
 

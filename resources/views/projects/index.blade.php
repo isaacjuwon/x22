@@ -75,7 +75,7 @@
         {{-- Results --}}
         @if ($projects->isEmpty())
             <div class="py-32 border border-dashed border-neutral-800 rounded-[3rem] text-center space-y-4">
-                <x-ui.icon name="heroicon-o-folder-open" class="h-12 w-12 mx-auto text-neutral-800" />
+                <x-ui.icon name="folder-open" class="h-12 w-12 mx-auto text-neutral-800" />
                 <p class="text-neutral-600 font-bold uppercase tracking-widest text-sm">{{ __('No projects found.') }}</p>
             </div>
         @else

@@ -55,7 +55,7 @@
             </div>
 
             <div class="flex items-center gap-1.5 text-neutral-500">
-                <x-ui.icon name="heroicon-o-eye" class="h-4 w-4" />
+                <x-ui.icon name="eye" class="h-4 w-4" />
                 <span class="text-xs font-bold">{{ number_format($post->view_count) }}</span>
             </div>
         </div>
