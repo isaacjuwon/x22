@@ -7,60 +7,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 @theme {
-    /* Primary: Vibrant Purple (Matched to the image) */
-    --color-primary:         #7c3aed;   
-    --color-primary-content: #8b5cf6;   
-    --color-primary-fg:      #ffffff;
+    /* Primary: Terminal Green/Purple (High Contrast) */
+    --color-primary:         #10b981; /* Terminal Green */
+    --color-primary-content: #34d399;   
+    --color-primary-fg:      #000000;
 
-    /* Base Palette — Light IDE Mode (Requested: terminal/editor inspired) */
-    --color-neutral-50:  #fdfdfd; /* Background - Clean Off-White */
-    --color-neutral-100: #ffffff; /* Card/Surface - Pure White */
-    --color-neutral-200: #e2e8f0; /* Borders - Light Gray */
-    --color-neutral-300: #cbd5e1; /* Hover borders */
-    --color-neutral-400: #94a3b8; /* Muted text */
-    --color-neutral-500: #64748b; /* Secondary text */
-    --color-neutral-600: #475569; /* Primary text */
-    --color-neutral-700: #334155;
-    --color-neutral-800: #1e293b;
-    --color-neutral-900: #0f172a;
-    --color-neutral-950: #020617;
+    /* Base Palette — Terminal Light Mode */
+    --color-neutral-50:  #ffffff; /* Background */
+    --color-neutral-100: #f8f9fa; /* Surface */
+    --color-neutral-200: #000000; /* Strict Black Borders */
+    --color-neutral-300: #333333; 
+    --color-neutral-400: #666666; 
+    --color-neutral-500: #000000; /* Primary Text */
+    --color-neutral-600: #000000; 
+    --color-neutral-700: #000000;
+    --color-neutral-800: #000000;
+    --color-neutral-900: #000000;
+    --color-neutral-950: #000000;
 
-    /* Large Premium Radius */
-    --radius-field: 0.75rem;
-    --radius-box:   1.5rem; /* 24px */
-    --radius-pill:  9999px;
+    /* Strict IDE Radius (No rounding) */
+    --radius-field: 0rem;
+    --radius-box:   0rem;
+    --radius-pill:  0rem;
 
-    /* Semantic Status (Vibrant) */
+    /* Semantic Status */
     --color-success: #10b981;
-    --color-error:   #ef4444;
-    --color-warning: #f59e0b;
-    --color-info:    #3b82f6;
-
-    /* Custom Accent Colors from Image */
-    --color-accent-purple: #7c3aed;
-    --color-accent-purple-light: #c084fc;
+    --color-error:   #ff0000;
+    --color-warning: #ffaa00;
+    --color-info:    #00aaff;
 }
 
-/* Base Palette — HIGH CONTRAST DARK IDE MODE */
+/* Base Palette — Terminal Dark Mode */
 .dark {
-    --color-neutral-50:  #050505 !important; 
-    --color-neutral-100: #101010 !important; 
-    --color-neutral-200: #1a1a1a !important; 
-    --color-neutral-300: #262626 !important; 
-    --color-neutral-400: #404040 !important; 
-    --color-neutral-500: #737373 !important; 
-    --color-neutral-600: #a3a3a3 !important; 
-    --color-neutral-700: #d4d4d4 !important; 
-    --color-neutral-800: #e5e5e5 !important;
-    --color-neutral-900: #f5f5f5 !important;
+    --color-neutral-50:  #0a0a0a !important; 
+    --color-neutral-100: #141414 !important; 
+    --color-neutral-200: #333333 !important; /* IDE Grid Lines */
+    --color-neutral-300: #444444 !important; 
+    --color-neutral-400: #888888 !important; 
+    --color-neutral-500: #cccccc !important; 
+    --color-neutral-600: #eeeeee !important; 
+    --color-neutral-700: #ffffff !important; 
+    --color-neutral-800: #ffffff !important;
+    --color-neutral-900: #ffffff !important;
     --color-neutral-950: #ffffff !important;
 
-    /* Primary: Vibrant Purple in Dark Mode */
-    --color-primary:         #8b5cf6 !important;   
-    --color-primary-content: #a78bfa !important;
-    --color-primary-fg:      #ffffff !important;
+    /* Primary: IDE Purple */
+    --color-primary:         #a78bfa !important;   
+    --color-primary-content: #c4b5fd !important;
+    --color-primary-fg:      #000000 !important;
 
-    background-color: #050505;
+    background-color: #0a0a0a;
 }
 
 /* ============================================================

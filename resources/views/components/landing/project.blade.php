@@ -1,47 +1,51 @@
 @props(['project'])
 
-<article data-slot="card" class="group flex flex-col gap-6 border-none bg-transparent">
-    {{-- Project Image --}}
+<article data-slot="card" class="group flex flex-col h-full border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#141414] transition-all duration-300 hover:border-primary">
+    {{-- Project Header (IDE Style) --}}
+    <div class="flex items-center justify-between px-4 py-2 border-b border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-[#0a0a0a]">
+        <div class="flex items-center gap-2">
+            <x-ui.icon name="heroicon-o-document" class="size-3 text-neutral-400" />
+            <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-500">{{ $project->category ?? __('project') }}.md</span>
+        </div>
+        <x-ui.icon name="heroicon-o-ellipsis-horizontal" class="size-3 text-neutral-400" />
+    </div>
+
+    {{-- Project Image (Terminal Style) --}}
     @if ($project->featuredImageUrl('card'))
-        <div class="aspect-[16/10] overflow-hidden rounded-[2rem] bg-neutral-900 p-1 transition-all">
+        <div class="relative aspect-video overflow-hidden border-b border-neutral-200 dark:border-neutral-800">
             <img
                 src="{{ $project->featuredImageUrl('card') }}"
                 alt="{{ $project->title }}"
-                class="h-full w-full object-cover rounded-[1.8rem] transition-all duration-500 group-hover:scale-105"
+                class="h-full w-full object-cover transition-all duration-500 group-hover:scale-105"
                 loading="lazy"
             />
+            <div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
         </div>
     @endif
 
-    <div class="flex flex-col gap-4 px-1">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2 text-neutral-400">
-                <x-ui.icon name="folder" class="size-4" />
-                <span class="text-xs uppercase tracking-widest font-bold">{{ $project->category ?? __('Production') }}</span>
-            </div>
-            <x-ui.badge variant="outline" class="text-[10px] font-bold border-primary/30 text-primary rounded-full h-6 px-3 bg-primary/5">
-                {{ __('ACTIVE') }}
-            </x-ui.badge>
+    <div class="flex flex-col flex-1 p-6 gap-4 font-mono">
+        <div class="flex items-center gap-2">
+            <span class="text-primary font-bold">#</span>
+            <h3 class="text-lg font-bold tracking-tight text-neutral-900 dark:text-white group-hover:text-primary transition-colors">
+                <a href="{{ route('projects.show', $project) }}" wire:navigate>
+                    {{ $project->title }}
+                </a>
+            </h3>
         </div>
 
-        <h3 class="text-2xl font-bold tracking-tight text-white group-hover:text-primary transition-colors leading-tight">
-            <a href="{{ route('projects.show', $project) }}" wire:navigate>
-                {{ $project->title }}
-            </a>
-        </h3>
-
         @isset($project->description)
-            <p class="text-neutral-400 line-clamp-2 text-sm leading-relaxed">
+            <p class="text-neutral-500 dark:text-neutral-400 text-xs leading-relaxed line-clamp-3">
                 {{ $project->description }}
             </p>
         @endisset
 
-        <div class="pt-2 flex items-center justify-between">
-            <span class="text-xs font-bold uppercase tracking-[0.2em] text-neutral-500 group-hover:text-primary transition-colors">
-                {{ __('Explore Case Study') }}
-            </span>
-            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-900 text-neutral-500 transition-all group-hover:bg-primary group-hover:text-white">
-                <x-ui.icon name="arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5" />
+        <div class="mt-auto pt-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+                <span class="text-[9px] font-bold uppercase tracking-widest text-neutral-400">deployed_v1.0</span>
+            </div>
+            <div class="text-primary opacity-0 group-hover:opacity-100 transition-opacity text-xs font-bold">
+                [ READ_MORE ]
             </div>
         </div>
     </div>

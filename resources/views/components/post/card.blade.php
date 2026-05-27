@@ -1,64 +1,73 @@
 @props(['post'])
 
-<article data-slot="card" class="group relative flex flex-col overflow-hidden rounded-[2.5rem] border border-neutral-200 bg-neutral-100 transition-all duration-500 hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_20px_50px_-12px_rgba(139,92,246,0.3)]">
+<article data-slot="card" class="group flex flex-col h-full border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#141414] transition-all duration-300 hover:border-primary">
+    {{-- Editor Tab Header --}}
+    <div class="flex items-center justify-between px-4 py-2 border-b border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-[#0a0a0a]">
+        <div class="flex items-center gap-2">
+            <x-ui.icon name="heroicon-o-document-text" class="size-3 text-neutral-400" />
+            <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-500">{{ $post->slug }}.json</span>
+        </div>
+        <div class="flex gap-1">
+            <div class="size-2 rounded-full bg-neutral-200 dark:bg-neutral-800"></div>
+            <div class="size-2 rounded-full bg-neutral-200 dark:bg-neutral-800"></div>
+        </div>
+    </div>
 
-    {{-- Featured image --}}
-    @if ($post->featuredImageUrl('card'))
-        <div class="relative aspect-[16/9] overflow-hidden">
-            <img
-                src="{{ $post->featuredImageUrl('card') }}"
-                alt="{{ $post->title }}"
-                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-            >
-            <div class="absolute inset-0 bg-gradient-to-t from-neutral-100 to-transparent opacity-60"></div>
-            
-            {{-- Floating Category/Tag --}}
-            @if ($post->tags->count())
-                <div class="absolute left-6 top-6">
-                    <span class="rounded-full bg-black/40 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-md border border-white/10">
-                        {{ $post->tags->first()->name }}
-                    </span>
+    <div class="flex flex-col flex-1 p-6 gap-4 font-mono">
+        {{-- Code Block Meta --}}
+        <div class="flex items-center gap-2 text-[10px] text-neutral-400">
+            <span class="text-primary font-bold">1</span>
+            <span>{</span>
+        </div>
+
+        <div class="pl-4 space-y-4">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center gap-2 text-xs">
+                    <span class="text-primary font-bold">2</span>
+                    <span class="text-blue-500">"title"</span>
+                    <span>:</span>
+                    <h3 class="text-sm font-bold tracking-tight text-neutral-900 dark:text-white group-hover:text-primary transition-colors">
+                        <a href="{{ route('posts.show', $post->slug) }}" wire:navigate>
+                            "{{ $post->title }}"
+                        </a>
+                    </h3>
                 </div>
-            @endif
-        </div>
-    @endif
 
-    <div class="flex flex-1 flex-col gap-6 p-8">
-        {{-- Meta Row --}}
-        <div class="flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500">
-            <div class="flex items-center gap-2">
-                <span class="h-1 w-1 rounded-full bg-primary"></span>
-                <time datetime="{{ $post->published_at?->toIso8601String() }}">
-                    {{ $post->published_at?->format('M d, Y') }}
-                </time>
+                @if ($post->excerpt)
+                    <div class="flex gap-2 text-xs">
+                        <span class="text-primary font-bold">3</span>
+                        <span class="text-blue-500">"summary"</span>
+                        <span>:</span>
+                        <p class="text-neutral-500 dark:text-neutral-400 leading-relaxed line-clamp-2 italic">
+                            "{{ $post->excerpt }}"
+                        </p>
+                    </div>
+                @endif
             </div>
-            <span>{{ $post->reading_time ?? 5 }} min read</span>
+
+            <div class="flex items-center gap-2 text-xs">
+                <span class="text-primary font-bold">4</span>
+                <span class="text-blue-500">"author"</span>
+                <span>:</span>
+                <span class="text-neutral-300">"{{ $post->user->name }}"</span>
+            </div>
         </div>
 
-        {{-- Title --}}
-        <h3 class="text-2xl font-bold tracking-tight text-white transition-colors group-hover:text-primary leading-[1.2]">
-            <a href="{{ route('posts.show', $post->slug) }}" wire:navigate>
-                {{ $post->title }}
-            </a>
-        </h3>
+        <div class="flex items-center gap-2 text-[10px] text-neutral-400">
+            <span class="text-primary font-bold">5</span>
+            <span>}</span>
+        </div>
 
-        {{-- Excerpt --}}
-        @if ($post->excerpt)
-            <p class="line-clamp-3 text-sm leading-relaxed text-neutral-400/90">
-                {{ $post->excerpt }}
-            </p>
-        @endif
-
-        <div class="mt-auto flex items-center justify-between pt-4">
-            {{-- Author --}}
+        <div class="mt-auto pt-4 flex items-center justify-between border-t border-neutral-100 dark:border-neutral-800/50">
             <div class="flex items-center gap-3">
-                <x-ui.avatar :name="$post->user->name" size="xs" class="ring-2 ring-neutral-200" />
-                <span class="text-xs font-bold text-neutral-300">{{ $post->user->name }}</span>
+                <x-ui.icon name="heroicon-o-clock" class="size-3 text-neutral-400" />
+                <span class="text-[9px] font-bold uppercase tracking-widest text-neutral-500">
+                    {{ $post->published_at?->diffForHumans() ?? __('Draft') }}
+                </span>
             </div>
-
-            {{-- Action Icon --}}
-            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-200 text-neutral-400 transition-all group-hover:bg-primary group-hover:text-white">
-                <x-ui.icon name="arrow-right" class="size-5 transition-transform group-hover:translate-x-0.5" />
+            <div class="flex items-center gap-1.5 text-neutral-500 text-[10px]">
+                <x-ui.icon name="heroicon-o-eye" class="size-3" />
+                <span>{{ number_format($post->view_count) }}</span>
             </div>
         </div>
     </div>
