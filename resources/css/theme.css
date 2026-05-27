@@ -87,35 +87,9 @@ body {
     line-height: 1.6;
 }
 
-/* Strategic Borders for Skeleton Look */
-.skeleton-border {
-    border: 1px solid var(--color-neutral-200) !important;
-}
-
-.dark .skeleton-border {
-    border-color: var(--color-neutral-200) !important;
-}
-
 /* ============================================================
    COMPONENT OVERRIDES (via data-slot)
    ============================================================ */
-
-/* --- Layout ------------------------------------------------ */
-[data-slot="sidebar"] {
-    background-color: var(--color-neutral-50) !important;
-    border-width: 0 1px 0 0 !important;
-}
-
-[data-slot="header"] {
-    background-color: var(--color-neutral-50) !important;
-    border-width: 0 0 1px 0 !important;
-    padding: 1.5rem 2rem !important;
-}
-
-[data-slot="footer"] {
-    background-color: var(--color-neutral-50) !important;
-    border-width: 1px 0 0 0 !important;
-}
 
 /* --- Cards (Portfolio/Blog Cards) -------------------------- */
 [data-slot="card"] {
@@ -129,23 +103,6 @@ body {
 
 [data-slot="card"]:hover {
     border-color: var(--color-neutral-300) !important;
-}
-
-/* --- Navigation -------------------------------------------- */
-[data-slot="navlist-item"] {
-    border-radius: var(--radius-field) !important;
-}
-
-/* Sidebar Specific Spacing */
-[data-slot="sidebar"] [data-slot="navlist-group"] h4 {
-    font-size: 0.75rem !important;
-    font-weight: 700 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.05em !important;
-    color: var(--color-neutral-500) !important;
-    margin-top: 1.25rem !important;
-    margin-bottom: 0.5rem !important;
-    padding-left: 0.75rem !important;
 }
 
 /* --- Buttons ----------------------------------------------- */
@@ -186,95 +143,6 @@ body {
     border: 1px solid var(--color-primary) !important;
 }
 
-/* --- Tables (Skeleton High Contrast) ----------------------- */
-div:has(> table) {
-    width: 100% !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    border: 1px solid var(--color-neutral-200) !important;
-    border-radius: var(--radius-box) !important;
-    background-color: var(--color-neutral-50) !important;
-}
-
-table {
-    width: 100% !important;
-    min-width: max-content !important;
-    table-layout: auto !important;
-    border-collapse: separate !important;
-    border-spacing: 0 !important;
-    background-color: transparent !important;
-}
-
-
-/* Remove direct table borders as they are now on the wrapper */
-div:has(> table) table {
-    border: none !important;
-    border-radius: 0 !important;
-}
-
-/* --- Tabs Overflow Fix ------------------------------------- */
-[data-slot="tabs-group"] {
-    width: 100% !important;
-    display: flex !important;
-    flex-wrap: wrap !important; /* Changed from overflow-x: auto to wrap on mobile */
-    gap: 0.5rem !important;
-}
-
-[data-slot="tab"] {
-    flex-shrink: 0 !important;
-}
-
-/* On larger screens, we can keep them in one line if preferred, but wrapping is safer for mobile */
-@media (min-width: 768px) {
-    [data-slot="tabs-group"] {
-        flex-wrap: nowrap !important;
-        overflow-x: auto !important;
-        scrollbar-width: none !important;
-    }
-    
-    [data-slot="tabs-group"]::-webkit-scrollbar {
-        display: none !important;
-    }
-}
-
-/* Ensure non-contained variant wrapper also behaves well */
-[data-slot="tabs-group"] > div.flex.gap-1 {
-    flex-wrap: wrap !important;
-    min-width: 0 !important;
-}
-
-thead {
-    background-color: var(--color-neutral-50) !important;
-    border-bottom-width: 1px !important;
-}
-
-th {
-    padding: 1.25rem 1.5rem !important;
-    text-align: left !important;
-    font-size: 0.75rem !important;
-    font-weight: 700 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.05em !important;
-    color: var(--color-neutral-900) !important;
-    border-width: 0 0 1px 0 !important;
-}
-
-td {
-    padding: 1.25rem 1.5rem !important;
-    font-size: 0.875rem !important;
-    color: var(--color-neutral-700) !important;
-    border-width: 0 0 1px 0 !important;
-    background-color: transparent !important;
-}
-
-tr:last-child td {
-    border-bottom-width: 0 !important;
-}
-
-tr:hover td {
-    background-color: var(--color-neutral-50) !important;
-}
-
 /* --- Typography Utilities ---------------------------------- */
 .text-skeleton-title {
     font-weight: 700;
@@ -295,49 +163,4 @@ tr:hover td {
     color: var(--color-neutral-400);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-}
-
-/* --- Tiptap Editor Overrides ------------------------------- */
-.tiptap-content h1, .tiptap-content h2, .tiptap-content h3 {
-    color: var(--color-neutral-950);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-top: 2.5rem;
-    margin-bottom: 1.25rem;
-}
-
-.tiptap-content p {
-    margin-bottom: 1.5rem;
-}
-
-.tiptap-content blockquote {
-    border-width: 0 0 0 4px !important;
-    border-left-color: var(--color-primary) !important;
-    padding-left: 1.5rem;
-    font-style: italic;
-    color: var(--color-neutral-600);
-}
-
-/* --- Tiptap Shiki Code Block ------------------------------- */
-.tiptap pre {
-    background: #0f172a !important; /* Slate 900 */
-    border-radius: 0.75rem !important;
-    padding: 1.25rem !important;
-    margin: 1.5rem 0 !important;
-    overflow-x: auto !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-.tiptap pre code {
-    background: none !important;
-    color: inherit !important;
-    font-size: 0.875rem !important;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
-    line-height: 1.7 !important;
-    padding: 0 !important;
-}
-
-.dark .tiptap pre {
-    background: #020617 !important; /* Slate 950 */
-    border-color: rgba(255, 255, 255, 0.05) !important;
 }
