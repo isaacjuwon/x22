@@ -39,15 +39,15 @@
 
 /* Base Palette — Dark Mode (High-End IDE) */
 .dark {
-    --color-neutral-50:  #050505 !important; 
-    --color-neutral-100: #121212 !important; 
-    --color-neutral-200: #1e1e1e !important; 
-    --color-neutral-300: #3a3a3a !important; 
-    --color-neutral-400: #b0b0b0 !important; /* Meta text visibility - lightened from #a3a3a3 */
-    --color-neutral-500: #e0e0e0 !important; /* Primary text - lightened from #d4d4d4 */
-    --color-neutral-600: #f0f0f0 !important; /* Stronger text - lightened from #e5e5e5 */
-    --color-neutral-700: #f5f5f5 !important; 
-    --color-neutral-800: #fafafa !important;
+    --color-neutral-50:  #0f172a !important; /* Subtle Dark BG */
+    --color-neutral-100: #1e293b !important; /* Card/Surface */
+    --color-neutral-200: #334155 !important; /* Borders */
+    --color-neutral-300: #475569 !important; 
+    --color-neutral-400: #94a3b8 !important; 
+    --color-neutral-500: #cbd5e1 !important; 
+    --color-neutral-600: #e2e8f0 !important; 
+    --color-neutral-700: #f1f5f9 !important; 
+    --color-neutral-800: #f8fafc !important;
     --color-neutral-900: #ffffff !important;
     --color-neutral-950: #ffffff !important;
 
@@ -55,7 +55,7 @@
     --color-primary:         #a78bfa !important; 
     --color-primary-content: #c4b5fd !important;
 
-    background-color: #050505;
+    background-color: #0f172a;
 }
 
 /* ============================================================
@@ -94,8 +94,22 @@ body {
 }
 
 .dark [data-slot="header"] {
-    background-color: #141414 !important; /* Specific IDE Dark Header */
-    border-color: rgba(255,255,255,0.1) !important;
+    background-color: #1e293b !important; /* Specific IDE Dark Header - Subtle Dark */
+    border-color: rgba(255,255,255,0.05) !important;
+}
+
+.dark [data-slot="card"] {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+/* Global Icon Brightness in Dark Mode */
+.dark svg, .dark x-ui.icon {
+    color: var(--color-neutral-400);
+}
+
+.dark svg:hover {
+    color: var(--color-primary);
 }
 
 /* ============================================================
