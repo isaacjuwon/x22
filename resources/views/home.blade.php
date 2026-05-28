@@ -18,7 +18,7 @@
         <aside class="hidden lg:flex w-16 flex-col items-center py-6 border-r border-neutral-200 dark:border-neutral-200 bg-white dark:bg-[#0a0a0a] gap-8 text-neutral-400">
             <x-ui.icon name="document-duplicate" class="size-6 hover:text-primary cursor-pointer transition-colors" />
             <x-ui.icon name="magnifying-glass" class="size-6 hover:text-primary cursor-pointer transition-colors" />
-            <x-ui.icon name="git-branch" class="size-6 hover:text-primary cursor-pointer transition-colors" />
+            <x-ui.icon name="command-line" class="size-6 hover:text-primary cursor-pointer transition-colors" />
             <x-ui.icon name="play" class="size-6 hover:text-primary cursor-pointer transition-colors" />
             <div class="mt-auto flex flex-col items-center gap-6">
                 <x-ui.theme-switcher variant="inline" />
@@ -138,7 +138,7 @@
                         <span>System Online</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <x-ui.icon name="git-branch" class="size-3" />
+                        <x-ui.icon name="code-bracket" class="size-3" />
                         <span>Production v{{ config('app.version', '1.0.0') }}</span>
                     </div>
                 </div>
