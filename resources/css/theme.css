@@ -1,57 +1,62 @@
 /* ============================================================
-   SHEAF UI — ULTRA-MODERN SKELETON PORTFOLIO & BLOG
-   Premium Monochrome Aesthetic • High Contrast Skeleton
+   SHEAF UI — SENIOR DEVELOPER MASTERPIECE
+   Terminal/IDE Inspired • High Contrast • Precision Layout
    ============================================================ */
 
 /* ── Google Fonts: Inter & JetBrains Mono ── */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 @theme {
-    /* Primary: Terminal Green/Purple (High Contrast) */
-    --color-primary:         #10b981; /* Terminal Green */
+    /* Primary: Terminal Green (Success) & IDE Purple (Action) */
+    --color-primary:         #10b981; /* Default to Terminal Green */
     --color-primary-content: #34d399;   
     --color-primary-fg:      #000000;
 
-    /* Base Palette — Terminal Light Mode */
-    --color-neutral-50:  #ffffff; /* Background */
-    --color-neutral-100: #f8f9fa; /* Surface */
-    --color-neutral-200: #000000; /* Strict Black Borders */
-    --color-neutral-300: #333333; 
-    --color-neutral-400: #666666; 
-    --color-neutral-500: #000000; /* Primary Text */
-    --color-neutral-600: #000000; 
-    --color-neutral-700: #000000;
-    --color-neutral-800: #000000;
-    --color-neutral-900: #000000;
-    --color-neutral-950: #000000;
+    /* Base Palette — Terminal Light Mode (Clean IDE) */
+    --color-neutral-50:  #ffffff; /* Main BG */
+    --color-neutral-100: #f1f5f9; /* Surface BG */
+    --color-neutral-200: #000000; /* Strict Borders */
+    --color-neutral-300: #e2e8f0; 
+    --color-neutral-400: #94a3b8; 
+    --color-neutral-500: #0f172a; /* Primary Text */
+    --color-neutral-600: #334155; 
+    --color-neutral-700: #475569;
+    --color-neutral-800: #64748b;
+    --color-neutral-900: #94a3b8;
+    --color-neutral-950: #cbd5e1;
 
-    /* Strict IDE Radius (No rounding) */
+    /* Strict IDE Radius (No rounding for that precision look) */
     --radius-field: 0rem;
     --radius-box:   0rem;
     --radius-pill:  0rem;
 
     /* Semantic Status */
     --color-success: #10b981;
-    --color-error:   #ff0000;
-    --color-warning: #ffaa00;
-    --color-info:    #00aaff;
+    --color-error:   #ef4444;
+    --color-warning: #f59e0b;
+    --color-info:    #3b82f6;
+
+    /* Accent Palette */
+    --color-accent-purple: #8b5cf6;
+    --color-accent-blue:   #3b82f6;
+    --color-accent-amber:  #f59e0b;
 }
 
-/* Base Palette — Terminal Dark Mode */
+/* Base Palette — Terminal Dark Mode (High-End IDE) */
 .dark {
     --color-neutral-50:  #0a0a0a !important; 
     --color-neutral-100: #141414 !important; 
-    --color-neutral-200: #333333 !important; /* IDE Grid Lines */
-    --color-neutral-300: #444444 !important; 
-    --color-neutral-400: #888888 !important; 
+    --color-neutral-200: #262626 !important; /* Grid Lines */
+    --color-neutral-300: #333333 !important; 
+    --color-neutral-400: #525252 !important; 
     --color-neutral-500: #cccccc !important; 
-    --color-neutral-600: #eeeeee !important; 
-    --color-neutral-700: #ffffff !important; 
-    --color-neutral-800: #ffffff !important;
-    --color-neutral-900: #ffffff !important;
+    --color-neutral-600: #a3a3a3 !important; 
+    --color-neutral-700: #d4d4d4 !important; 
+    --color-neutral-800: #e5e5e5 !important;
+    --color-neutral-900: #f5f5f5 !important;
     --color-neutral-950: #ffffff !important;
 
-    /* Primary: IDE Purple */
+    /* Primary: IDE Purple in Dark Mode */
     --color-primary:         #a78bfa !important;   
     --color-primary-content: #c4b5fd !important;
     --color-primary-fg:      #000000 !important;
@@ -64,11 +69,11 @@
    ============================================================ */
 html {
     scroll-behavior: smooth;
-    color-scheme: dark;
+    color-scheme: light dark;
 }
 
 *, *::before, *::after {
-    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-family: 'JetBrains Mono', 'Inter', monospace;
     letter-spacing: -0.015em;
     -webkit-font-smoothing: antialiased;
 }
@@ -77,9 +82,13 @@ html {
     font-family: 'JetBrains Mono', monospace !important;
 }
 
+.font-sans {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif !important;
+}
+
 body {
     background-color: var(--color-neutral-50);
-    color: var(--color-neutral-950);
+    color: var(--color-neutral-500);
     line-height: 1.6;
 }
 
@@ -87,76 +96,74 @@ body {
    COMPONENT OVERRIDES (via data-slot)
    ============================================================ */
 
-/* --- Cards (Portfolio/Blog Cards) -------------------------- */
+/* --- Cards (Terminal/IDE Output Blocks) -------------------- */
 [data-slot="card"] {
     background-color: var(--color-neutral-100) !important;
     border: 1px solid var(--color-neutral-200) !important;
-    border-radius: var(--radius-box) !important;
+    border-radius: 0 !important;
     box-shadow: none !important;
-    padding: 1.5rem !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0 !important; /* Handled by internal padding for strict borders */
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 [data-slot="card"]:hover {
-    border-color: var(--color-neutral-300) !important;
+    border-color: var(--color-primary) !important;
+    box-shadow: 4px 4px 0px 0px var(--color-primary) !important;
 }
 
-/* --- Buttons ----------------------------------------------- */
+/* --- Buttons (Terminal Commands) --------------------------- */
 [data-slot="button"] {
-    border-radius: 9999px !important; /* Pill shape matched to image */
-    font-weight: 600 !important;
-    font-size: 0.875rem !important;
+    border-radius: 0 !important;
+    font-weight: 700 !important;
+    font-size: 0.75rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
     padding: 0.75rem 1.5rem !important;
     box-shadow: none !important;
-    border-width: 1px !important;
-    transition: all 0.2s ease;
+    border: 1px solid var(--color-neutral-200) !important;
+    transition: all 0.1s ease;
 }
 
 [data-slot="button"][data-variant="primary"] {
-    background-color: var(--color-accent-purple) !important;
+    background-color: var(--color-primary) !important;
     color: var(--color-primary-fg) !important;
-    border-color: var(--color-accent-purple) !important;
+    border-color: var(--color-primary) !important;
+}
+
+[data-slot="button"][data-variant="primary"]:hover {
+    filter: brightness(1.1);
+    box-shadow: 2px 2px 0px 0px var(--color-neutral-500) !important;
 }
 
 [data-slot="button"][data-variant="outline"] {
     background-color: transparent !important;
     border-color: var(--color-neutral-200) !important;
-    color: var(--color-neutral-950) !important;
+    color: var(--color-neutral-500) !important;
 }
 
 [data-slot="button"][data-variant="outline"]:hover {
-    border-color: var(--color-primary) !important;
+    background-color: var(--color-neutral-200) !important;
+    color: var(--color-neutral-50) !important;
 }
 
-/* --- Badges ------------------------------------------------ */
+/* --- Badges (Tags/Labels) ---------------------------------- */
 [data-slot="badge"] {
-    background-color: transparent !important;
-    color: var(--color-primary) !important;
-    border-radius: 9999px !important;
-    font-size: 0.75rem !important;
-    padding: 0.25rem 0.75rem !important;
-    font-weight: 600 !important;
-    border: 1px solid var(--color-primary) !important;
+    background-color: var(--color-neutral-200) !important;
+    color: var(--color-neutral-50) !important;
+    border-radius: 0 !important;
+    font-size: 0.65rem !important;
+    padding: 0.125rem 0.5rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
 }
 
-/* --- Typography Utilities ---------------------------------- */
-.text-skeleton-title {
-    font-weight: 700;
-    font-size: 1.375rem;
-    line-height: 1.2;
-    color: var(--color-neutral-950);
+/* --- IDE Specific Utilities -------------------------------- */
+.ide-grid {
+    background-image: radial-gradient(var(--color-neutral-200) 0.5px, transparent 0.5px);
+    background-size: 24px 24px;
 }
 
-.text-skeleton-body {
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    color: var(--color-neutral-500);
-}
-
-.text-skeleton-meta {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--color-neutral-400);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+.dark .ide-grid {
+    background-image: radial-gradient(rgba(255,255,255,0.05) 0.5px, transparent 0.5px);
 }
