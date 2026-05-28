@@ -1,6 +1,10 @@
         {{ $slot }}
 
         <footer class="mt-auto border-t border-neutral-200 dark:border-neutral-900 bg-white dark:bg-black py-12 transition-colors duration-300">
+            @php
+                use App\Settings\GeneralSettings;
+                $general = app(GeneralSettings::class);
+            @endphp
             <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
                 <div class="flex flex-col items-center md:items-start gap-4">
                     <a href="{{ route('home') }}" wire:navigate class="flex items-center gap-3">
