@@ -60,3 +60,5 @@
                 </div>
             </div>
         </x-ui.layout.header>
+
+        {{ $slot }}
