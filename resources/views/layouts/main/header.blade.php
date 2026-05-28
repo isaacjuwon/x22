@@ -3,16 +3,16 @@
         @include('partials.head')
         {{ $head ?? '' }}
     </head>
-    <body class="min-h-screen bg-neutral-50 dark:bg-black text-neutral-950 dark:text-white antialiased transition-colors duration-300">
+    <body class="min-h-screen bg-neutral-50 text-neutral-900 dark:text-neutral-500 antialiased transition-colors duration-300">
         @php
             use App\Settings\GeneralSettings;
             $general = app(GeneralSettings::class);
         @endphp
         
-        <x-ui.layout.header class="border-b border-neutral-200 dark:border-neutral-900 bg-white/80 dark:bg-black/80 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-300">
+        <x-ui.layout.header class="border-b border-neutral-200 dark:border-neutral-900 bg-neutral-100/80 dark:bg-neutral-50/80 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-300">
             {{-- Brand --}}
-            <a href="{{ route('home') }}" wire:navigate class="flex items-center gap-3 transition-opacity hover:opacity-80">
-                <span class="text-xl font-black tracking-tighter text-neutral-950 dark:text-white uppercase">{{ $general->site_name }}</span>
+            <a href="{{ route('home') }}" wire:navigate class="flex items-center gap-4 transition-opacity hover:opacity-80">
+                <span class="text-xl font-black tracking-tighter text-neutral-900 dark:text-neutral-50 uppercase">{{ $general->site_name }}</span>
             </a>
 
             <div class="ml-auto flex items-center gap-x-8">

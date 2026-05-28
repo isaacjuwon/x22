@@ -34,7 +34,7 @@
             </div>
             <h3 class="pl-4 text-base font-bold tracking-tight text-neutral-900 dark:text-white group-hover:text-primary transition-colors">
                 <a href="{{ route('projects.show', $project) }}" wire:navigate>
-                    "{{ $project->title }}"
+                    <span aria-hidden="true" class="text-neutral-400">"</span>{{ $project->title }}<span aria-hidden="true" class="text-neutral-400">"</span>
                 </a>
             </h3>
         </div>

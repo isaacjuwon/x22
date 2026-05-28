@@ -28,7 +28,7 @@
                     <span class="text-neutral-400">:</span>
                     <h3 class="font-bold tracking-tight text-neutral-900 dark:text-white group-hover:text-primary transition-colors leading-tight">
                         <a href="{{ route('posts.show', $post->slug) }}" wire:navigate>
-                            "{{ $post->title }}"
+                            <span aria-hidden="true" class="text-neutral-400">"</span>{{ $post->title }}<span aria-hidden="true" class="text-neutral-400">"</span>
                         </a>
                     </h3>
                 </div>

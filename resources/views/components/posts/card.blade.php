@@ -18,7 +18,7 @@
                 <span class="text-primary font-bold shrink-0">$</span>
                 <h3 class="font-bold text-neutral-900 dark:text-white group-hover:text-primary transition-colors leading-relaxed">
                     <a href="{{ route('posts.show', $post->slug) }}" wire:navigate>
-                        cat "{{ $post->title }}"
+                        <span aria-hidden="true" class="text-neutral-400">cat </span>{{ $post->title }}
                     </a>
                 </h3>
             </div>
