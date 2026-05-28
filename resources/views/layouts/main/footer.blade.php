@@ -1,5 +1,3 @@
-        {{ $slot }}
-
         <footer class="mt-auto border-t border-neutral-200 dark:border-neutral-200 bg-white dark:bg-black py-12 transition-colors duration-300">
             @php
                 use App\Settings\GeneralSettings;

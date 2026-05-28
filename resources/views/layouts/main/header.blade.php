@@ -12,7 +12,7 @@
         <x-ui.layout.header data-slot="header" class="border-b bg-white/80 dark:bg-[#141414]/80 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-300">
             {{-- Brand --}}
             <a href="{{ route('home') }}" wire:navigate class="flex items-center gap-4 transition-opacity hover:opacity-80">
-                <span class="text-xl font-black tracking-tighter text-neutral-900 dark:text-neutral-50 uppercase">{{ $general->site_name }}</span>
+                <span class="text-xl font-black tracking-tighter text-neutral-900 dark:text-neutral-900 uppercase">{{ $general->site_name }}</span>
             </a>
 
             <div class="ml-auto flex items-center gap-x-8">
@@ -35,7 +35,7 @@
                             </x-ui.button>
                         </x-slot:button>
 
-                        <x-slot:menu class="w-64 bg-white dark:bg-neutral-100 border-neutral-200 dark:border-neutral-200">
+                        <x-slot:menu class="w-64 bg-white dark:bg-neutral-300 border-neutral-200 dark:border-neutral-300">
                             <x-ui.dropdown.item :href="route('home')" icon="home" wire:navigate class="text-xs uppercase font-bold tracking-widest">
                                 {{ __('Home') }}
                             </x-ui.dropdown.item>
