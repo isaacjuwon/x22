@@ -27,8 +27,7 @@
         <aside class="hidden lg:flex w-12 flex-col items-center py-4 border-r border-neutral-200 dark:border-neutral-800 gap-6 text-neutral-400">
             <x-ui.icon name="document-duplicate" class="size-6 hover:text-primary cursor-pointer" />
             <x-ui.icon name="magnifying-glass" class="size-6 hover:text-primary cursor-pointer" />
-            <x-ui.icon name="arrow-long-right
-            " class="size-6 hover:text-primary cursor-pointer" />
+            <x-ui.icon name="arrow-long-right" class="size-6 hover:text-primary cursor-pointer" />
             <x-ui.icon name="play" class="size-6 hover:text-primary cursor-pointer" />
             <div class="mt-auto pb-4">
                 <x-ui.icon name="cog-6-tooth" class="size-6 hover:text-primary cursor-pointer" />
@@ -142,7 +141,7 @@
                         <span>Connected</span>
                     </div>
                     <div class="flex items-center gap-1">
-                        <x-ui.icon name="git-branch" class="size-3" />
+                        <x-ui.icon name="arrow-long-right" class="size-3" />
                         <span>Main*</span>
                     </div>
                 </div>
