@@ -9,7 +9,7 @@
             $general = app(GeneralSettings::class);
         @endphp
         
-        <x-ui.layout.header class="border-b border-neutral-200 dark:border-neutral-200/10 bg-neutral-100/80 dark:bg-[#141414]/80 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-300">
+        <x-ui.layout.header data-slot="header" class="border-b bg-white/80 dark:bg-[#141414]/80 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-300">
             {{-- Brand --}}
             <a href="{{ route('home') }}" wire:navigate class="flex items-center gap-4 transition-opacity hover:opacity-80">
                 <span class="text-xl font-black tracking-tighter text-neutral-900 dark:text-neutral-50 uppercase">{{ $general->site_name }}</span>
