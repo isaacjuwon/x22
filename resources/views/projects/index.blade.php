@@ -24,7 +24,7 @@
             {{-- Filters Bar (IDE Search Style) --}}
             <form method="GET" action="{{ route('projects.index') }}" class="flex flex-wrap items-center gap-px bg-neutral-200 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-800">
                 <div class="flex-1 min-w-[300px] flex items-center bg-white dark:bg-[#141414] px-6 py-4">
-                    <x-ui.icon name="heroicon-o-magnifying-glass" class="size-4 text-neutral-400 mr-4" />
+                    <x-ui.icon name="magnifying-glass" class="size-4 text-neutral-400 mr-4" />
                     <input
                         type="text"
                         name="search"

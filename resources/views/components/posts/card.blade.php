@@ -36,11 +36,11 @@
         <div class="mt-auto pt-6 flex items-center justify-between text-[9px] font-bold uppercase tracking-widest text-neutral-400 border-t border-neutral-100 dark:border-neutral-200/10">
             <div class="flex items-center gap-4">
                 <div class="flex items-center gap-1.5">
-                    <x-ui.icon name="heroicon-o-eye" class="size-3" />
+                    <x-ui.icon name="eye" class="size-3" />
                     <span>{{ number_format($post->view_count) }}</span>
                 </div>
                 <div class="flex items-center gap-1.5">
-                    <x-ui.icon name="heroicon-o-clock" class="size-3" />
+                    <x-ui.icon name="clock" class="size-3" />
                     <span>{{ $post->reading_time ?? 5 }}m</span>
                 </div>
             </div>

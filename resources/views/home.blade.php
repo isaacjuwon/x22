@@ -16,13 +16,13 @@
         
         {{-- ── Left Sidebar: IDE Navigation ── --}}
         <aside class="hidden lg:flex w-16 flex-col items-center py-6 border-r border-neutral-200 dark:border-neutral-200 bg-white dark:bg-[#0a0a0a] gap-8 text-neutral-400">
-            <x-ui.icon name="heroicon-o-document-duplicate" class="size-6 hover:text-primary cursor-pointer transition-colors" />
-            <x-ui.icon name="heroicon-o-magnifying-glass" class="size-6 hover:text-primary cursor-pointer transition-colors" />
-            <x-ui.icon name="heroicon-o-git-branch" class="size-6 hover:text-primary cursor-pointer transition-colors" />
-            <x-ui.icon name="heroicon-o-play" class="size-6 hover:text-primary cursor-pointer transition-colors" />
+            <x-ui.icon name="document-duplicate" class="size-6 hover:text-primary cursor-pointer transition-colors" />
+            <x-ui.icon name="magnifying-glass" class="size-6 hover:text-primary cursor-pointer transition-colors" />
+            <x-ui.icon name="git-branch" class="size-6 hover:text-primary cursor-pointer transition-colors" />
+            <x-ui.icon name="play" class="size-6 hover:text-primary cursor-pointer transition-colors" />
             <div class="mt-auto flex flex-col items-center gap-6">
                 <x-ui.theme-switcher variant="inline" />
-                <x-ui.icon name="heroicon-o-cog-6-tooth" class="size-6 hover:text-primary cursor-pointer transition-colors" />
+                <x-ui.icon name="cog-6-tooth" class="size-6 hover:text-primary cursor-pointer transition-colors" />
             </div>
         </aside>
 
@@ -32,15 +32,15 @@
             {{-- Editor Tabs --}}
             <nav class="flex border-b border-neutral-200 dark:border-neutral-200 bg-white dark:bg-[#141414] overflow-x-auto">
                 <div class="flex items-center px-6 py-3 border-r border-neutral-200 dark:border-neutral-200 bg-neutral-50 dark:bg-[#0a0a0a] text-[10px] font-bold text-primary border-t-2 border-t-primary uppercase tracking-widest">
-                    <x-ui.icon name="heroicon-o-home" class="size-3 mr-2" />
+                    <x-ui.icon name="home" class="size-3 mr-2" />
                     <span>README.md</span>
                 </div>
                 <a href="{{ route('posts.index') }}" class="flex items-center px-6 py-3 border-r border-neutral-200 dark:border-neutral-200 text-[10px] font-bold text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors uppercase tracking-widest">
-                    <x-ui.icon name="heroicon-o-document-text" class="size-3 mr-2" />
+                    <x-ui.icon name="document-text" class="size-3 mr-2" />
                     <span>blog.json</span>
                 </a>
                 <a href="{{ route('projects.index') }}" class="flex items-center px-6 py-3 border-r border-neutral-200 dark:border-neutral-200 text-[10px] font-bold text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors uppercase tracking-widest">
-                    <x-ui.icon name="heroicon-o-folder" class="size-3 mr-2" />
+                    <x-ui.icon name="folder" class="size-3 mr-2" />
                     <span>portfolio.lock</span>
                 </a>
             </nav>
@@ -62,7 +62,7 @@
                         </h1>
                         <div class="flex flex-wrap items-center gap-6">
                             <div class="flex items-center gap-2 px-3 py-1 bg-primary text-black text-[10px] font-bold uppercase">
-                                <x-ui.icon name="heroicon-o-check-badge" class="size-3" />
+                                <x-ui.icon name="check-badge" class="size-3" />
                                 <span>Senior Architect</span>
                             </div>
                             <div class="flex items-center gap-2 text-neutral-400 text-[10px] font-bold uppercase tracking-widest">
@@ -138,7 +138,7 @@
                         <span>System Online</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <x-ui.icon name="heroicon-o-git-branch" class="size-3" />
+                        <x-ui.icon name="git-branch" class="size-3" />
                         <span>Production v{{ config('app.version', '1.0.0') }}</span>
                     </div>
                 </div>

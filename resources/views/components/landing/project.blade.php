@@ -4,7 +4,7 @@
     {{-- Project Header (IDE Style) --}}
     <div class="flex items-center justify-between px-4 py-2 border-b border-neutral-200 dark:border-neutral-200 bg-neutral-50 dark:bg-[#0a0a0a]">
         <div class="flex items-center gap-2">
-            <x-ui.icon name="heroicon-o-document" class="size-3 text-neutral-400" />
+            <x-ui.icon name="document" class="size-3 text-neutral-400" />
             <span class="text-[9px] font-bold uppercase tracking-widest text-neutral-400">{{ $project->category ?? 'project' }}.md</span>
         </div>
         <div class="flex gap-1">
