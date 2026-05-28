@@ -1,17 +1,14 @@
-@aware(['darkIcon'=>'moon','lightIcon'=>'sun','iconVariant' => "mini"])
+@aware(['darkIcon'=>'moon','lightIcon'=>'sun','iconVariant' => "outline"])
 
-<div
-    class="flex items-center transition-all duration-200 size-10 overflow-hidden"
- >
+<div class="flex items-center transition-all duration-300">
     <x-ui.button 
         :icon="$lightIcon" 
         :$iconVariant
         variant="none"
-        class="hover:opacity-80 transition"
+        class="h-9 w-9 p-0 text-neutral-500 hover:text-primary transition-colors flex items-center justify-center"
         x-show="$theme.isResolvedToLight"
         x-on:click="$theme.toggle()"
         style="display: none;"
-        iconVariant="outline"
         role="button"
         aria-pressed="true"
         x-bind:aria-pressed="$theme.isResolvedToLight"
@@ -21,11 +18,10 @@
         :icon="$darkIcon" 
         :$iconVariant
         variant="none"
-        class="hover:opacity-80 transition"
+        class="h-9 w-9 p-0 text-neutral-400 hover:text-primary transition-colors flex items-center justify-center"
         x-show="$theme.isResolvedToDark"
         x-on:click="$theme.toggle()"
         style="display: none;"
-        iconVariant="outline"
         role="button"
         aria-pressed="true"
         x-bind:aria-pressed="$theme.isResolvedToDark"

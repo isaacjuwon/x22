@@ -45,6 +45,7 @@ window.setupTiptap = function (
       }),
       CodeBlockShiki.configure({
         defaultLanguage: 'javascript',
+        langs: ['javascript', 'typescript', 'php', 'html', 'css', 'bash', 'json', 'sql', 'markdown', 'yaml', 'xml'],
         themes: {
           light: 'github-light',
           dark: 'github-dark',

@@ -1,113 +1,36 @@
-@php
-    use App\Settings\GeneralSettings;
-    use App\Settings\SocialSettings;
+        {{ $slot }}
 
-    $general = app(GeneralSettings::class);
-    $social  = app(SocialSettings::class);
-
-    $socialLinks = array_filter([
-        'GitHub'    => $social->github_url,
-        'Twitter'   => $social->twitter_url,
-        'LinkedIn'  => $social->linkedin_url,
-        'Instagram' => $social->instagram_url,
-        'YouTube'   => $social->youtube_url,
-        'Facebook'  => $social->facebook_url,
-    ]);
-@endphp
-
-<footer data-slot="footer" class="py-12">
-    <div class="mx-auto max-w-6xl px-6">
-        <div class="grid grid-cols-1 gap-10 sm:grid-cols-4">
-
-            {{-- Brand --}}
-            <div class="space-y-4">
-                <span class="text-sm font-bold tracking-[0.2em] text-neutral-950 uppercase">
-                    {{ $general->site_name }}
-                </span>
-                @if ($general->site_description)
-                    <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
-                        {{ $general->site_description }}
+        <footer class="mt-auto border-t border-neutral-200 dark:border-neutral-900 bg-white dark:bg-black py-12 transition-colors duration-300">
+            <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="flex flex-col items-center md:items-start gap-4">
+                    <a href="{{ route('home') }}" wire:navigate class="flex items-center gap-3">
+                        <span class="text-lg font-black tracking-tighter text-neutral-950 dark:text-white uppercase">{{ $general->site_name }}</span>
+                    </a>
+                    <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400">
+                        &copy; {{ date('Y') }} {{ config('app.name') }} — {{ __('Senior Web Architect') }}
                     </p>
-                @endif
-                @if ($general->site_email)
-                    <p class="text-xs text-neutral-500 dark:text-neutral-400">
-                        <a href="mailto:{{ $general->site_email }}" class="hover:text-primary transition-colors">
-                            {{ $general->site_email }}
-                        </a>
-                    </p>
-                @endif
-            </div>
+                </div>
 
-            {{-- Navigation --}}
-            <div class="space-y-3">
-                <p class="text-xs font-semibold uppercase tracking-widest text-neutral-700 dark:text-neutral-300">{{ __('Navigation') }}</p>
-                <nav class="flex flex-col gap-2">
-                    <x-ui.link href="{{ route('home') }}" class="text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary">{{ __('Home') }}</x-ui.link>
-                    @if ($general->show_posts_section)
-                        <x-ui.link href="{{ route('posts.index') }}" wire:navigate class="text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary">{{ __('Blog') }}</x-ui.link>
-                    @endif
-                    @if ($general->show_projects_section)
-                        <x-ui.link href="{{ route('projects.index') }}" wire:navigate class="text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary">{{ __('Projects') }}</x-ui.link>
-                    @endif
-                    @if ($general->show_testimonials_section)
-                        <x-ui.link href="{{ route('testimonials.index') }}" wire:navigate class="text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary">{{ __('Testimonials') }}</x-ui.link>
-                    @endif
+                <div class="flex items-center gap-10 text-[10px] font-black uppercase tracking-[0.2em] text-neutral-400">
+                    <div class="flex items-center gap-2">
+                        <span class="size-2 bg-green-500 rounded-full animate-pulse"></span>
+                        <span class="text-neutral-500">{{ __('Network: Online') }}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <x-ui.icon name="cpu-chip" class="size-4" />
+                        <span>v{{ config('app.version', '4.2.0') }}</span>
+                    </div>
+                </div>
+
+                <nav class="flex items-center gap-6">
+                    <x-ui.button as="a" href="https://github.com" target="_blank" variant="none" class="p-0 text-neutral-400 hover:text-primary">
+                        <x-ui.icon name="link" class="size-5" />
+                    </x-ui.button>
+                    <x-ui.button as="a" href="https://twitter.com" target="_blank" variant="none" class="p-0 text-neutral-400 hover:text-primary">
+                        <x-ui.icon name="link" class="size-5" />
+                    </x-ui.button>
                 </nav>
             </div>
-
-            {{-- Social / Account --}}
-            <div class="space-y-3">
-                @if (!empty($socialLinks))
-                    <p class="text-xs font-semibold uppercase tracking-widest text-neutral-700 dark:text-neutral-300">{{ __('Follow Us') }}</p>
-                    <nav class="flex flex-col gap-2">
-                        @foreach ($socialLinks as $name => $url)
-                            <a href="{{ $url }}" target="_blank" rel="noopener noreferrer"
-                               class="text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary transition-colors">
-                                {{ $name }}
-                            </a>
-                        @endforeach
-                    </nav>
-                @else
-                    <p class="text-xs font-semibold uppercase tracking-widest text-neutral-700 dark:text-neutral-300">{{ __('Account') }}</p>
-                    <nav class="flex flex-col gap-2">
-                        @auth
-                            <x-ui.link href="{{ route('dashboard') }}" class="text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary">{{ __('Dashboard') }}</x-ui.link>
-                        @else
-                            <x-ui.link href="{{ route('login') }}" class="text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary">{{ __('Sign In') }}</x-ui.link>
-                            @if (Route::has('register'))
-                                <x-ui.link href="{{ route('register') }}" class="text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary">{{ __('Register') }}</x-ui.link>
-                            @endif
-                        @endauth
-                    </nav>
-                @endif
-            </div>
-
-            {{-- Pages --}}
-            @php
-                $pages = App\Models\Page::published()->get(['title', 'slug']);
-            @endphp
-            @if($pages->isNotEmpty())
-                <div class="space-y-3">
-                    <p class="text-xs font-semibold uppercase tracking-widest text-neutral-700 dark:text-neutral-300">{{ __('Company') }}</p>
-                    <nav class="flex flex-col gap-2">
-                        @foreach($pages as $page)
-                            <x-ui.link href="{{ route('pages.show', $page->slug) }}" wire:navigate class="text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary">
-                                {{ $page->title }}
-                            </x-ui.link>
-                        @endforeach
-                    </nav>
-                </div>
-            @endif
-
-        </div>
-
-        <x-ui.separator class="my-8" />
-
-        <div class="flex flex-col items-center justify-between gap-3 sm:flex-row">
-            <p class="term-comment text-xs text-neutral-500 dark:text-neutral-500">
-                &copy; {{ date('Y') }} {{ $general->site_name }}. {{ __('All rights reserved.') }}
-            </p>
-            <x-ui.theme-switcher variant="inline" />
-        </div>
-    </div>
-</footer>
+        </footer>
+    </body>
+</html>

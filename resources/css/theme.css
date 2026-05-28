@@ -1,71 +1,61 @@
 /* ============================================================
-   SHEAF UI — SENIOR DEVELOPER MASTERPIECE
-   Terminal/IDE Inspired • High Contrast • Precision Layout
+   SHEAF UI — REFINED DEVELOPER PORTFOLIO
+   Clean IDE Aesthetic • Professional Balance • High Contrast
    ============================================================ */
 
 /* ── Google Fonts: Inter & JetBrains Mono ── */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 @theme {
-    /* Primary: Terminal Green (Success) & IDE Purple (Action) */
-    --color-primary:         #10b981; /* Default to Terminal Green */
-    --color-primary-content: #34d399;   
-    --color-primary-fg:      #000000;
+    /* Primary: Vibrant Purple (Action) */
+    --color-primary:         #8b5cf6;
+    --color-primary-content: #a78bfa;   
+    --color-primary-fg:      #ffffff;
 
-    /* Base Palette — Terminal Light Mode (Clean IDE) */
-    --color-neutral-50:  #ffffff; /* Main BG */
-    --color-neutral-100: #f1f5f9; /* Surface BG */
-    --color-neutral-200: #000000; /* Strict Borders */
-    --color-neutral-300: #e2e8f0; 
+    /* Base Palette — Light Mode (Clean Workspace) */
+    --color-neutral-50:  #f8fafc; /* Subtle Gray BG */
+    --color-neutral-100: #ffffff; /* Card/Surface */
+    --color-neutral-200: #e2e8f0; /* Borders */
+    --color-neutral-300: #cbd5e1; 
     --color-neutral-400: #94a3b8; 
-    --color-neutral-500: #0f172a; /* Primary Text */
-    --color-neutral-600: #334155; 
-    --color-neutral-700: #475569;
-    --color-neutral-800: #64748b;
-    --color-neutral-900: #94a3b8;
-    --color-neutral-950: #cbd5e1;
+    --color-neutral-500: #64748b; 
+    --color-neutral-600: #475569; 
+    --color-neutral-700: #334155;
+    --color-neutral-800: #1e293b;
+    --color-neutral-900: #0f172a;
+    --color-neutral-950: #020617;
 
-    /* Strict IDE Radius (No rounding for that precision look) */
-    --radius-field: 0rem;
-    --radius-box:   0rem;
-    --radius-pill:  0rem;
+    /* Balanced Radius (Reduced from 2rem, increased from 0) */
+    --radius-field: 0.5rem;
+    --radius-box:   1rem;
+    --radius-pill:  9999px;
 
     /* Semantic Status */
     --color-success: #10b981;
     --color-error:   #ef4444;
     --color-warning: #f59e0b;
     --color-info:    #3b82f6;
-
-    /* Accent Palette */
-    --color-accent-purple: #8b5cf6;
-    --color-accent-blue:   #3b82f6;
-    --color-accent-amber:  #f59e0b;
 }
 
-/* Base Palette — Terminal Dark Mode (High-End IDE) */
+/* Base Palette — Dark Mode (High-End IDE) */
 .dark {
-    --color-neutral-50:  #0a0a0a !important; 
-    --color-neutral-100: #141414 !important; 
-    --color-neutral-200: #262626 !important; /* Grid Lines */
-    --color-neutral-300: #333333 !important; 
-    --color-neutral-400: #525252 !important; 
-    --color-neutral-500: #cccccc !important; 
+    --color-neutral-50:  #050505 !important; 
+    --color-neutral-100: #121212 !important; 
+    --color-neutral-200: #1e1e1e !important; 
+    --color-neutral-300: #262626 !important; 
+    --color-neutral-400: #404040 !important; 
+    --color-neutral-500: #737373 !important; 
     --color-neutral-600: #a3a3a3 !important; 
     --color-neutral-700: #d4d4d4 !important; 
     --color-neutral-800: #e5e5e5 !important;
     --color-neutral-900: #f5f5f5 !important;
     --color-neutral-950: #ffffff !important;
 
-    /* Primary: IDE Purple in Dark Mode */
-    --color-primary:         #a78bfa !important;   
-    --color-primary-content: #c4b5fd !important;
-    --color-primary-fg:      #000000 !important;
-
-    background-color: #0a0a0a;
+    background-color: #050505;
 }
 
 /* ============================================================
-   GLOBAL TYPOGRAPHY & SKELETON RULES
+   GLOBAL TYPOGRAPHY
    ============================================================ */
 html {
     scroll-behavior: smooth;
@@ -73,8 +63,8 @@ html {
 }
 
 *, *::before, *::after {
-    font-family: 'JetBrains Mono', 'Inter', monospace;
-    letter-spacing: -0.015em;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.01em;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -82,46 +72,40 @@ html {
     font-family: 'JetBrains Mono', monospace !important;
 }
 
-.font-sans {
-    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif !important;
-}
-
 body {
     background-color: var(--color-neutral-50);
-    color: var(--color-neutral-500);
+    color: var(--color-neutral-900);
     line-height: 1.6;
 }
 
+.dark body {
+    color: var(--color-neutral-600);
+}
+
 /* ============================================================
-   COMPONENT OVERRIDES (via data-slot)
+   COMPONENT OVERRIDES
    ============================================================ */
 
-/* --- Cards (Terminal/IDE Output Blocks) -------------------- */
+/* --- Cards --- */
 [data-slot="card"] {
     background-color: var(--color-neutral-100) !important;
     border: 1px solid var(--color-neutral-200) !important;
-    border-radius: 0 !important;
+    border-radius: var(--radius-box) !important;
     box-shadow: none !important;
-    padding: 0 !important; /* Handled by internal padding for strict borders */
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
 }
 
 [data-slot="card"]:hover {
     border-color: var(--color-primary) !important;
-    box-shadow: 4px 4px 0px 0px var(--color-primary) !important;
+    transform: translateY(-2px);
 }
 
-/* --- Buttons (Terminal Commands) --------------------------- */
+/* --- Buttons --- */
 [data-slot="button"] {
-    border-radius: 0 !important;
-    font-weight: 700 !important;
-    font-size: 0.75rem !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.1em !important;
-    padding: 0.75rem 1.5rem !important;
-    box-shadow: none !important;
-    border: 1px solid var(--color-neutral-200) !important;
-    transition: all 0.1s ease;
+    border-radius: var(--radius-pill) !important;
+    font-weight: 600 !important;
+    font-size: 0.875rem !important;
+    transition: all 0.2s ease;
 }
 
 [data-slot="button"][data-variant="primary"] {
@@ -130,40 +114,16 @@ body {
     border-color: var(--color-primary) !important;
 }
 
-[data-slot="button"][data-variant="primary"]:hover {
-    filter: brightness(1.1);
-    box-shadow: 2px 2px 0px 0px var(--color-neutral-500) !important;
-}
-
 [data-slot="button"][data-variant="outline"] {
     background-color: transparent !important;
     border-color: var(--color-neutral-200) !important;
-    color: var(--color-neutral-500) !important;
 }
 
-[data-slot="button"][data-variant="outline"]:hover {
-    background-color: var(--color-neutral-200) !important;
-    color: var(--color-neutral-50) !important;
-}
-
-/* --- Badges (Tags/Labels) ---------------------------------- */
+/* --- Badges --- */
 [data-slot="badge"] {
-    background-color: var(--color-neutral-200) !important;
-    color: var(--color-neutral-50) !important;
-    border-radius: 0 !important;
-    font-size: 0.65rem !important;
-    padding: 0.125rem 0.5rem !important;
+    border-radius: var(--radius-pill) !important;
+    font-size: 0.7rem !important;
     font-weight: 700 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.05em !important;
-}
-
-/* --- IDE Specific Utilities -------------------------------- */
-.ide-grid {
-    background-image: radial-gradient(var(--color-neutral-200) 0.5px, transparent 0.5px);
-    background-size: 24px 24px;
-}
-
-.dark .ide-grid {
-    background-image: radial-gradient(rgba(255,255,255,0.05) 0.5px, transparent 0.5px);
 }
