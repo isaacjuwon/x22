@@ -94,13 +94,13 @@
                         
                         <div class="flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-neutral-400">
                             <div class="flex items-center gap-2">
-                                <x-ui.icon name="heroicon-o-calendar" class="size-3" />
+                                <x-ui.icon name="calendar" class="size-3" />
                                 <time datetime="{{ $post->published_at->toIso8601String() }}">
                                     {{ $post->published_at->format('Y.m.d') }}
                                 </time>
                             </div>
                             <div class="flex items-center gap-2">
-                                <x-ui.icon name="heroicon-o-clock" class="size-3" />
+                                <x-ui.icon name="clock" class="size-3" />
                                 <span>{{ $post->reading_time }}m read</span>
                             </div>
                         </div>
@@ -111,7 +111,7 @@
                 <template x-if="visible">
                     <div class="fixed left-12 top-40 hidden xl:block w-72 space-y-6">
                         <div class="flex items-center gap-2">
-                            <x-ui.icon name="heroicon-o-list-bullet" class="size-4 text-primary" />
+                            <x-ui.icon name="list-bullet" class="size-4 text-primary" />
                             <p class="text-[10px] font-black tracking-[0.3em] uppercase text-neutral-500">{{ __('Outline.structure') }}</p>
                         </div>
                         <nav class="space-y-1 border-l border-neutral-200 dark:border-neutral-800">
