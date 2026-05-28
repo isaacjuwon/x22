@@ -42,13 +42,13 @@
     --color-neutral-50:  #050505 !important; 
     --color-neutral-100: #121212 !important; 
     --color-neutral-200: #1e1e1e !important; 
-    --color-neutral-300: #262626 !important; 
-    --color-neutral-400: #404040 !important; 
-    --color-neutral-500: #737373 !important; 
-    --color-neutral-600: #a3a3a3 !important; 
-    --color-neutral-700: #d4d4d4 !important; 
-    --color-neutral-800: #e5e5e5 !important;
-    --color-neutral-900: #f5f5f5 !important;
+    --color-neutral-300: #404040 !important; /* Meta text visibility - lightened from #262626 */
+    --color-neutral-400: #a3a3a3 !important; /* Secondary text - lightened from #888888 */
+    --color-neutral-500: #d4d4d4 !important; /* Primary text - lightened from #a3a3a3 */
+    --color-neutral-600: #e5e5e5 !important; /* Stronger text - lightened from #cccccc */
+    --color-neutral-700: #f5f5f5 !important; 
+    --color-neutral-800: #fafafa !important;
+    --color-neutral-900: #ffffff !important;
     --color-neutral-950: #ffffff !important;
 
     /* Primary Overrides for Dark Mode */

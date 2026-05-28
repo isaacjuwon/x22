@@ -147,7 +147,7 @@
                                 </div>
                             @endif
 
-                            <div class="tiptap-content text-lg leading-relaxed text-neutral-900 dark:text-neutral-300 font-sans">
+                            <div class="tiptap-content text-lg leading-relaxed text-neutral-900 dark:text-neutral-600 font-sans">
                                 {!! ContentRenderer::render($post->content_json ?: $post->content) !!}
                             </div>
                         </div>

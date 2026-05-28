@@ -56,7 +56,7 @@
         @if ($general->show_projects_section)
             <section id="projects" class="px-6 py-24 bg-white dark:bg-[#0a0a0a]">
                 <div class="mx-auto max-w-6xl">
-                    <div class="mb-16 flex items-end justify-between border-b border-neutral-100 dark:border-neutral-900 pb-8">
+                    <div class="mb-16 flex items-end justify-between border-b border-neutral-100 dark:border-neutral-200 pb-8">
                         <div class="space-y-2">
                             <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">{{ __('Featured Work') }}</p>
                             <h2 class="text-3xl font-black text-neutral-900 dark:text-white uppercase">{{ __('Selected Projects') }}</h2>
@@ -85,7 +85,7 @@
         @if ($general->show_posts_section)
             <section id="blog" class="px-6 py-24">
                 <div class="mx-auto max-w-6xl">
-                    <div class="mb-16 flex items-end justify-between border-b border-neutral-100 dark:border-neutral-900 pb-8">
+                    <div class="mb-16 flex items-end justify-between border-b border-neutral-100 dark:border-neutral-200 pb-8">
                         <div class="space-y-2">
                             <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">{{ __('Technical Log') }}</p>
                             <h2 class="text-3xl font-black text-neutral-900 dark:text-white uppercase">{{ __('Recent Insights') }}</h2>

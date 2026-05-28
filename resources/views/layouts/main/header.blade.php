@@ -35,7 +35,7 @@
                             </x-ui.button>
                         </x-slot:button>
 
-                        <x-slot:menu class="w-64 bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800">
+                        <x-slot:menu class="w-64 bg-white dark:bg-neutral-100 border-neutral-200 dark:border-neutral-200">
                             <x-ui.dropdown.item :href="route('home')" icon="home" wire:navigate class="text-xs uppercase font-bold tracking-widest">
                                 {{ __('Home') }}
                             </x-ui.dropdown.item>

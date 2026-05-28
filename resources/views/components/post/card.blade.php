@@ -49,7 +49,7 @@
                 <span class="text-primary font-bold">4</span>
                 <span class="text-accent-purple font-bold">"stats"</span>
                 <span class="text-neutral-400">:</span>
-                <span class="text-neutral-300 text-[10px] font-bold uppercase tracking-tighter">
+                <span class="text-neutral-400 text-[10px] font-bold uppercase tracking-tighter">
                     [{{ number_format($post->view_count) }} views, {{ $post->reading_time ?? 5 }}m read]
                 </span>
             </div>
