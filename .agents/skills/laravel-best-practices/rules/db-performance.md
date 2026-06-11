@@ -189,4 +189,8 @@ return view('users.index', compact('users'));
 @foreach ($users as $user)
     {{ $user->profile->name }}
 @endforeach
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a

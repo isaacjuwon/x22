@@ -122,4 +122,8 @@ if (count((array) $builder->getQuery()->joins) > 0)
 Correct:
 ```php
 if ($this->hasJoins())
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a

@@ -8,12 +8,16 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
     plugins: [
         laravel({
+<<<<<<< HEAD
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/css/pergament/pergament.css',
                 'resources/js/pergament/pergament.js',
             ],
+=======
+            input: ['resources/css/app.css', 'resources/js/app.js'],
+>>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a
             refresh: true,
             fonts: [
                 bunny('Instrument Sans', {

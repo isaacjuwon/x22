@@ -49,4 +49,8 @@ Notification::route('mail', 'admin@example.com')->notify(new SystemAlert());
 
 ## Implement `HasLocalePreference` on Notifiable Models
 
+<<<<<<< HEAD
 Laravel automatically uses the user's preferred locale for all notifications and mailables — no per-call `locale()` needed.
+=======
+Laravel automatically uses the user's preferred locale for all notifications and mailables — no per-call `locale()` needed.
+>>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a

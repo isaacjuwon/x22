@@ -116,4 +116,8 @@ If existing pages and components support dark mode, new pages and components mus
 - Using `@tailwind` directives instead of `@import "tailwindcss"`
 - Trying to use `tailwind.config.js` instead of CSS `@theme` directive
 - Using margins for spacing between siblings instead of gap utilities
+<<<<<<< HEAD
 - Forgetting to add dark mode variants when the project uses dark mode
+=======
+- Forgetting to add dark mode variants when the project uses dark mode
+>>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a

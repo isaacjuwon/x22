@@ -1,0 +1,382 @@
+/* ============================================================
+   SHEAF UI — SLEEK MAROON (ZED-INSPIRED)
+   Professional, Refined, High-Performance Aesthetic
+   ============================================================ */
+
+/* ── Google Fonts: Inter & JetBrains Mono ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+/* ============================================================
+   THEME VARIABLES
+   ============================================================ */
+@theme {
+    /* Primary: Deep Maroon */
+    --color-primary:         #800020;   /* Oxblood/Maroon */
+    --color-primary-content: #a23b47;   /* Lighter Maroon for contrast */
+    --color-primary-fg:      #ffffff;   
+
+    /* Accents */
+    --color-accent:          #d4a373;   /* Muted gold/sand */
+    --color-accent-fg:       #1a1a1a;
+
+    /* Neutral palette — Zed-like Refined Grays */
+    --color-neutral-50:  #fdfcfb;
+    --color-neutral-100: #f5f3f1;
+    --color-neutral-200: #e9e5e1;
+    --color-neutral-300: #dcd7d1;
+    --color-neutral-400: #b6ad10;
+    --color-neutral-500: #8c8279;
+    --color-neutral-600: #645c55;
+    --color-neutral-700: #4a443f;
+    --color-neutral-800: #2d2a27;
+    --color-neutral-900: #1c1a19;
+    --color-neutral-950: #0f0e0d;
+
+    /* Refined Radius */
+    --radius-field: 0.375rem;
+    --radius-box:   0.5rem;
+
+    /* Semantic Status */
+    --color-success: #4ade80;   
+    --color-error:   #f87171;   
+    --color-warning: #fbbf24;   
+    --color-info:    #60a5fa;   
+}
+
+/* ============================================================
+   DARK MODE — macOS / Zed Inspired
+   ============================================================ */
+@layer theme {
+    .dark {
+        /* macOS Dark / Obsidian Palette - Refined Dark Grays */
+        --color-neutral-50:  #0a0a0a !important; /* Background */
+        --color-neutral-100: #141414 !important; /* Surface/Card */
+        --color-neutral-200: #1e1e1e !important; /* Lighter Surface */
+        --color-neutral-300: #2d2d2d !important; /* High contrast text / UI elements */
+        --color-neutral-400: #555555 !important; /* Secondary text */
+        --color-neutral-500: #888888 !important; /* Muted text */
+        --color-neutral-600: #aaaaaa !important; /* Primary text fallback */
+        --color-neutral-700: #cccccc !important; /* Light text */
+        --color-neutral-800: #e5e5e5 !important; /* Near white text */
+        --color-neutral-900: #f5f5f5 !important; /* White text */
+        --color-neutral-950: #ffffff !important; /* Absolute white */
+
+        /* Maroon: Sophisticated & Rich */
+        --color-primary:         #b03040;   
+        --color-primary-content: #d04050;   
+        
+        background-color: #0a0a0a;
+    }
+}
+
+/* Selection */
+.dark ::selection {
+    background: rgba(176, 48, 64, 0.4);
+    color: #ffffff;
+}
+
+/* macOS Scrollbars */
+.dark ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.dark ::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+/* ============================================================
+   COMPONENT OVERRIDES (via data-slot)
+   ============================================================ */
+
+/* --- Sidebar (macOS Style) --------------------------------- */
+.dark [data-slot="sidebar"] {
+    background-color: var(--color-neutral-900) !important;
+    border-right: 1px solid rgba(0, 0, 0, 0.2) !important;
+    box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.02) !important;
+    position: relative;
+    padding-top: 38px !important; /* Space for traffic lights */
+}
+
+/* Simulated macOS Traffic Lights */
+.dark [data-slot="sidebar"]::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ff5f56;
+    box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27c93f;
+    z-index: 50;
+}
+
+/* --- Header ------------------------------------------------ */
+.dark [data-slot="header"] {
+    background-color: rgba(30, 30, 30, 0.7) !important;
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* --- Footer ------------------------------------------------ */
+[data-slot="footer"] {
+    border-top: 1px solid var(--color-neutral-200);
+    background-color: var(--color-neutral-100);
+}
+
+.dark [data-slot="footer"] {
+    border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+    background-color: var(--color-neutral-900) !important; /* #181818 in dark */
+}
+
+/* --- Cards ------------------------------------------------- */
+/* We rely on theme.css for cards. */
+
+/* --- Navigation Items (Zed Style) -------------------------- */
+/* We rely on theme.css for navigation items. */
+
+
+/* --- Buttons ----------------------------------------------- */
+.dark [data-slot="button"] {
+    border-radius: 6px !important;
+}
+
+.dark [data-slot="button"][data-variant="primary"] {
+    background-color: var(--color-primary) !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark [data-slot="button"][data-variant="primary"]:hover {
+    background-color: var(--color-primary-content) !important;
+}
+
+.dark [data-slot="button"][data-variant="outline"] {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    color: #d1d1d1 !important;
+}
+
+.dark [data-slot="button"][data-variant="outline"]:hover {
+    background-color: rgba(255, 255, 255, 0.07) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+}
+
+/* --- Badges ------------------------------------------------ */
+.dark [data-slot="badge"] {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    color: #a1a1a1 !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* ============================================================
+   GLOBAL TYPOGRAPHY
+   ============================================================ */
+*, *::before, *::after {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.015em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code, pre, .mono {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace !important;
+}
+
+body {
+    background-color: var(--color-neutral-50);
+    color: var(--color-neutral-800);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+.dark body {
+    background-color: var(--color-neutral-950);
+    color: var(--color-neutral-300);
+}
+
+/* Selection */
+::selection {
+    background: var(--color-primary);
+    color: var(--color-primary-fg);
+}
+
+/* ============================================================
+   COMPONENT STYLING
+   ============================================================ */
+
+/* --- Buttons ------------------------------------------------ */
+[data-slot="button"] {
+    border-radius: var(--radius-field) !important;
+    font-weight: 500;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+}
+
+/* Remove terminal brackets */
+[data-slot="button"]::before,
+[data-slot="button"]::after {
+    display: none !important;
+}
+
+/* Primary button */
+[data-slot="button"][data-variant="primary"] {
+    background: var(--color-primary);
+    color: var(--color-primary-fg);
+}
+
+[data-slot="button"][data-variant="primary"]:hover {
+    background: var(--color-primary-content);
+    box-shadow: 0 4px 12px rgba(128, 0, 32, 0.2);
+}
+
+/* Outline/Ghost */
+[data-slot="button"][data-variant="outline"] {
+    border-color: var(--color-neutral-200);
+    color: var(--color-neutral-700);
+    background: transparent;
+}
+
+.dark [data-slot="button"][data-variant="outline"] {
+    border-color: var(--color-neutral-300);
+    color: var(--color-neutral-300);
+}
+
+[data-slot="button"][data-variant="outline"]:hover {
+    background: var(--color-neutral-100);
+    border-color: var(--color-neutral-300);
+}
+
+/* --- Cards ------------------------------------------------- */
+/* Relying on theme.css */
+
+/* --- Badges ------------------------------------------------ */
+[data-slot="badge"] {
+    border-radius: 9999px !important;
+    text-transform: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.125rem 0.625rem;
+    border: none;
+    background: var(--color-neutral-100);
+    color: var(--color-neutral-600);
+}
+
+.dark [data-slot="badge"] {
+    background: var(--color-neutral-200);
+    color: var(--color-neutral-700);
+}
+
+/* ============================================================
+   REFINED UTILITIES
+   ============================================================ */
+
+.glass {
+    background: rgba(255, 255, 255, 0.6) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dark .glass {
+    background: rgba(20, 20, 20, 0.6) !important;
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Subtle separator */
+.separator {
+    height: 1px;
+    background: var(--color-neutral-200);
+    margin: 1rem 0;
+}
+
+.dark .separator {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* macOS Vibrancy */
+.vibrant {
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+.dark .vibrant {
+    background: rgba(22, 22, 22, 0.7) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+/* Sidebar Specific */
+.dark [data-slot="sidebar"] {
+    background-color: var(--color-neutral-100) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Header Specific */
+.dark [data-slot="header"] {
+    background-color: rgba(30, 30, 30, 0.8) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+
+/* ============================================================
+   CONTENT STYLING (PS)
+   ============================================================ */
+
+.tiptap-content h1,
+.tiptap-content h2,
+.tiptap-content h3 {
+    color: var(--color-neutral-900);
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.dark .tiptap-content h1,
+.dark .tiptap-content h2,
+.dark .tiptap-content h3 {
+    color: var(--color-neutral-100);
+}
+
+.tiptap-content h1::before { content: '01. '; color: var(--color-primary); }
+.tiptap-content h2::before { content: '02. '; color: var(--color-primary); }
+.tiptap-content h3::before { content: '03. '; color: var(--color-primary); }
+
+.tiptap-content blockquote {
+    background: var(--color-neutral-100);
+    border-left: 4px solid var(--color-primary);
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+}
+
+.dark .tiptap-content blockquote {
+    background: var(--color-neutral-100);
+}
+
+.tiptap-content pre {
+    background: #000;
+    color: var(--color-primary);
+    padding: 1.5rem;
+    border: 1px solid #222;
+    margin: 2rem 0;
+    overflow-x: auto;
+}

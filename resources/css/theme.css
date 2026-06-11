@@ -1,0 +1,159 @@
+/* ============================================================
+   SHEAF UI — REFINED DEVELOPER PORTFOLIO
+   Clean IDE Aesthetic • Professional Balance • High Contrast
+   ============================================================ */
+
+/* ── Google Fonts: Inter & JetBrains Mono ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@theme {
+    /* Primary: Vibrant Purple (Action) */
+    --color-primary:         #8b5cf6;
+    --color-primary-content: #a78bfa;   
+    --color-primary-fg:      #ffffff;
+
+    /* Base Palette — Light Mode (Clean Workspace) */
+    --color-neutral-50:  #f8fafc; /* Subtle Gray BG */
+    --color-neutral-100: #ffffff; /* Card/Surface */
+    --color-neutral-200: #e2e8f0; /* Borders */
+    --color-neutral-300: #cbd5e1; 
+    --color-neutral-400: #94a3b8; 
+    --color-neutral-500: #64748b; 
+    --color-neutral-600: #475569; 
+    --color-neutral-700: #334155;
+    --color-neutral-800: #1e293b;
+    --color-neutral-900: #0f172a;
+    --color-neutral-950: #020617;
+
+    /* Balanced Radius (Reduced from 2rem, increased from 0) */
+    --radius-field: 0.5rem;
+    --radius-box:   1rem;
+    --radius-pill:  9999px;
+
+    /* Semantic Status */
+    --color-success: #10b981;
+    --color-error:   #ef4444;
+    --color-warning: #f59e0b;
+    --color-info:    #3b82f6;
+}
+
+/* Base Palette — Dark Mode (High-End IDE) */
+.dark {
+    --color-neutral-50:  #0f172a !important; /* Subtle Dark BG */
+    --color-neutral-100: #1e293b !important; /* Card/Surface */
+    --color-neutral-200: #334155 !important; /* Borders */
+    --color-neutral-300: #475569 !important; 
+    --color-neutral-400: #94a3b8 !important; 
+    --color-neutral-500: #cbd5e1 !important; 
+    --color-neutral-600: #e2e8f0 !important; 
+    --color-neutral-700: #f1f5f9 !important; 
+    --color-neutral-800: #f8fafc !important;
+    --color-neutral-900: #ffffff !important;
+    --color-neutral-950: #ffffff !important;
+
+    /* Primary Overrides for Dark Mode */
+    --color-primary:         #a78bfa !important; 
+    --color-primary-content: #c4b5fd !important;
+
+    background-color: #0f172a;
+}
+
+/* ============================================================
+   GLOBAL TYPOGRAPHY
+   ============================================================ */
+html {
+    scroll-behavior: smooth;
+    color-scheme: light dark;
+}
+
+*, *::before, *::after {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+}
+
+.font-mono {
+    font-family: 'JetBrains Mono', monospace !important;
+}
+
+body {
+    background-color: var(--color-neutral-50);
+    color: var(--color-neutral-900);
+    line-height: 1.6;
+}
+
+.dark body {
+    color: var(--color-neutral-700);
+    background-color: var(--color-neutral-50);
+}
+
+/* --- Global Header Overrides --- */
+[data-slot="header"] {
+    background-color: var(--color-neutral-100) !important;
+    border-color: var(--color-neutral-200) !important;
+}
+
+.dark [data-slot="header"] {
+    background-color: #1e293b !important; /* Specific IDE Dark Header - Subtle Dark */
+    border-color: rgba(255,255,255,0.05) !important;
+}
+
+.dark [data-slot="card"] {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+/* Global Icon Brightness in Dark Mode */
+.dark svg, .dark x-ui.icon {
+    color: var(--color-neutral-400);
+}
+
+.dark svg:hover {
+    color: var(--color-primary);
+}
+
+/* ============================================================
+   COMPONENT OVERRIDES
+   ============================================================ */
+
+/* --- Cards --- */
+[data-slot="card"] {
+    background-color: var(--color-neutral-100) !important;
+    border: 1px solid var(--color-neutral-200) !important;
+    border-radius: var(--radius-box) !important;
+    box-shadow: none !important;
+    transition: all 0.3s ease;
+}
+
+[data-slot="card"]:hover {
+    border-color: var(--color-primary) !important;
+    transform: translateY(-2px);
+}
+
+/* --- Buttons --- */
+[data-slot="button"] {
+    border-radius: var(--radius-pill) !important;
+    font-weight: 600 !important;
+    font-size: 0.875rem !important;
+    transition: all 0.2s ease;
+}
+
+[data-slot="button"][data-variant="primary"] {
+    background-color: var(--color-primary) !important;
+    color: var(--color-primary-fg) !important;
+    border-color: var(--color-primary) !important;
+}
+
+[data-slot="button"][data-variant="outline"] {
+    background-color: transparent !important;
+    border-color: var(--color-neutral-200) !important;
+}
+
+/* --- Badges --- */
+[data-slot="badge"] {
+    border-radius: var(--radius-pill) !important;
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+}

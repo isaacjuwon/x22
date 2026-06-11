@@ -72,4 +72,8 @@ public function after(): array
         },
     ];
 }
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="{{ config('pergament.site.locale', 'en') }}" class="scroll-smooth">
 <head>
@@ -79,3 +80,8 @@
     @vite('resources/js/pergament/pergament.js')
 </body>
 </html>
+=======
+<x-layouts::app.sidebar :title="$title ?? null">
+        {{ $slot }}
+</x-layouts::app.sidebar>
+>>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a

@@ -199,4 +199,8 @@ class Customer extends Model
         return $this->belongsToMany(Role::class);
     }
 }
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a

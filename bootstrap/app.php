@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
 use App\Http\Middleware\MarkdownResponse;
 use App\Http\Middleware\TrackPageView;
 use Illuminate\Foundation\Application;
@@ -13,10 +14,20 @@ return Application::configure(basePath: dirname(__DIR__))
             __DIR__.'/../routes/web.php',
             __DIR__.'/../routes/pergament.php',
         ],
+=======
+use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Foundation\Configuration\Middleware;
+
+return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+        web: __DIR__.'/../routes/web.php',
+>>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+<<<<<<< HEAD
         $middleware->alias([
             'pergament.markdown' => MarkdownResponse::class,
             'pergament.track'    => TrackPageView::class,
@@ -28,3 +39,10 @@ return Application::configure(basePath: dirname(__DIR__))
         );
     })->create();
 
+=======
+        //
+    })
+    ->withExceptions(function (Exceptions $exceptions): void {
+        //
+    })->create();
+>>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a

@@ -1,16 +1,36 @@
 {
     "agents": [
+<<<<<<< HEAD
         "antigravity"
+=======
+        "gemini"
+>>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a
     ],
     "cloud": false,
     "guidelines": true,
     "mcp": true,
     "nightwatch": false,
+<<<<<<< HEAD
     "sail": false,
     "skills": [
         "laravel-best-practices",
         "livewire-development",
         "pest-testing",
         "tailwindcss-development"
+=======
+    "packages": [
+        "spatie/laravel-medialibrary"
+    ],
+    "sail": false,
+    "skills": [
+        "ai-sdk-development",
+        "fortify-development",
+        "laravel-best-practices",
+        "fluxui-development",
+        "livewire-development",
+        "pest-testing",
+        "tailwindcss-development",
+        "medialibrary-development"
+>>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a
     ]
 }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+<<<<<<< HEAD
 use App\Console\Commands\AnalyticsCommand;
 use App\Console\Commands\GenerateStaticCommand;
 use App\Console\Commands\MakeBlogPostCommand;
@@ -11,6 +12,11 @@ use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
+=======
+use Carbon\CarbonImmutable;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
+>>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -30,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+<<<<<<< HEAD
         $this->sharePergamentAssetVersions();
 
         if ($this->app->runningInConsole()) {
@@ -57,6 +64,8 @@ class AppServiceProvider extends ServiceProvider
 
         View::share('pergamentCssVersion', $hash('pergament.css'));
         View::share('pergamentJsVersion', $hash('pergament.js'));
+=======
+>>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a
     }
 
     /**

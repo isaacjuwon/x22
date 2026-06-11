@@ -118,4 +118,8 @@ Schema::create('settings', function (Blueprint $table) { ... });
 
 // Migration 2: seed_default_settings
 DB::table('settings')->insert(['key' => 'version', 'value' => '1.0']);
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a

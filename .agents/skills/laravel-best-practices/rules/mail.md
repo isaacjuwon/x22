@@ -24,4 +24,8 @@ Markdown mailables auto-generate both HTML and plain-text versions, use responsi
 
 Content tests: instantiate the mailable directly, call `assertSeeInHtml()`.
 Sending tests: use `Mail::fake()` and `assertSent()`/`assertQueued()`.
+<<<<<<< HEAD
 Don't mix them — it conflates concerns and makes tests brittle.
+=======
+Don't mix them — it conflates concerns and makes tests brittle.
+>>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a

@@ -69,4 +69,8 @@ class InvalidOrderException extends Exception
         return ['order_id' => $this->orderId];
     }
 }
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a

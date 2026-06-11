@@ -163,4 +163,8 @@ arch('controllers')
 - Forgetting datasets for repetitive validation tests
 - Deleting tests without approval
 - Forgetting `assertNoJavaScriptErrors()` in browser tests
+<<<<<<< HEAD
 - Prefixing `Feature/` or `Unit/` in `{name}` when using `make:test`
+=======
+- Prefixing `Feature/` or `Unit/` in `{name}` when using `make:test`
+>>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a

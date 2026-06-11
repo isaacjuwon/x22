@@ -187,4 +187,8 @@ Always use a sub-agent to read rule files and explore this skill's content.
 
 1. Identify the file type and select relevant sections (e.g., migration → §16, controller → §1, §3, §5, §6, §10)
 2. Check sibling files for existing patterns — follow those first per Consistency First
+<<<<<<< HEAD
 3. Verify API syntax with `search-docs` for the installed Laravel version
+=======
+3. Verify API syntax with `search-docs` for the installed Laravel version
+>>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a
