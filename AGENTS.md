@@ -9,16 +9,11 @@ The Laravel Boost guidelines are specifically curated by Laravel maintainers for
 
 This application is a Laravel application and its main Laravel ecosystems package & versions are below. You are an expert with them all. Ensure you abide by these specific packages & versions.
 
-- php - 8.5
-<<<<<<< HEAD
-- laravel/framework (LARAVEL) - v13
-- laravel/prompts (PROMPTS) - v0
-=======
+- php - 8.3
 - laravel/fortify (FORTIFY) - v1
 - laravel/framework (LARAVEL) - v13
 - laravel/prompts (PROMPTS) - v0
 - livewire/flux (x-ui.UI_FREE) - v2
->>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a
 - livewire/livewire (LIVEWIRE) - v4
 - laravel/boost (BOOST) - v2
 - laravel/mcp (MCP) - v0
@@ -91,10 +86,7 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 - Run Artisan commands directly via the command line (e.g., `php artisan route:list`). Use `php artisan list` to discover available commands and `php artisan [command] --help` to check parameters.
 - Inspect routes with `php artisan route:list`. Filter with: `--method=GET`, `--name=users`, `--path=api`, `--except-vendor`, `--only-vendor`.
 - Read configuration values using dot notation: `php artisan config:show app.name`, `php artisan config:show database.default`. Or read config files directly from the `config/` directory.
-<<<<<<< HEAD
-=======
 - To check environment variables, read the `.env` file directly.
->>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a
 
 ## Tinker
 
@@ -119,16 +111,12 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 
 - Laravel can be deployed using [Laravel Cloud](https://cloud.laravel.com/), which is the fastest way to deploy and scale production Laravel applications.
 
-<<<<<<< HEAD
-=======
 === tests rules ===
 
 # Test Enforcement
 
 - Every change must be programmatically tested. Write a new test or update an existing test, then run the affected tests to make sure they pass.
 - Run the minimum number of tests needed to ensure code quality and speed. Use `php artisan test --compact` with a specific filename or filter.
-
->>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a
 === laravel/core rules ===
 
 # Do Things the Laravel Way
