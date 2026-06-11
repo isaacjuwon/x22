@@ -1,0 +1,27 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Data;
+
+use Carbon\CarbonImmutable;
+
+final readonly class BlogPost
+{
+    /**
+     * @param  array<int, Author>  $authors
+     * @param  array<int, string>  $tags
+     * @param  array<string, mixed>  $meta
+     */
+    public function __construct(
+        public string $title,
+        public string $excerpt,
+        public string $slug,
+        public string $content,
+        public CarbonImmutable $date,
+        public ?string $category = null,
+        public array $tags = [],
+        public array $authors = [],
+        public array $meta = [],
+    ) {}
+}
