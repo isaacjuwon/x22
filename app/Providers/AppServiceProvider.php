@@ -62,8 +62,8 @@ class AppServiceProvider extends ServiceProvider
             return is_file($published) ? substr(md5_file($published), 0, 8) : '';
         };
 
-        View::share('pergamentCssVersion', $hash('pergament.css'));
-        View::share('pergamentJsVersion', $hash('pergament.js'));
+        View::share('pergamentCssVersion', $hash('app.css'));
+        View::share('pergamentJsVersion', $hash('app.js'));
 =======
 >>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a
     }

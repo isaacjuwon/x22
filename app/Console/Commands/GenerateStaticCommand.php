@@ -593,21 +593,21 @@ final class GenerateStaticCommand extends Command
             if (is_file($manifestPath)) {
                 $manifest = json_decode((string) file_get_contents($manifestPath), true) ?? [];
 
-                $cssKey = 'resources/css/pergament/pergament.css';
-                $jsKey  = 'resources/js/pergament/pergament.js';
+                $cssKey = 'resources/css/app.css';
+                $jsKey  = 'resources/js/app.js';
 
                 if (isset($manifest[$cssKey]['file'])) {
                     $cssSrc = $publicDir.'/build/'.$manifest[$cssKey]['file'];
                     if (is_file($cssSrc)) {
                         $contents = str_replace('/vendor/pergament/fonts/', 'fonts/', (string) file_get_contents($cssSrc));
-                        $this->writeFile($assetsDir.'/pergament.css', $contents);
+                        $this->writeFile($assetsDir.'/app.css', $contents);
                     }
                 }
 
                 if (isset($manifest[$jsKey]['file'])) {
                     $jsSrc = $publicDir.'/build/'.$manifest[$jsKey]['file'];
                     if (is_file($jsSrc)) {
-                        $this->copyFile($jsSrc, $assetsDir.'/pergament.js');
+                        $this->copyFile($jsSrc, $assetsDir.'/app.js');
                     }
                 }
             }

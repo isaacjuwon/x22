@@ -20,7 +20,7 @@
         <link rel="manifest" href="/manifest.json">
     @endif
 
-    @vite('resources/css/pergament/pergament.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
         :root {
@@ -76,12 +76,5 @@
     </script>
 
     @stack('scripts')
-
-    @vite('resources/js/pergament/pergament.js')
 </body>
 </html>
-=======
-<x-layouts::app.sidebar :title="$title ?? null">
-        {{ $slot }}
-</x-layouts::app.sidebar>
->>>>>>> 39d8a93ad41414dfcb6cdcc58894db1308285e6a
